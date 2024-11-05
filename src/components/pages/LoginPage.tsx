@@ -1,0 +1,124 @@
+import { useState } from 'react';
+import axios from 'axios';
+import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+interface Authenticate {
+  username: string;
+  password: string;
+}
+
+interface CurrentUser {
+  id: string;
+  username: string;
+}
+
+function LoginPage() {
+
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [message, setMessage] = useState<string | null>(null);
+  const navigate = useNavigate(); 
+
+  const login = () => {
+    const loginData: Authenticate = {
+      username: username,
+      password: password
+    };
+
+    axios.post<any>('http://localhost:5002/api/login', loginData)
+      .then(response => {
+        const user: CurrentUser = {id: response.data.id, username: response.data.username}
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        setUsername('');
+        setPassword('');
+        navigate('/contacts')
+      })
+      .catch(error => console.error('Error logging in:', error));
+      setMessage('Error logging in')
+  };
+
+  return (
+    <Container maxWidth="xs">
+      <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+        <Typography variant="h4" gutterBottom>
+          Login
+        </Typography>
+
+        <Box component="form" onSubmit={(e) => { e.preventDefault(); login(); }} sx={{ mt: 3 }}>
+          <Grid2 container spacing={2}>
+
+            <Grid2 size={12}>
+              <TextField
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                variant="outlined"
+              />
+            </Grid2>
+
+            <Grid2 size={12}>
+              <TextField
+                required
+                fullWidth
+                id="password"
+                label="Password"
+                type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                variant="outlined"
+              />
+            </Grid2>
+
+          </Grid2>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Login
+          </Button>
+          
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Link
+              component="button"
+              variant="body2"
+              onClick={() => {
+                console.info("I'm a button.");
+              }}
+            >
+              Forgot Password
+            </Link>
+            
+            <Link
+              component={RouterLink}
+              to="/register"
+              variant="body2"
+            >
+              Sign Up
+            </Link>
+          </Stack>
+
+          {message && <Alert severity="info" sx={{ mt: 2 }}>{message}</Alert>}
+        </Box>
+      </Box>
+    </Container>
+  );
+}
+
+export default LoginPage;

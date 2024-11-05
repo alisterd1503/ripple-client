@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ContactsPage from './components/pages/ContactsPage';
+import LoginPage from './components/pages/LoginPage';
+import MessagesPage from './components/pages/MessagesPage';
+import RegisterPage from './components/pages/RegisterPage';
+
+interface User {
+  id: number;
+  username: string;
+}
 
 function App() {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("currentUser");
+    if (storedUser) {
+      const currentUser = JSON.parse(storedUser);
+      setCurrentUser(currentUser);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/messages" element={<MessagesPage />} />
+      </Routes>
+    </Router>
   );
 }
 
