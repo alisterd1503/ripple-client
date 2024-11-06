@@ -4,23 +4,19 @@ import { Stack, Typography } from "@mui/material";
 import ContactList from "../components/ContactList";
 import FindUsers from "../components/FindUsers";
 import { jwtDecode } from "jwt-decode"
-
-interface User {
-    id: number;
-    username: string;
-}
+import { UserModel } from "../models/UserModel";
 
 export default function ContactsPage() {
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
 
     // Getting jwt token for logged in user
     useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
         const decodedToken = jwtDecode<{ username: string, userId: number }>(token);
-        const body: User = {
+        const body: UserModel = {
             username: decodedToken.username,
-            id: decodedToken.userId
+            userId: decodedToken.userId
         }
         setCurrentUser(body);
     }

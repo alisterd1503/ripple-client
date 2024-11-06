@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { startChat } from '../api/startChat';
 import { getUsers } from '../api/getUsers';
-import { UserModel } from '../models/userModel';
+import { UserModel } from '../models/UserModel';
 
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([])

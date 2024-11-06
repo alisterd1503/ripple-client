@@ -5,13 +5,7 @@ import { MainContainer, ChatContainer, MessageInput, MessageList, Message, Avata
 import { getMessages } from "../api/getMessages";
 import { postMessage } from "../api/postMessage";
 import { jwtDecode } from "jwt-decode";
-
-export interface Message {
-  userId: number;
-  username: string;
-  message: string;
-  createdAt: string;
-}
+import { MessageModel } from "../models/MessageModel";
 
 export interface FormattedMessage {
     userId: number;
@@ -27,7 +21,7 @@ interface User {
     username: string;
 }
 
-const formatMessages = (messages: Message[], currentUserId: number): FormattedMessage[] => {
+const formatMessages = (messages: MessageModel[], currentUserId: number): FormattedMessage[] => {
     return messages.map((message) => {
         const direction = message.userId === currentUserId ? "incoming" : "outgoing";
         const position: "first" = "first";

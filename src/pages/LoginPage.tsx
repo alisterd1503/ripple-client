@@ -3,11 +3,7 @@ import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stac
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from '../api/checkLogin';
-
-interface AuthenticateModel {
-  username: string;
-  password: string;
-}
+import { AuthModel } from '../models/AuthModel';
 
 function LoginPage() {
 
@@ -17,7 +13,7 @@ function LoginPage() {
   const navigate = useNavigate(); 
 
   const validateLogin = async () => {
-    const body: AuthenticateModel = {
+    const body: AuthModel = {
         username: username,
         password: password
     }

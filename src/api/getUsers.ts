@@ -1,4 +1,4 @@
-import { UserModel } from "../models/userModel";
+import { UserModel } from "../models/UserModel";
 
 const API_URL="http://localhost:5002/api/getUsers"
 

@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography, Container, Grid2, Alert, Link, Stack } from '@mui/material';
-import axios from 'axios';
 import validatePassword from '../utils/validatePassword';
 import validateUsername from '../utils/validateUsername';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
-interface User {
-  id: number;
-  username: string;
-}
+import { getAllUsers } from '../api/getAllUsers';
+import { registerUser } from '../api/registerUser';
+import { AuthModel } from '../models/AuthModel';
 
 export default function SignUpPage() {
   const [usedNames, setUsedNames] = useState<string[]>([]);
@@ -19,27 +16,37 @@ export default function SignUpPage() {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    // Fetch the usernames from the API
-    axios.get<User[]>('http://localhost:5002/api/getUsers')
-      .then(response => setUsedNames(response.data.map(user => user.username)))
-      .catch(error => console.error('Error fetching users:', error));
+    const fetchUsernames = async () => {
+        try {
+            const users = await getAllUsers();
+            setUsedNames(users.map(user => user.username));
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+    fetchUsernames();
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const usernameCheck = validateUsername(username, usedNames);
     const passwordCheck = validatePassword(password);
 
     if (usernameCheck.valid && passwordCheck.valid) {
-      axios.post('http://localhost:5002/api/register', { username, password })
-        .then(() => {
+      const registeration: AuthModel = {
+        username: username,
+        password: password
+      }
+      const result = await registerUser(registeration);
+      if (result.success) {
           setUsername('');
           setPassword('');
-          setMessage('Registration successful!');
+          setMessage(result.message);
           navigate('/');
-        })
-        .catch(error => setMessage('Error registering user.'));
+      } else {
+          setMessage(result.message);
+      }
     } else {
-      setMessage(usernameCheck.valid ? passwordCheck.message : usernameCheck.message);
+        setMessage(usernameCheck.valid ? passwordCheck.message : usernameCheck.message);
     }
   };
 

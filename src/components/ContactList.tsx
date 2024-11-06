@@ -2,7 +2,7 @@ import { Avatar, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";
-import { ContactModel } from "../models/contactModel";
+import { ContactModel } from "../models/ContactModel";
 
 export default function ContactList() { 
   const [contacts, setContacts] = useState<ContactModel[]>([])

@@ -1,4 +1,4 @@
-import { ContactModel } from "../models/contactModel";
+import { ContactModel } from "../models/ContactModel";
 
 const API_URL="http://localhost:5002/api/getUserChat"
 

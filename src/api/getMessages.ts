@@ -1,4 +1,4 @@
-import { MessageModel } from "@chatscope/chat-ui-kit-react";
+import { MessageModel } from "../models/MessageModel";
 
 const API_URL = "http://localhost:5002/api/getMessages";
 
