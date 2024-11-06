@@ -1,6 +1,8 @@
 import { Avatar, Button, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { getContacts } from "../api/getContacts";
+import { useNavigate } from "react-router-dom";
 
 interface Contact {
   userId: number;
@@ -8,23 +10,21 @@ interface Contact {
   username: string;
 }
 
-interface ContactListProps {
-  currentUserId: number;
-}
-
-export default function ContactList({ currentUserId }: ContactListProps) { 
+export default function ContactList() { 
   const [contacts, setContacts] = useState<Contact[]>([])
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get<Contact[]>(`http://localhost:5002/api/getUserChat?userId=${currentUserId}`)
-      .then(response => {
-        setContacts(response.data);
-      })
-      .catch(error => console.error('Error fetching users:', error));
-  }, [currentUserId]);
+    const fetchContacts = async () => {
+        const result = await getContacts();
+        console.log(result)
+        setContacts(result);
+    };
+    fetchContacts();
+  }, []);
 
   const openChat = (chatId: number) => {
-    console.log('hello')
+    navigate('/messages', { state: { chatId } });
   };
 
   return (

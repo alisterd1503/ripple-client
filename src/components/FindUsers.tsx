@@ -4,13 +4,19 @@ import { Stack, styled } from '@mui/system';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { startChat } from '../api/startChat';
 
 interface User {
     id: number;
     username: string;
 }
 
-export default function FindUsers({ currentUserId }: {currentUserId: number}) {
+interface RecipientUser {
+  id: number;
+  username: string;
+}
+
+export default function FindUsers() {
     const [allUsers, setAllUsers] = useState<User[]>([])
     const [value, setValue] = React.useState<(typeof allUsers)[number] | null>(null,);
 
@@ -38,13 +44,12 @@ export default function FindUsers({ currentUserId }: {currentUserId: number}) {
     });
 
     const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
+        const body: RecipientUser = {
+          username: recipientUsername,
+          id: recipientUserId
+        }
         try {   
-            await axios.post('http://localhost:5002/api/startChat', {
-                currentUserId,
-                recipientUserId,
-                recipientUsername
-            });
-            setValue(null)
+            await startChat(body)
         } catch (error) {
             console.error("Error starting chat:", error);
         }

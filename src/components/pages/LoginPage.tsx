@@ -1,17 +1,12 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { checkLogin } from '../../api/checkLogin';
 
-interface Authenticate {
+interface AuthenticateModel {
   username: string;
   password: string;
-}
-
-interface CurrentUser {
-  id: string;
-  username: string;
 }
 
 function LoginPage() {
@@ -21,22 +16,20 @@ function LoginPage() {
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate(); 
 
-  const login = () => {
-    const loginData: Authenticate = {
-      username: username,
-      password: password
-    };
-
-    axios.post<any>('http://localhost:5002/api/login', loginData)
-      .then(response => {
-        const user: CurrentUser = {id: response.data.id, username: response.data.username}
-        localStorage.setItem("currentUser", JSON.stringify(user));
+  const validateLogin = async () => {
+    const body: AuthenticateModel = {
+        username: username,
+        password: password
+    }
+    const result = await checkLogin(body);
+    if (result.success) {
+        setMessage('');
         setUsername('');
         setPassword('');
-        navigate('/contacts')
-      })
-      .catch(error => console.error('Error logging in:', error));
-      setMessage('Error logging in')
+        navigate("/contacts");
+    } else {
+        if (result.message) setMessage(result.message)
+    }
   };
 
   return (
@@ -47,7 +40,7 @@ function LoginPage() {
           Login
         </Typography>
 
-        <Box component="form" onSubmit={(e) => { e.preventDefault(); login(); }} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={(e) => { e.preventDefault(); validateLogin(); }} sx={{ mt: 3 }}>
           <Grid2 container spacing={2}>
 
             <Grid2 size={12}>

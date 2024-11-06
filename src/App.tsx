@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import ContactsPage from './components/pages/ContactsPage';
 import LoginPage from './components/pages/LoginPage';
 import MessagesPage from './components/pages/MessagesPage';
@@ -11,16 +10,6 @@ interface User {
 }
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("currentUser");
-    if (storedUser) {
-      const currentUser = JSON.parse(storedUser);
-      setCurrentUser(currentUser);
-    }
-  }, []);
-
   return (
     <Router>
       <Routes>

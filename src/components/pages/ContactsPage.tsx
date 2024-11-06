@@ -3,7 +3,7 @@ import Header from "../Header";
 import { Stack, Typography } from "@mui/material";
 import ContactList from "../ContactList";
 import FindUsers from "../FindUsers";
-//import FindUsers from "../FindUsers";
+import { jwtDecode } from "jwt-decode"
 
 interface User {
     id: number;
@@ -13,11 +13,16 @@ interface User {
 export default function ContactsPage() {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
 
+    // Getting jwt token for logged in user
     useEffect(() => {
-    const storedUser = localStorage.getItem("currentUser");
-    if (storedUser) {
-        const currentUser = JSON.parse(storedUser)
-        setCurrentUser(currentUser)
+    const token = localStorage.getItem('token');
+    if (token) {
+        const decodedToken = jwtDecode<{ username: string, userId: number }>(token);
+        const body: User = {
+            username: decodedToken.username,
+            id: decodedToken.userId
+        }
+        setCurrentUser(body);
     }
     }, []);
 
@@ -34,11 +39,11 @@ export default function ContactsPage() {
                     width: "100%",
                 }}
                 >
-                <FindUsers currentUserId={currentUser.id} />
+                <FindUsers />
                 <Typography variant="h3" fontWeight={"bold"} gutterBottom>
                     Chats
                 </Typography>
-                <ContactList currentUserId={currentUser.id} />
+                <ContactList />
             </Stack>
         </>}
         </>
