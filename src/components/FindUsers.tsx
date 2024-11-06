@@ -1,32 +1,27 @@
 import * as React from 'react';
 import { useAutocomplete } from '@mui/base/useAutocomplete';
 import { Stack, styled } from '@mui/system';
-import axios from 'axios';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { startChat } from '../api/startChat';
-
-interface User {
-    id: number;
-    username: string;
-}
-
-interface RecipientUser {
-  id: number;
-  username: string;
-}
+import { getUsers } from '../api/getUsers';
+import { UserModel } from '../models/userModel';
 
 export default function FindUsers() {
-    const [allUsers, setAllUsers] = useState<User[]>([])
-    const [value, setValue] = React.useState<(typeof allUsers)[number] | null>(null,);
+  const [allUsers, setAllUsers] = useState<UserModel[]>([])
+  const [value, setValue] = React.useState<(typeof allUsers)[number] | null>(null,);
 
-    useEffect(() => {
-        axios.get<User[]>('http://localhost:5002/api/getUsers')
-        .then(response => {
-            setAllUsers(response.data)
-        })
-        .catch(error => console.error('Error fetching users:', error));
-    }, []);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const result = await getUsers();
+        setAllUsers(result);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  },);
 
     const {
         getRootProps,
@@ -44,9 +39,9 @@ export default function FindUsers() {
     });
 
     const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
-        const body: RecipientUser = {
+        const body: UserModel = {
           username: recipientUsername,
-          id: recipientUserId
+          userId: recipientUserId
         }
         try {   
             await startChat(body)
@@ -80,7 +75,7 @@ export default function FindUsers() {
     </div>
     <div>
     {value ?
-        (<Button variant="outlined" onClick={() => {startNewChat(value.id,value.username);window.location.reload()}}>Add</Button>)
+        (<Button variant="outlined" onClick={() => {startNewChat(value.userId,value.username);window.location.reload()}}>Add</Button>)
         :
         (<Button variant="outlined" disabled>Add</Button>)
     }

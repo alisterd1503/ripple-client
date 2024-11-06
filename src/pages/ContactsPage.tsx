@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Header from "../Header";
+import Header from "../components/Header";
 import { Stack, Typography } from "@mui/material";
-import ContactList from "../ContactList";
-import FindUsers from "../FindUsers";
+import ContactList from "../components/ContactList";
+import FindUsers from "../components/FindUsers";
 import { jwtDecode } from "jwt-decode"
 
 interface User {

@@ -1,13 +1,8 @@
-interface Message {
-    userId: number;
-    username: string;
-    message: string;
-    createdAt: string;
-}
+import { MessageModel } from "@chatscope/chat-ui-kit-react";
 
 const API_URL = "http://localhost:5002/api/getMessages";
 
-export const getMessages = async (chatId: number): Promise<Message[]> => {
+export const getMessages = async (chatId: number): Promise<MessageModel[]> => {
     try {
         const token = localStorage.getItem('token');
 
@@ -23,7 +18,7 @@ export const getMessages = async (chatId: number): Promise<Message[]> => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data: Message[] = await response.json();
+        const data: MessageModel[] = await response.json();
         return data;
     } catch (error) {
         console.error('Error fetching messages:', error);

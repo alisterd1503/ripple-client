@@ -1,8 +1,8 @@
-import { ContactModel } from "../models/contactModel";
+import { UserModel } from "../models/userModel";
 
-const API_URL="http://localhost:5002/api/getUserChat"
+const API_URL="http://localhost:5002/api/getUsers"
 
-export const getContacts = async (): Promise<ContactModel[]> => {
+export const getUsers = async (): Promise<UserModel[]> => {
     try {
 
         const token = localStorage.getItem('token');
@@ -19,10 +19,10 @@ export const getContacts = async (): Promise<ContactModel[]> => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data: ContactModel[] = await response.json();
+        const data: UserModel[] = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching contacts:', error);
+        console.error('Error fetching users:', error);
         return [];
     }
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { checkLogin } from '../../api/checkLogin';
+import { checkLogin } from '../api/checkLogin';
 
 interface AuthenticateModel {
   username: string;

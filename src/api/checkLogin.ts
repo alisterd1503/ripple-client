@@ -1,7 +1,4 @@
-interface AuthenticateModel {
-    username: string;
-    password: string;
-}
+import { AuthenticateModel } from "../models/authModel";
   
 const API_URL = 'http://localhost:5002/api/login';
 

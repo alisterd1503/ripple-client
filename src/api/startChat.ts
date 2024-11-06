@@ -1,11 +1,8 @@
+import { UserModel } from "../models/userModel";
+
 const API_URL = 'http://localhost:5002/api/startChat'
 
-interface RecipientUser {
-    id: number;
-    username: string;
-}
-
-export const startChat = async (body: RecipientUser): Promise<void> => {
+export const startChat = async (body: UserModel): Promise<void> => {
     try {
         const token = localStorage.getItem('token');
 

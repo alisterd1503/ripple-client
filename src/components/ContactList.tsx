@@ -1,17 +1,11 @@
 import { Avatar, Button, Stack, Typography } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";
-
-interface Contact {
-  userId: number;
-  chatId: number;
-  username: string;
-}
+import { ContactModel } from "../models/contactModel";
 
 export default function ContactList() { 
-  const [contacts, setContacts] = useState<Contact[]>([])
+  const [contacts, setContacts] = useState<ContactModel[]>([])
   const navigate = useNavigate();
 
   useEffect(() => {

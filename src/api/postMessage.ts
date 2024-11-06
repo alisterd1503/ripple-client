@@ -1,7 +1,5 @@
 const API_URL = "http://localhost:5002/api/postMessage"
 
-
-
 export const postMessage = async (chatId: number, message: string): Promise<any> => {
     try {
         const token = localStorage.getItem('token');
@@ -13,7 +11,7 @@ export const postMessage = async (chatId: number, message: string): Promise<any>
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                chat_id: chatId,
+                chatId: chatId,
                 message: message
             }),
         });

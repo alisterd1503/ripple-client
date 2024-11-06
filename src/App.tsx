@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ContactsPage from './components/pages/ContactsPage';
-import LoginPage from './components/pages/LoginPage';
-import MessagesPage from './components/pages/MessagesPage';
-import RegisterPage from './components/pages/RegisterPage';
+import ContactsPage from './pages/ContactsPage';
+import LoginPage from './pages/LoginPage';
+import MessagesPage from './pages/MessagesPage';
+import RegisterPage from './pages/RegisterPage';
 
 interface User {
   id: number;

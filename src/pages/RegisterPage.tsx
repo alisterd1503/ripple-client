@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography, Container, Grid2, Alert, Link, Stack } from '@mui/material';
 import axios from 'axios';
-import validatePassword from '../../utils/validatePassword';
-import validateUsername from '../../utils/validateUsername';
+import validatePassword from '../utils/validatePassword';
+import validateUsername from '../utils/validateUsername';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
