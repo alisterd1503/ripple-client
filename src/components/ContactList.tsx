@@ -11,14 +11,13 @@ export default function ContactList() {
   useEffect(() => {
     const fetchContacts = async () => {
         const result = await getContacts();
-        console.log(result)
         setContacts(result);
     };
     fetchContacts();
   }, []);
 
-  const openChat = (chatId: number) => {
-    navigate('/messages', { state: { chatId } });
+  const openChat = (chatId: number, username: string) => {
+    navigate('/messages', { state: { chatId, username } });
   };
 
   return (
@@ -26,7 +25,7 @@ export default function ContactList() {
       {contacts.map((user) => (
         <Button
           key={user.chatId}
-          onClick={() => openChat(user.chatId)}
+          onClick={() => openChat(user.chatId, user.username)}
           style={{
             backgroundColor: 'transparent',
             borderTop: 'solid gray 0.5px',

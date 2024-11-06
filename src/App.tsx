@@ -4,11 +4,6 @@ import LoginPage from './pages/LoginPage';
 import MessagesPage from './pages/MessagesPage';
 import RegisterPage from './pages/RegisterPage';
 
-interface User {
-  id: number;
-  username: string;
-}
-
 function App() {
   return (
     <Router>

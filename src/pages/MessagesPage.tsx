@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { MainContainer, ChatContainer, MessageInput, MessageList, Message, Avatar } from "@chatscope/chat-ui-kit-react";
@@ -6,6 +6,7 @@ import { getMessages } from "../api/getMessages";
 import { postMessage } from "../api/postMessage";
 import { jwtDecode } from "jwt-decode";
 import { MessageModel } from "../models/MessageModel";
+import { UserModel } from "../models/UserModel";
 
 export interface FormattedMessage {
     userId: number;
@@ -16,14 +17,9 @@ export interface FormattedMessage {
     position: "first" | "last" | "single";
 }
 
-interface User {
-    id: number;
-    username: string;
-}
-
 const formatMessages = (messages: MessageModel[], currentUserId: number): FormattedMessage[] => {
     return messages.map((message) => {
-        const direction = message.userId === currentUserId ? "incoming" : "outgoing";
+        const direction = message.userId === currentUserId ? "outgoing" : "incoming";
         const position: "first" = "first";
 
         return {
@@ -35,19 +31,21 @@ const formatMessages = (messages: MessageModel[], currentUserId: number): Format
 };
 
 export default function MessagesPage() {
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
     const [messages, setMessages] = useState<FormattedMessage[]>([]);
     const [input, setInput] = useState<string>()
     const location = useLocation();
-    const chatId = location.state?.chatId;
+    const { chatId, username } = location.state || {};
+
+    console.log(chatId, username)
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             const decodedToken = jwtDecode<{ username: string, userId: number }>(token);
-            const body: User = {
+            const body: UserModel = {
                 username: decodedToken.username,
-                id: decodedToken.userId
+                userId: decodedToken.userId
             }
             setCurrentUser(body);
         }
@@ -59,7 +57,7 @@ export default function MessagesPage() {
             if (chatId && currentUser) {
                 try {
                     const result = await getMessages(chatId);
-                    const formattedMessages = formatMessages(result, currentUser.id);
+                    const formattedMessages = formatMessages(result, currentUser.userId);
                     setMessages(formattedMessages);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
@@ -69,10 +67,9 @@ export default function MessagesPage() {
             }
         };
         fetchMessages();
-    }, [chatId]);
+    }, [chatId, currentUser]);
 
     const handleChange = (innerHtml: string) => {
-        console.log(innerHtml)
         setInput(innerHtml); 
     };
 
@@ -81,10 +78,10 @@ export default function MessagesPage() {
         if (!innerHtml.trim()) return;
     
         try {
-            const response = await postMessage(chatId, innerHtml); 
+            await postMessage(chatId, innerHtml); 
 
             const newMessage: FormattedMessage = {
-                userId: currentUser?.id ?? 0,
+                userId: currentUser?.userId ?? 0,
                 username: currentUser?.username ?? "Unknown",
                 message: innerHtml,
                 createdAt: new Date().toISOString(),
@@ -103,7 +100,7 @@ export default function MessagesPage() {
 
     return (
         <div style={{ position: "relative", height: "100%" }}>
-            <h1>NAME</h1>
+            <h1>{username}</h1>
             <MainContainer>
                 <ChatContainer>       
                     <MessageList>

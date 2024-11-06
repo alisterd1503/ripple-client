@@ -21,7 +21,7 @@ export default function FindUsers() {
       }
     };
     fetchUsers();
-  },);
+  }, []);
 
     const {
         getRootProps,
@@ -48,6 +48,7 @@ export default function FindUsers() {
         } catch (error) {
             console.error("Error starting chat:", error);
         }
+        window.location.reload()
     };
 
     return (
@@ -67,15 +68,20 @@ export default function FindUsers() {
         </Root>
         {groupedOptions.length > 0 && (
         <Listbox {...getListboxProps()}>
-            {(groupedOptions as typeof allUsers).map((option, index) => (
-            <Option {...getOptionProps({ option, index })}>{option.username}</Option>
-            ))}
+          {(groupedOptions as typeof allUsers).map((option, index) => {
+            const { key, ...optionProps } = getOptionProps({ option, index });
+            return (
+              <Option key={key} {...optionProps}>
+                {option.username}
+              </Option>
+            );
+          })}
         </Listbox>
         )}
     </div>
     <div>
     {value ?
-        (<Button variant="outlined" onClick={() => {startNewChat(value.userId,value.username);window.location.reload()}}>Add</Button>)
+        (<Button variant="outlined" onClick={() => startNewChat(value.userId,value.username)}>Add</Button>)
         :
         (<Button variant="outlined" disabled>Add</Button>)
     }
