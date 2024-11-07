@@ -28,7 +28,7 @@ export default function ContactList() {
           onClick={() => openChat(user.chatId, user.username)}
           style={{
             backgroundColor: 'transparent',
-            borderTop: 'solid gray 0.5px',
+            borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.1px',
             borderRadius: '0px',
             borderLeft: 'none',
             cursor: 'pointer',

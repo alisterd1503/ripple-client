@@ -1,5 +1,6 @@
 import { Stack, TextField, Button } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
+import AddIcon from '@mui/icons-material/Add';
 
 interface MessagesInputProps {
     input: string;
@@ -20,24 +21,38 @@ export default function MessagesInput({ input, setInput, handleSend }: MessagesI
             sx={{
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: '#0077b6',
+                backgroundColor: '#054640',
                 padding: '10px',
             }}
         >
+            <Button
+                sx={{
+                    width: '40px',
+                    height: '40px',
+                    minWidth: 'auto',
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderRadius: '50%',
+                }}
+                //onClick={}
+            >
+                <AddIcon fontSize="medium" sx={{ color: 'white' }} />
+            </Button>
+
             <TextField
                 sx={{
                     width: "100%",
                     '& .MuiInputBase-root': {
                         padding: 0,
                         borderRadius: '20px',
-                        backgroundColor: '#90e0ef',
+                        backgroundColor: '#06625f',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
                         borderRadius: '20px',
                     },
                     '& .MuiOutlinedInput-input': {
                         padding: '8px 16px',
-                        color: 'black'
+                        color: 'white'
                     },
                 }}
                 id="outlined-multiline-flexible"
@@ -53,12 +68,12 @@ export default function MessagesInput({ input, setInput, handleSend }: MessagesI
                     minWidth: 'auto',
                     display: 'flex',
                     alignItems: 'center',
-                    backgroundColor: '#0077b6',
+                    backgroundColor: '#25d366',
                     borderRadius: '50%',
                 }}
                 onClick={handleSend}
             >
-                <SendIcon fontSize="medium" sx={{ color: '#03045e' }} />
+                <SendIcon fontSize="medium" sx={{ color: 'black' }} />
             </Button>
         </Stack>
     )

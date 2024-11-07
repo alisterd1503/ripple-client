@@ -9,7 +9,6 @@ import { MessageModel } from "../models/MessageModel";
 import { UserModel } from "../models/UserModel";
 import ChatHeader from "../components/ChatHeader";
 import MessagesInput from "../components/MessageInput";
-import { Stack } from "@mui/material";
 
 export interface FormattedMessage {
     userId: number;
@@ -176,7 +175,7 @@ export default function MessagesPage() {
                     }
                 `}
             </style>
-            
+
         </div>
     ); 
 }

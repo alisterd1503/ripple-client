@@ -37,7 +37,7 @@ export default function Header({ username }: { username: string }) {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Chat App
+                        SETTINGS
                     </Typography>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
