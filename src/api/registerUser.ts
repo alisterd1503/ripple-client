@@ -18,12 +18,13 @@ export const registerUser = async (registration: AuthModel): Promise<RegisterRes
         });
 
         if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
+            const errorData = await response.json();
+            return { success: false, message: errorData.message || 'Error registering user.' };
         }
 
         return { success: true, message: 'Registration successful!' };
     } catch (error) {
         console.error('Error registering user:', error);
-        return { success: false, message: 'Error registering user.' };
+        return { success: false, message: 'Network error or server unavailable.' };
     }
 };

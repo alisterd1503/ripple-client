@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography, Container, Grid2, Alert, Link, Stack } from '@mui/material';
-import validatePassword from '../utils/validatePassword';
-import validateUsername from '../utils/validateUsername';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { getAllUsers } from '../api/getAllUsers';
@@ -28,26 +26,23 @@ export default function SignUpPage() {
   }, []);
 
   const handleSubmit = async () => {
-    const usernameCheck = validateUsername(username, usedNames);
-    const passwordCheck = validatePassword(password);
 
-    if (usernameCheck.valid && passwordCheck.valid) {
-      const registeration: AuthModel = {
-        username: username,
-        password: password
-      }
-      const result = await registerUser(registeration);
-      if (result.success) {
-          setUsername('');
-          setPassword('');
-          setMessage(result.message);
-          navigate('/');
-      } else {
-          setMessage(result.message);
-      }
-    } else {
-        setMessage(usernameCheck.valid ? passwordCheck.message : usernameCheck.message);
+    const registeration: AuthModel = {
+      username: username,
+      password: password
     }
+
+    const result = await registerUser(registeration);
+    
+    if (result.success) {
+        setUsername('');
+        setPassword('');
+        setMessage(result.message);
+        navigate('/');
+    } else {
+        setMessage(result.message);
+    }
+
   };
 
   return (
