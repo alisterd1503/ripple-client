@@ -7,16 +7,23 @@ import SettingsPage from './pages/SettingsPage';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+import { useState } from 'react';
 
 function App() {
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
+
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
     <Router>
       <Routes>
@@ -24,7 +31,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/messages" element={<MessagesPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/settings" element={<SettingsPage toggleTheme={toggleTheme} mode={mode} />} />
       </Routes>
     </Router>
     </ThemeProvider>

@@ -15,7 +15,7 @@ export default function SettingsButton({
     return (
         <Button
             sx={{
-                color: '#fdfdfd', 
+                color: 'primary', 
                 borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
                 width: '100%',
                 textTransform: 'none',

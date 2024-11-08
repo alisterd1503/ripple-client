@@ -15,12 +15,19 @@ import { getProfile } from "../api/getProfile";
 import React from "react";
 import UploadAvatar from "../components/UploadAvatar";
 import ProfileAvatar from "../components/ProfileAvatar";
+import DarkModeToggel from "../components/DarkModeToggel";
 
-export default function SettingsPage() {
+interface SettingsPageProps {
+    toggleTheme: () => void;
+    mode: 'light' | 'dark';
+}
+
+export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
     const [profile, setProfile] = useState<ProfileModel | null>(null);
     const [open, setOpen] = React.useState(false);
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -123,7 +130,7 @@ export default function SettingsPage() {
                         icon={<PhotoIcon />}
                         text="Change profile picture"
                     />
-
+                    <DarkModeToggel toggleTheme={toggleTheme} mode={mode} />
                 </Stack>
             </Paper>
 
@@ -138,6 +145,7 @@ export default function SettingsPage() {
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>
                 Log Out
             </Button>
+
             <Footer />
         </Stack>
     );

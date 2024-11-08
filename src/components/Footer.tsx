@@ -25,23 +25,23 @@ export default function ContactsPage() {
                 showLabels
                 value={activeTab}
                 onChange={handleChange}
-                sx={{ backgroundColor: '#202C33' }}
+                sx={{ backgroundColor: 'primary' }}
             >
                 <BottomNavigationAction
                 label="Favourites"
                 value="favourites"
-                icon={<StarBorderOutlinedIcon fontSize="medium" sx={{ color: 'white' }} />}
+                icon={<StarBorderOutlinedIcon fontSize="medium" sx={{ color: 'primary' }} />}
                 />
                 <BottomNavigationAction
                 label="Chats"
                 value="chats"
-                icon={<QuestionAnswerOutlinedIcon fontSize="medium" sx={{ color: 'white' }} />}
+                icon={<QuestionAnswerOutlinedIcon fontSize="medium" sx={{ color: 'primary' }} />}
                 />
                 <BottomNavigationAction
                 label="Settings"
                 value="settings"
                 icon={
-                    <TuneOutlinedIcon fontSize="medium" sx={{ color: activeTab === 'settings' ? 'red' : 'white' }} />
+                    <TuneOutlinedIcon fontSize="medium" sx={{ color: activeTab === 'settings' ? 'red' : 'primary' }} />
                 }
                 />
             </BottomNavigation>
