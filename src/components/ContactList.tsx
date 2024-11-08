@@ -57,8 +57,8 @@ export default function ContactList() {
     fetchContacts();
   }, []);
 
-  const openChat = (chatId: number, username: string) => {
-    navigate('/messages', { state: { chatId, username } });
+  const openChat = (chatId: number, username: string, avatar: string) => {
+    navigate('/messages', { state: { chatId, username, avatar } });
   };
 
   return (
@@ -66,7 +66,7 @@ export default function ContactList() {
         {contacts.map((user) => (
           <Button
             key={user.chatId}
-            onClick={() => openChat(user.chatId, user.username)}
+            onClick={() => openChat(user.chatId, user.username, user.avatar)}
             style={{
               backgroundColor: 'transparent',
               borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.1px',

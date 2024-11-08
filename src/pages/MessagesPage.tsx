@@ -22,6 +22,7 @@ export interface FormattedMessage {
 interface MessagePageState {
     chatId: number;
     username: string;
+    avatar: string
 }
 
 const formatMessages = (messages: MessageModel[], currentUserId: number): FormattedMessage[] => {
@@ -42,7 +43,7 @@ export default function MessagesPage() {
     const [messages, setMessages] = useState<FormattedMessage[]>([]);
     const [input, setInput] = useState<string>("");
     const location = useLocation();
-    const { chatId, username } = location.state as MessagePageState || {};
+    const { chatId, username, avatar } = location.state as MessagePageState || {};
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -104,7 +105,7 @@ export default function MessagesPage() {
             padding: 0
         }}>
             <div>
-                <ChatHeader username={username} />
+                <ChatHeader username={username} avatar={avatar}/>
             </div>
             
             <div style={{
@@ -129,7 +130,7 @@ export default function MessagesPage() {
                     >
                         <Avatar
                             name={message.username}
-                            src="https://chatscope.io/storybook/react/assets/zoe-E7ZdmXF0.svg"
+                            src={`http://localhost:5002${avatar}`}
                         />
                     </Message>
                 ))}

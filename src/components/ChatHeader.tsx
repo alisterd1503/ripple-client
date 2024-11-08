@@ -2,13 +2,13 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar, Button, Stack,  } from '@mui/material';
+import { Stack,  } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import stringAvatar from '../utils/stringAvatar';
+import ProfileAvatar from './ProfileAvatar';
 
-export default function ChatHeader({ username }: { username: string }) {
+export default function ChatHeader({ username, avatar }: { username: string, avatar: string }) {
     const navigate = useNavigate(); 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -49,7 +49,7 @@ export default function ChatHeader({ username }: { username: string }) {
                             alignItems: "center",
                         }}
                     >
-                        <Avatar {...stringAvatar(username)} />
+                        <ProfileAvatar avatarPath={avatar} username={username} height='40px' width='40px'/>
                         <Typography variant="h4" component="div" fontWeight={'10px'} sx={{ flexGrow: 1, textAlign: 'center' }}>
                         {username}
                         </Typography>
