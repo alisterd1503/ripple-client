@@ -128,10 +128,12 @@ export default function MessagesPage() {
                             position: message.position,
                         }}
                     >
-                        <Avatar
-                            name={message.username}
-                            src={`http://localhost:5002${avatar}`}
-                        />
+                        {message.userId != currentUser?.userId && (
+                            <Avatar
+                                name={message.username}
+                                src={`http://localhost:5002${avatar}`}
+                            />
+                        )}
                     </Message>
                 ))}
                 </MessageList>
