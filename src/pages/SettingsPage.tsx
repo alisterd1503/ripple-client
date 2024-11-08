@@ -133,13 +133,14 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                     <DarkModeToggel toggleTheme={toggleTheme} mode={mode} />
                 </Stack>
             </Paper>
-
+            
+            {/* Fix the backdrop on click */}
             <Backdrop
                 sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
                 open={open}
                 onClick={handleClose}
             >
-                <UploadAvatar/>
+                <UploadAvatar currentAvatar={profile?.avatar} onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>

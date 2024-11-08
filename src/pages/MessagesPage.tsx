@@ -133,7 +133,7 @@ export default function MessagesPage() {
                             position: message.position,
                         }}
                     >
-                        {message.userId != currentUser?.userId && (
+                        {message.userId !== currentUser?.userId && (
                             <Avatar
                                 name={message.username}
                                 src={`http://localhost:5002${avatar}`}
