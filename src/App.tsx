@@ -7,10 +7,11 @@ import SettingsPage from './pages/SettingsPage';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 
 function App() {
-  const [mode, setMode] = useState<'light' | 'dark'>('dark');
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
 
   const theme = createTheme({
     palette: {
@@ -18,9 +19,20 @@ function App() {
     },
   });
 
+  useEffect(() => {
+    const storedMode = localStorage.getItem('mode') as 'light' | 'dark' | null;
+    if (storedMode === 'light' || storedMode === 'dark') {
+      setMode(storedMode);
+    }
+  }, []);
+
   const toggleTheme = () => {
-    setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
-  };
+    setMode((prevMode) => {
+        const newMode = prevMode === 'dark' ? 'light' : 'dark';
+        localStorage.setItem("mode", newMode);
+        return newMode;
+    });
+  }
 
   return (
     <ThemeProvider theme={theme}>
