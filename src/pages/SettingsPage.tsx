@@ -1,4 +1,4 @@
-import { Avatar, Button, Paper, Stack, Typography } from "@mui/material";
+import { Backdrop, Button, Paper, Stack, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import PenIcon from '@mui/icons-material/EditOutlined';
@@ -12,11 +12,21 @@ import { useState, useEffect } from "react";
 import { UserModel } from "../models/UserModel";
 import { ProfileModel } from "../models/ProfileModel";
 import { getProfile } from "../api/getProfile";
+import React from "react";
+import UploadAvatar from "../components/UploadAvatar";
+import ProfileAvatar from "../components/ProfileAvatar";
 
 export default function SettingsPage() {
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
     const [profile, setProfile] = useState<ProfileModel | null>(null);
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -41,10 +51,8 @@ export default function SettingsPage() {
     };
 
     const handleButtonClick = (action: string) => {
-        console.log(`${action} button clicked`);
+        if (action === 'avatar') handleOpen();
     };
-
-    console.log("profile:",profile)
 
     return (
         <Stack
@@ -71,7 +79,7 @@ export default function SettingsPage() {
                         alignItems: "center",
                     }}
                 >
-                    <Avatar sx={{ height: '60px', width: '60px' }} />
+                    <ProfileAvatar avatarPath={profile?.avatar} username={currentUser?.username} height="80px" width="80px"/>
                     <Stack
                         direction="column"
                         spacing={-1}
@@ -111,13 +119,21 @@ export default function SettingsPage() {
                         text="Change password"
                     />
                     <SettingsButton 
-                        onClick={() => handleButtonClick("Edit avatar")}
+                        onClick={() => handleButtonClick("avatar")}
                         icon={<PhotoIcon />}
                         text="Change profile picture"
                     />
 
                 </Stack>
             </Paper>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={open}
+                onClick={handleClose}
+            >
+                <UploadAvatar/>
+            </Backdrop>
 
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>
                 Log Out

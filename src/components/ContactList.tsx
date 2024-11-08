@@ -1,9 +1,9 @@
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";
 import { ContactModel } from "../models/ContactModel";
-import stringAvatar from "../utils/stringAvatar";
+import ProfileAvatar from "./ProfileAvatar";
 
 function convertISODate(isoDate: string): string {
   const date = new Date(isoDate);
@@ -34,7 +34,6 @@ function convertISODate(isoDate: string): string {
   // For any other dates, return the formatted date (dd/mm/yyyy)
   return formattedDate;
 }
-
 
 function formatLastMessage(lastMessage: string): string {
   let formattedMessage = ''
@@ -93,7 +92,7 @@ export default function ContactList() {
               width: '100%',
             }}
           >
-            <Avatar style={{ width: "60px", height: "60px", color: 'white' }} {...stringAvatar(user.username)}/>
+            <ProfileAvatar avatarPath={user.avatar} username={user.username}/>
             <Stack
               direction="column"
               spacing={0}

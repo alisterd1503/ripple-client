@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Stack } from '@mui/system';
-import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Autocomplete, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SettingsModel {

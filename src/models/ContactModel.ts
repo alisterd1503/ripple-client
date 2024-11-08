@@ -4,4 +4,5 @@ export interface ContactModel {
     username: string;
     lastMessage: string;
     lastMessageTime: string;
+    avatar: string
 }

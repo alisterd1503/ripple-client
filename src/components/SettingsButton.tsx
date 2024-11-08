@@ -2,9 +2,9 @@ import { Button, Stack, Typography } from "@mui/material";
 import ArrowIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 
 interface SettingsButtonProps {
-    onClick: () => void;
-    icon: React.ReactNode;
-    text: string; 
+    onClick?: () => void;
+    icon?: React.ReactNode;
+    text: string;
 }
 
 export default function SettingsButton({
