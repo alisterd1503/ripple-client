@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Stack } from '@mui/system';
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { startChat } from '../api/startChat';
 import { getUsers } from '../api/getUsers';
 import { UserModel } from '../models/UserModel';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
@@ -16,6 +17,7 @@ export default function FindUsers() {
       try {
         const result = await getUsers();
         setAllUsers(result);
+        console.log(result)
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -76,7 +78,7 @@ export default function FindUsers() {
             },
           },
           '& .MuiAutocomplete-endAdornment': {
-            display: 'none', // Hide the dropdown icon
+            display: 'none',
           },
           '& .MuiAutocomplete-paper': {
             backgroundColor: '#054640',
@@ -94,12 +96,21 @@ export default function FindUsers() {
           },
         }}
         renderInput={(params) => (
-          <TextField 
-            {...params} 
-            placeholder="Search by username"
+          <TextField
+            {...params}
+            placeholder="Search Username"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ opacity: 0.3, marginLeft: 1, marginRight: -1 }} />
+                </InputAdornment>
+              ),
+            }}
           />
         )}
       />
+
 
       <div>
         {value ? (

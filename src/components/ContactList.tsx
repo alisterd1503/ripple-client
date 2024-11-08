@@ -4,6 +4,47 @@ import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";
 import { ContactModel } from "../models/ContactModel";
 
+function convertISODate(isoDate: string): string {
+  const date = new Date(isoDate);
+  const now = new Date();
+
+  const formattedDate = date.toLocaleDateString('en-GB');
+  const formattedTime = date.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+  const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'long' });
+
+  // Check if the date is today
+  const isToday = date.toDateString() === now.toDateString();
+  if (isToday) {
+    return formattedTime;
+  }
+
+  // Check if the date is within the current week
+  const dayDifference = (now.getDay() + 7 - date.getDay()) % 7;
+  const isThisWeek = dayDifference < now.getDay() && dayDifference >= 0;
+
+  if (isThisWeek) {
+    return dayOfWeek;
+  }
+
+  // For any other dates, return the formatted date (dd/mm/yyyy)
+  return formattedDate;
+}
+
+
+function formatLastMessage(lastMessage: string): string {
+  let formattedMessage = ''
+  if (!lastMessage) {
+    formattedMessage = 'Start Chat...'
+    return formattedMessage
+  }
+  lastMessage.length > 70 ? formattedMessage = lastMessage.substring(0, 70) + '...' : formattedMessage = lastMessage
+  return formattedMessage
+}
+
 export default function ContactList() { 
   const [contacts, setContacts] = useState<ContactModel[]>([])
   const navigate = useNavigate();
@@ -63,7 +104,7 @@ export default function ContactList() {
             }}
           >
             <Typography variant="body1">{user.username}</Typography>
-            <Typography variant="body2" color="textSecondary">Last Message...</Typography>
+            <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage)}</Typography>
           </Stack>
           <Stack
             direction="column"
@@ -73,7 +114,7 @@ export default function ContactList() {
               alignItems: "flex-end",
             }}
           >
-            <Typography variant="body2">Time</Typography>
+            <Typography variant="body2">{convertISODate(user.lastMessageTime)}</Typography>
           </Stack>
         </Stack>
         </Button>

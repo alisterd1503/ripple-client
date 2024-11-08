@@ -32,7 +32,7 @@ export default function ContactsPage() {
                 sx={{ 
                     zIndex: 1100, 
                     backgroundColor: 'primary', 
-                    boxShadow: 'none' 
+                    boxShadow: 'none',
                 }}
                 elevation={0}
             >

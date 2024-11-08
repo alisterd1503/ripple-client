@@ -1,8 +1,15 @@
-import { Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import FindUsers from "../components/FindUsers";
+import { useNavigate } from "react-router-dom";
 
 export default function SettingsPage() {
+    const navigate = useNavigate()
+    const logout = () => {
+        localStorage.removeItem("currentUser");
+        navigate("/")
+    };
+
     return (
         <Stack
             direction="column"
@@ -18,6 +25,7 @@ export default function SettingsPage() {
                     Settings
             </Typography>
             <FindUsers/>
+            <Button variant="outlined" color="error" sx={{width: "100%"}} onClick={logout}>Log Out</Button>
             <Footer/>
         </Stack>
         
