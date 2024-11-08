@@ -51,10 +51,17 @@ export default function ContactList() {
 
   useEffect(() => {
     const fetchContacts = async () => {
-        const result = await getContacts();
-        setContacts(result);
+      const result = await getContacts();
+      setContacts(result);
     };
+
     fetchContacts();
+
+    const interval = setInterval(() => {
+      fetchContacts();
+    }, 5000);
+  
+    return () => clearInterval(interval);
   }, []);
 
   const openChat = (chatId: number, username: string, avatar: string) => {

@@ -72,6 +72,11 @@ export default function MessagesPage() {
             }
         };
         fetchMessages();
+        const interval = setInterval(() => {
+            fetchMessages();
+          }, 5000);
+        
+          return () => clearInterval(interval);
     }, [chatId, currentUser]);
 
     const handleSend = async () => {
