@@ -17,7 +17,6 @@ export default function FindUsers() {
       try {
         const result = await getUsers();
         setAllUsers(result);
-        console.log(result)
       } catch (error) {
         console.error("Error fetching users:", error);
       }

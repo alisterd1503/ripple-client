@@ -39,7 +39,6 @@ export default function AvatarUpload() {
         if (avatarFile) {
             try {
                 const response = await uploadPhoto(avatarFile); 
-                console.log("Upload successful:", response);
             } catch (error) {
                 console.error("Error saving avatar:", error);
             }
