@@ -22,10 +22,8 @@ export default function CenteredButton({
 
     const handleClick = () => {
         if (fileInput && inputRef.current) {
-            // If it's a file input button, open the file dialog
             inputRef.current.click();
         } else if (onClick) {
-            // Otherwise, trigger the usual click handler
             onClick();
         }
     };
@@ -33,7 +31,7 @@ export default function CenteredButton({
     return (
         <Button
             sx={{
-                color: red ? '#F44336' : '#fdfdfd', 
+                color: red ? '#F44336' : 'primary', 
                 borderTop: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
                 width: '100%',
                 textTransform: 'none',
@@ -55,7 +53,7 @@ export default function CenteredButton({
                     accept="image/*"
                     onChange={onFileChange}
                     hidden
-                    ref={inputRef} // Set the ref for accessing the input
+                    ref={inputRef}
                 />
             )}
         </Button>

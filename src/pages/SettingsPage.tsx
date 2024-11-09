@@ -14,8 +14,9 @@ import { ProfileModel } from "../models/ProfileModel";
 import { getProfile } from "../api/getProfile";
 import React from "react";
 import UploadAvatar from "../components/UploadAvatar";
-import ProfileAvatar from "../components/ProfileAvatar";
 import DarkModeToggel from "../components/DarkModeToggel";
+import UpdateBio from "../components/UpdateBio";
+import ProfileCard from "../components/ProfileCard";
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -26,13 +27,14 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
     const [profile, setProfile] = useState<ProfileModel | null>(null);
-    const [open, setOpen] = React.useState(false);
+    const [openBackdrop, setOpenBackdrop] = useState<string | null>(null);
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenBackdrop(null);
     };
-    const handleOpen = () => {
-        setOpen(true);
+
+    const handleButtonClick = (action: string) => {
+        setOpenBackdrop(action);
     };
 
     useEffect(() => {
@@ -57,10 +59,6 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
         navigate("/");
     };
 
-    const handleButtonClick = (action: string) => {
-        if (action === 'avatar') handleOpen();
-    };
-
     return (
         <Stack
             direction="column"
@@ -77,29 +75,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             </Typography>
             <SearchSettings/>
 
-            <Paper elevation={1} sx={{ width: '100%', padding: '15px', borderRadius: '7px', }}>
-                <Stack
-                    direction="row"
-                    spacing={2}
-                    sx={{
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                    }}
-                >
-                    <ProfileAvatar avatarPath={profile?.avatar} username={currentUser?.username} height="80px" width="80px"/>
-                    <Stack
-                        direction="column"
-                        spacing={-1}
-                        sx={{
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                        }}
-                    >
-                        <Typography variant="h5">{currentUser?.username}</Typography>
-                        <Typography fontSize="17px" sx={{ opacity: '0.7' }}>{profile?.bio}</Typography>
-                    </Stack>
-                </Stack>
-            </Paper>
+            <ProfileCard username={currentUser?.username} avatar={profile?.avatar} bio={profile?.bio}/>
 
             <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
                 <Stack
@@ -111,17 +87,17 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                     }}
                 >
                     <SettingsButton 
-                        onClick={() => handleButtonClick("Edit username")}
+                        onClick={() => handleButtonClick("username")}
                         icon={<PenIcon/>}
                         text="Edit Username"
                     />
                     <SettingsButton 
-                        onClick={() => handleButtonClick("Edit bio")}
+                        onClick={() => handleButtonClick("bio")}
                         icon={<TextIcon />}
                         text="Edit bio"
                     />
                     <SettingsButton 
-                        onClick={() => handleButtonClick("Edit password")}
+                        onClick={() => handleButtonClick("password")}
                         icon={<PasswordIcon />}
                         text="Change password"
                     />
@@ -134,13 +110,20 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 </Stack>
             </Paper>
             
-            {/* Fix the backdrop on click */}
             <Backdrop
                 sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                open={open}
+                open={openBackdrop === "avatar"}
                 onClick={handleClose}
             >
                 <UploadAvatar currentAvatar={profile?.avatar} onClick={(e) => e.stopPropagation()} />
+            </Backdrop>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "bio"}
+                onClick={handleClose}
+            >
+                <UpdateBio bio={profile?.bio} onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>

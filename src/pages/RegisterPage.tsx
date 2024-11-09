@@ -2,28 +2,14 @@ import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography, Container, Grid2, Alert, Link, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { getAllUsers } from '../api/getAllUsers';
 import { registerUser } from '../api/registerUser';
 import { AuthModel } from '../models/AuthModel';
 
 export default function SignUpPage() {
-  const [usedNames, setUsedNames] = useState<string[]>([]);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate(); 
-
-  useEffect(() => {
-    const fetchUsernames = async () => {
-        try {
-            const users = await getAllUsers();
-            setUsedNames(users.map(user => user.username));
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
-    };
-    fetchUsernames();
-  }, []);
 
   const handleSubmit = async () => {
 
