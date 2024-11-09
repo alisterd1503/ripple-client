@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Box, Paper, Stack, } from "@mui/material";
 import CenteredButton from './CenteredButton';
 import { uploadPhoto } from '../api/saveAvatar';
+import { deletePhoto } from '../api/deletePhoto';
 
 export default function AvatarUpload({currentAvatar, onClick}: {currentAvatar: string | undefined, onClick: (e: any) => any}) {
     const [avatar, setAvatar] = useState<string | null>(null); 
@@ -28,9 +29,8 @@ export default function AvatarUpload({currentAvatar, onClick}: {currentAvatar: s
 
     // Function to reset the avatar to default
     const handleRemoveAvatar = () => {
-        setAvatar(null);
-        setPreview(null);
-        setAvatarFile(null);
+        deletePhoto()
+        window.location.reload();
     };
 
     // Function to save the avatar (calls the upload API)
