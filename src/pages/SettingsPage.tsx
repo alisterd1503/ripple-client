@@ -7,16 +7,14 @@ import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
 import TextIcon from '@mui/icons-material/ShortTextOutlined';
 import SettingsButton from "../components/SettingsButton";
 import SearchSettings from "../components/SearchSettings";
-import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
-import { UserModel } from "../models/UserModel";
 import { ProfileModel } from "../models/ProfileModel";
 import { getProfile } from "../api/getProfile";
-import React from "react";
 import UploadAvatar from "../components/UploadAvatar";
 import DarkModeToggel from "../components/DarkModeToggel";
 import UpdateBio from "../components/UpdateBio";
 import ProfileCard from "../components/ProfileCard";
+import UpdateUsername from "../components/UpdateUsername";
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -25,7 +23,6 @@ interface SettingsPageProps {
 
 export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
     const [profile, setProfile] = useState<ProfileModel | null>(null);
     const [openBackdrop, setOpenBackdrop] = useState<string | null>(null);
 
@@ -38,15 +35,6 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const decodedToken = jwtDecode<{ username: string, userId: number }>(token);
-            const body: UserModel = {
-                username: decodedToken.username,
-                userId: decodedToken.userId
-            }
-            setCurrentUser(body);
-        }
         const fetchProfile = async () => {
             const result = await getProfile();
             setProfile(result);
@@ -75,7 +63,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             </Typography>
             <SearchSettings/>
 
-            <ProfileCard username={currentUser?.username} avatar={profile?.avatar} bio={profile?.bio}/>
+            <ProfileCard username={profile?.username} avatar={profile?.avatar} bio={profile?.bio}/>
 
             <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
                 <Stack
@@ -124,6 +112,14 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 onClick={handleClose}
             >
                 <UpdateBio bio={profile?.bio} onClick={(e) => e.stopPropagation()} />
+            </Backdrop>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "username"}
+                onClick={handleClose}
+            >
+                <UpdateUsername username={profile?.username} onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>

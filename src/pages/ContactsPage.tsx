@@ -1,32 +1,13 @@
-import { useState, useEffect } from "react";
 import { AppBar, Stack, Toolbar, Typography } from "@mui/material";
 import ContactList from "../components/ContactList";
 import FindUsers from "../components/FindUsers";
-import { jwtDecode } from "jwt-decode"
-import { UserModel } from "../models/UserModel";
 import Footer from "../components/Footer";
 
 
 
 export default function ContactsPage() {
-    const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
-
-    // Getting jwt token for logged in user
-    useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        const decodedToken = jwtDecode<{ username: string, userId: number }>(token);
-        const body: UserModel = {
-            username: decodedToken.username,
-            userId: decodedToken.userId
-        }
-        setCurrentUser(body);
-    }
-    }, []);
-
     return (
         <>
-        {currentUser && <>
             <AppBar 
                 position="sticky" 
                 sx={{ 
@@ -56,7 +37,6 @@ export default function ContactsPage() {
                 <ContactList />
                 <Footer/>
             </Stack>
-        </>}
         </>
     )
 }
