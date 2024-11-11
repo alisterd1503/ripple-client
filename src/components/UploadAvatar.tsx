@@ -3,8 +3,9 @@ import { Avatar, Box, Paper, Stack, } from "@mui/material";
 import CenteredButton from './CenteredButton';
 import { uploadPhoto } from '../api/saveAvatar';
 import { deletePhoto } from '../api/deletePhoto';
+import ProfileAvatar from './ProfileAvatar';
 
-export default function AvatarUpload({currentAvatar, onClick}: {currentAvatar: string | undefined, onClick: (e: any) => any}) {
+export default function AvatarUpload({currentAvatar, onClick, username}: {currentAvatar: string | undefined, username: string | undefined, onClick: (e: any) => any}) {
     const [avatar, setAvatar] = useState<string | null>(null); 
     const [preview, setPreview] = useState<string | null>(null);
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -58,8 +59,10 @@ export default function AvatarUpload({currentAvatar, onClick}: {currentAvatar: s
         <Box sx={{width: "100%", display: 'flex', justifyContent:'center', alignItems: 'center', padding: '20px'}}>
             <Avatar
                 src={preview || avatar || `http://localhost:5002${currentAvatar}`}
-                sx={{ width: 100, height: 100 }}
+                sx={{ width: 100, height: 100, color: 'white' }}
+                alt={username}
             />
+            
         </Box>
         <CenteredButton
             text="Upload Photo"

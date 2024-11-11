@@ -4,8 +4,8 @@ import stringAvatar from '../utils/stringAvatar';
 
 interface ProfileAvatarProps {
     avatarPath?: string | undefined;
-    width?: string;
-    height?: string;
+    width?: string | number;
+    height?: string | number;
     username: string | undefined;
     onClick?: () => void;
 }

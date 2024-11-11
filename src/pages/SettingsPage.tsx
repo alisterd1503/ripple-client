@@ -104,7 +104,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 open={openBackdrop === "avatar"}
                 onClick={handleClose}
             >
-                <UploadAvatar currentAvatar={profile?.avatar} onClick={(e) => e.stopPropagation()} />
+                <UploadAvatar currentAvatar={profile?.avatar} username={profile?.username} onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
             <Backdrop
