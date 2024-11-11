@@ -5,20 +5,22 @@ interface SettingsButtonProps {
     onClick?: () => void;
     icon?: React.ReactNode;
     text: string;
-    red?: boolean
+    red?: boolean;
+    single?: boolean;
 }
 
 export default function SettingsButton({
     onClick,
     icon,
     text,
-    red
+    red,
+    single
 }: SettingsButtonProps) {
     return (
         <Button
             sx={{
-                color: red ? 'red' : 'primary', 
-                borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
+                color: red ? '#DD5F70' : 'primary', 
+                borderBottom: single ? 'none':'solid rgba(128, 128, 128, 0.2) 0.5px', 
                 width: '100%',
                 textTransform: 'none',
                 fontSize: '20px',

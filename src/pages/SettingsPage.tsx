@@ -16,6 +16,8 @@ import UpdateBio from "../components/UpdateBio";
 import ProfileCard from "../components/ProfileCard";
 import UpdateUsername from "../components/UpdateUsername";
 import ChangePassword from "../components/ChangePassword";
+import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteAccount from "../components/DeleteAccount";
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -98,6 +100,25 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                     <DarkModeToggel toggleTheme={toggleTheme} mode={mode} />
                 </Stack>
             </Paper>
+
+            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                <Stack
+                    direction="column"
+                    spacing={0}
+                    sx={{
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                    }}
+                >
+                    <SettingsButton 
+                        onClick={() => handleButtonClick("delete")}
+                        icon={<DeleteIcon />}
+                        text="Delete account"
+                        red
+                        single
+                    />
+                </Stack>
+            </Paper>
             
             <Backdrop
                 sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
@@ -129,6 +150,14 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 onClick={handleClose}
             >
                 <ChangePassword onClick={(e) => e.stopPropagation()} />
+            </Backdrop>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "delete"}
+                onClick={handleClose}
+            >
+                <DeleteAccount onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>

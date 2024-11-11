@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Button, Stack, Typography } from "@mui/material";
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 interface CenteredButtonProps {
     onClick?: () => void;
@@ -7,6 +8,7 @@ interface CenteredButtonProps {
     text: string;
     red?: boolean;
     fileInput?: boolean;
+    disable?: boolean;
     onFileChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,7 +18,8 @@ export default function CenteredButton({
     text,
     red,
     fileInput = false,
-    onFileChange
+    onFileChange,
+    disable = false
 }: CenteredButtonProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -42,6 +45,7 @@ export default function CenteredButton({
                 alignItems: 'center',
             }} 
             onClick={handleClick}
+            disabled={disable} 
         >
             <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 {icon}
