@@ -5,7 +5,6 @@ import { MessageList, Message, Avatar } from "@chatscope/chat-ui-kit-react";
 import { getMessages } from "../api/getMessages";
 import { postMessage } from "../api/postMessage";
 import { jwtDecode } from "jwt-decode";
-import { MessageModel } from "../models/MessageModel";
 import ChatHeader from "../components/ChatHeader";
 import MessagesInput from "../components/MessageInput";
 import { getUsername } from "../api/getUsername";
@@ -23,6 +22,9 @@ interface MessagePageState {
     chatId: number;
     username: string;
     avatar: string
+    bio: string;
+    added_at: string;
+    userId: number;
 }
 
 export default function MessagesPage() {
@@ -31,7 +33,7 @@ export default function MessagesPage() {
     const [messages, setMessages] = useState<FormattedMessage[]>([]);
     const [input, setInput] = useState<string>("");
     const location = useLocation();
-    const { chatId, username, avatar } = location.state as MessagePageState || {};
+    const { chatId, username, avatar, bio, added_at, userId } = location.state as MessagePageState || {};
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -103,7 +105,7 @@ export default function MessagesPage() {
             padding: 0
         }}>
             <div>
-                <ChatHeader username={username} avatar={avatar}/>
+                <ChatHeader username={username} avatar={avatar} bio={bio} added_at={added_at} userId={userId}/>
             </div>
             
             <div style={{

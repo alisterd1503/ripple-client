@@ -8,6 +8,7 @@ import SettingsPage from './pages/SettingsPage';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useEffect, useState } from 'react';
+import ProfilePage from './pages/ProfilePage';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/settings" element={<SettingsPage toggleTheme={toggleTheme} mode={mode} />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
     </ThemeProvider>

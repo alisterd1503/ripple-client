@@ -5,4 +5,6 @@ export interface ContactModel {
     lastMessage: string;
     lastMessageTime: string;
     avatar: string
+    bio: string,
+    added_at: string;
 }

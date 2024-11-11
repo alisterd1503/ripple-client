@@ -1,5 +1,4 @@
 import { Button, Stack, Typography } from "@mui/material";
-import ArrowIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 
 interface SettingsButtonProps {
     onClick?: () => void;
@@ -8,7 +7,7 @@ interface SettingsButtonProps {
     red?: boolean
 }
 
-export default function SettingsButton({
+export default function ProfileButton({
     onClick,
     icon,
     text,
@@ -17,7 +16,7 @@ export default function SettingsButton({
     return (
         <Button
             sx={{
-                color: red ? 'red' : 'primary', 
+                color: red ? '#DD5F70' : '#25B567', 
                 borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
                 width: '100%',
                 textTransform: 'none',
@@ -30,10 +29,8 @@ export default function SettingsButton({
             onClick={onClick}
         >
             <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
-                {icon}
                 <Typography>{text}</Typography>
             </Stack>
-            <ArrowIcon sx={{opacity: 0.3}}/>
         </Button>
     );
 }

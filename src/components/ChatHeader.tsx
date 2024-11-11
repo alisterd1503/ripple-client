@@ -8,8 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ProfileAvatar from './ProfileAvatar';
 
-export default function ChatHeader({ username, avatar }: { username: string, avatar: string }) {
+export default function ChatHeader({ username, avatar, bio, added_at, userId }: { username: string, avatar: string, bio: string, added_at:string, userId: number }) {
     const navigate = useNavigate(); 
+
+    const openProfile = (username: string, avatar: string, bio: string, added_at: string, userId: number) => {
+        navigate('/profile', { state: { username, avatar, bio, added_at, userId } });
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -49,7 +54,7 @@ export default function ChatHeader({ username, avatar }: { username: string, ava
                             alignItems: "center",
                         }}
                     >
-                        <ProfileAvatar avatarPath={avatar} username={username} height='40px' width='40px'/>
+                        <ProfileAvatar avatarPath={avatar} username={username} height='40px' width='40px' onClick={()=>openProfile(username, avatar, bio, added_at, userId)}/>
                         <Typography variant="h4" component="div" fontWeight={'10px'} sx={{ flexGrow: 1, textAlign: 'center' }}>
                         {username}
                         </Typography>
