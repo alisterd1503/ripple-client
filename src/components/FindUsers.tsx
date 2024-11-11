@@ -6,11 +6,12 @@ import { startChat } from '../api/startChat';
 import { getUsers } from '../api/getUsers';
 import { UserModel } from '../models/UserModel';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import SearchIcon from '@mui/icons-material/Search';
+import { startGroupChat } from '../api/startGroupChat';
+//import SearchIcon from '@mui/icons-material/Search';
 
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
-  const [value, setValue] = React.useState<UserModel | null>(null);
+  const [value, setValue] = React.useState<UserModel[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,6 +24,10 @@ export default function FindUsers() {
     };
     fetchUsers();
   }, []);
+
+  const handleOnClick = () => {
+    value.length > 1 ? startNewGroupChat(value, 'hello') : startNewChat(value[0].userId, value[0].username)
+  }
 
   const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
     const body: UserModel = {
@@ -37,6 +42,15 @@ export default function FindUsers() {
     window.location.reload();
   };
 
+  const startNewGroupChat = async (value: UserModel[], title: string) => {
+    try {
+      await startGroupChat(value, title);
+    } catch (error) {
+      console.error("Error starting group chat:", error);
+    }
+    window.location.reload();
+  }
+
   return (
     <Stack
       direction="row"
@@ -48,7 +62,8 @@ export default function FindUsers() {
       }}
     >
       <Autocomplete
-        disablePortal
+        multiple
+        id="tags-standard"
         options={allUsers}
         value={value}
         onChange={(event, newValue) => setValue(newValue)}
@@ -98,18 +113,9 @@ export default function FindUsers() {
           <TextField
             {...params}
             placeholder="Search Username"
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon sx={{ opacity: 0.3, marginLeft: 1, marginRight: -1 }} />
-                </InputAdornment>
-              ),
-            }}
           />
         )}
       />
-
 
       <div>
         {value ? (
@@ -122,7 +128,7 @@ export default function FindUsers() {
               alignItems: 'center',
               borderRadius: '50%',
             }}
-            onClick={() => startNewChat(value.userId, value.username)}>
+            onClick={handleOnClick}>
             <PersonAddIcon fontSize="medium" sx={{color: 'white'}} />
           </Button>
         ) : (

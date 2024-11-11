@@ -5,6 +5,8 @@ import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlin
 import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 
+//TODO, FIX BOTTOM NAVIGATION
+
 export default function ContactsPage() {
     const [activeTab, setActiveTab] = useState<string>('');
     const navigate = useNavigate();
@@ -30,18 +32,18 @@ export default function ContactsPage() {
                 <BottomNavigationAction
                 label="Favourites"
                 value="favourites"
-                icon={<StarBorderOutlinedIcon fontSize="medium" sx={{ color: 'primary' }} />}
+                icon={<StarBorderOutlinedIcon fontSize="medium" />}
                 />
                 <BottomNavigationAction
                 label="Chats"
                 value="chats"
-                icon={<QuestionAnswerOutlinedIcon fontSize="medium" sx={{ color: 'primary' }} />}
+                icon={<QuestionAnswerOutlinedIcon fontSize="medium" />}
                 />
                 <BottomNavigationAction
                 label="Settings"
                 value="settings"
                 icon={
-                    <TuneOutlinedIcon fontSize="medium" sx={{ color: activeTab === 'settings' ? 'red' : 'primary' }} />
+                    <TuneOutlinedIcon fontSize="medium" />
                 }
                 />
             </BottomNavigation>

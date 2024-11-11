@@ -52,6 +52,7 @@ export default function ContactList() {
   useEffect(() => {
     const fetchContacts = async () => {
       const result = await getContacts();
+      console.log(result)
       setContacts(result);
     };
 
@@ -64,8 +65,8 @@ export default function ContactList() {
     return () => clearInterval(interval);
   }, []);
 
-  const openChat = (chatId: number, username: string, avatar: string, bio: string, added_at: string, userId: number) => {
-    navigate('/messages', { state: { chatId, username, avatar, bio, added_at, userId } });
+  const openChat = (chatId: number, title: string, avatar: string, bio: string, added_at: string, userId: number) => {
+    navigate('/messages', { state: { chatId, title, avatar, bio, added_at, userId } });
   };
 
   return (
@@ -73,7 +74,7 @@ export default function ContactList() {
         {contacts.map((user) => (
           <Button
             key={user.chatId}
-            onClick={() => openChat(user.chatId, user.username, user.avatar, user.bio, user.added_at, user.userId)}
+            onClick={() => openChat(user.chatId, user.participants[0].username, user.participants[0].avatar, user.participants[0].bio, user.added_at, user.participants[0].userId)}
             style={{
               backgroundColor: 'transparent',
               borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.1px',
@@ -99,7 +100,7 @@ export default function ContactList() {
               width: '100%',
             }}
           >
-            <ProfileAvatar avatarPath={user.avatar} username={user.username}/>
+            <ProfileAvatar avatarPath={user.participants[0].avatar} username={user.participants[0].username}/>
             <Stack
               direction="column"
               spacing={0}
@@ -110,7 +111,7 @@ export default function ContactList() {
                 paddingLeft: '16px',
               }}
             >
-              <Typography variant="body1">{user.username}</Typography>
+              <Typography variant="body1">{user.title}</Typography>
               <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage)}</Typography>
             </Stack>
             <Stack

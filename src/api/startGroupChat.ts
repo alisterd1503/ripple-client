@@ -1,28 +1,24 @@
-import { ContactModel } from "../models/ContactModel";
+import { UserModel } from "../models/UserModel";
 
-const API_URL="http://localhost:5002/api/getUserChat"
+const API_URL = 'http://localhost:5002/api/startGroupChat'
 
-export const getContacts = async (): Promise<any> => {
+export const startGroupChat = async (chosenUsers: UserModel[], title: string): Promise<void> => {
     try {
-
         const token = localStorage.getItem('token');
 
         const response = await fetch(API_URL, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
+            body: JSON.stringify({chosenUsers, title}),
         });
 
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
         }
-
-        const data = await response.json();
-        return data;
     } catch (error) {
-        console.error('Error fetching contacts:', error);
-        return [];
+        console.error('Error starting new group chat:', error);
     }
 };
