@@ -6,6 +6,7 @@ import { checkLogin } from '../api/checkLogin';
 import { AuthModel } from '../models/AuthModel';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import PasswordInput from '../components/PasswordInput';
 
 function LoginPage() {
 
@@ -55,35 +56,7 @@ function LoginPage() {
             </Grid2>
 
             <Grid2 size={12}>
-              <TextField
-                required
-                fullWidth
-                id="password"
-                label="Password"
-                type={seePassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        disableRipple
-                        onClick={() => setSeePassword(!seePassword)}
-                        edge="end"
-                        sx={{
-                          '&:hover': {
-                            backgroundColor: 'transparent',
-                            opacity: 0.7,
-                          },
-                        }}
-                      >
-                        {seePassword ? <VisibilityIcon sx={{height: '20px', width: '20px', marginRight: '10px'}}/> : <VisibilityOffIcon sx={{height: '20px', width: '20px', marginRight: '10px'}}/>}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <PasswordInput onChange={(e) => setPassword(e.target.value)} password={password} label='Password'/>
             </Grid2>
 
           </Grid2>

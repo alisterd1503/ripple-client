@@ -2,6 +2,7 @@ import { Box, Paper, Stack, TextField, Alert } from "@mui/material";
 import CenteredButton from './CenteredButton';
 import React, { useState } from "react";
 import { changePassword } from "../api/changePassword";
+import PasswordInput from "./PasswordInput";
 
 interface NewPassword {
     currentPassword: string,
@@ -46,28 +47,11 @@ export default function ChangePassword({ onClick }: { onClick: (e: any) => any }
                 }}
             >
                 <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 20px 10px 20px', flexDirection: 'column' }}>
-                    <TextField
-                        required
-                        label="Current Password"
-                        value={currentPassword}
-                        onChange={handleChange(setCurrentPassword)}
-                        sx={{ width: '100%', marginBottom: 5 }}
-                    />
-                    <TextField
-                        required
-                        label="New Password"
-                        value={newPassword}
-                        onChange={handleChange(setNewPassword)}
-                        sx={{ width: '100%', marginBottom: 2 }}
-                    />
-                    <TextField
-                        required
-                        label="Confirm New Password"
-                        value={confirmPassword}
-                        onChange={handleChange(setConfirmPassword)}
-                        sx={{ width: '100%' }}
-                    />
                     
+                    <PasswordInput onChange={handleChange(setCurrentPassword)} password={currentPassword} label='Current Password' marginBottom={5}/>
+                    <PasswordInput onChange={handleChange(setNewPassword)} password={newPassword} label='New Password' marginBottom={2}/>
+                    <PasswordInput onChange={handleChange(setConfirmPassword)} password={confirmPassword} label='Confirm Password'/>
+
                     <Stack
                         direction="row"
                         spacing={2}

@@ -3,6 +3,7 @@ import CenteredButton from './CenteredButton';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../api/deleteAccount";
+import PasswordInput from "./PasswordInput";
 
 export default function DeleteAccount({ onClick }: { onClick: (e: any) => any }) {
     const [message, setMessage] = useState<string | null>(null);
@@ -49,14 +50,7 @@ export default function DeleteAccount({ onClick }: { onClick: (e: any) => any })
                 {confirm ? 
                 (
                     <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 20px 10px 20px', flexDirection: 'column' }}>
-                        <TextField
-                            required
-                            label="Current Password"
-                            type="password"
-                            value={currentPassword}
-                            onChange={handleChange}
-                            sx={{ width: '100%' }}
-                        />
+                        <PasswordInput onChange={(e) => setCurrentPassword(e.target.value)} password={currentPassword} label='Current Password'/>
                         <Stack
                             direction="row"
                             spacing={2}
