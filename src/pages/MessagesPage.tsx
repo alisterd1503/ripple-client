@@ -33,7 +33,7 @@ export default function MessagesPage() {
     const [messages, setMessages] = useState<FormattedMessage[]>([]);
     const [input, setInput] = useState<string>("");
     const location = useLocation();
-    const { chatId, username, avatar, bio, added_at, userId } = location.state as MessagePageState || {};
+    const { chatId, username, avatar, bio, added_at } = location.state as MessagePageState || {};
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -105,7 +105,7 @@ export default function MessagesPage() {
             padding: 0
         }}>
             <div>
-                <ChatHeader username={username} avatar={avatar} bio={bio} added_at={added_at} userId={userId}/>
+                <ChatHeader username={username} avatar={avatar} bio={bio} added_at={added_at} chatId={chatId}/>
             </div>
             
             <div style={{

@@ -3,10 +3,11 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useLocation, useNavigate } from "react-router-dom";
 import ProfileAvatar from "../components/ProfileAvatar";
 import ProfileButton from "../components/ProfileButton";
+import { removeFriend } from "../api/removeFriend";
 
 interface ProfileStatePage {
     username: string,
-    userId: number,
+    chatId: number,
     bio: string,
     added_at: string,
     avatar: string
@@ -45,7 +46,16 @@ function convertISODate(isoDate: string): string {
 export default function ProfilePage() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { username, avatar, bio, added_at, userId } = location.state as ProfileStatePage || {};
+    const { username, avatar, bio, added_at, chatId } = location.state as ProfileStatePage || {};
+
+    const handleRemoveFriend = async () => {
+        try {
+            await removeFriend(chatId);
+            navigate('/contacts')
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
+    }
     return (
         <Stack
             direction="column"
@@ -124,7 +134,7 @@ export default function ProfilePage() {
                     }}
                 >
                     <ProfileButton text="Add to Favourites"/>
-                    <ProfileButton text="Remove Friend" red/>
+                    <ProfileButton onClick={handleRemoveFriend} text="Remove Friend" red/>
                 </Stack>
             </Paper>
                 
