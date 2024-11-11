@@ -16,8 +16,9 @@ import UpdateBio from "../components/UpdateBio";
 import ProfileCard from "../components/ProfileCard";
 import UpdateUsername from "../components/UpdateUsername";
 import ChangePassword from "../components/ChangePassword";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DeleteAccount from "../components/DeleteAccount";
+import LogoutIcon from '@mui/icons-material/LogoutOutlined';
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -88,16 +89,61 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                         text="Edit bio"
                     />
                     <SettingsButton 
-                        onClick={() => handleButtonClick("password")}
-                        icon={<PasswordIcon />}
-                        text="Change password"
-                    />
-                    <SettingsButton 
                         onClick={() => handleButtonClick("avatar")}
                         icon={<PhotoIcon />}
                         text="Change profile picture"
                     />
+                </Stack>
+            </Paper>
+
+            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                <Stack
+                    direction="column"
+                    spacing={0}
+                    sx={{
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                    }}
+                >
+                    <SettingsButton 
+                        onClick={() => handleButtonClick("password")}
+                        icon={<PasswordIcon />}
+                        text="Change password"
+                        single
+                    />
+                </Stack>
+            </Paper>
+
+            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                <Stack
+                    direction="column"
+                    spacing={0}
+                    sx={{
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                    }}
+                >
                     <DarkModeToggel toggleTheme={toggleTheme} mode={mode} />
+                </Stack>
+            </Paper>
+
+
+            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                <Stack
+                    direction="column"
+                    spacing={0}
+                    sx={{
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                    }}
+                >
+                    <SettingsButton 
+                        onClick={logout}
+                        icon={<LogoutIcon />}
+                        text="Logout"
+                        red
+                        single
+                    />
                 </Stack>
             </Paper>
 
@@ -159,10 +205,6 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             >
                 <DeleteAccount onClick={(e) => e.stopPropagation()} />
             </Backdrop>
-
-            <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>
-                Log Out
-            </Button>
 
             <Footer />
         </Stack>
