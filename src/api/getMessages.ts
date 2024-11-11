@@ -1,8 +1,14 @@
-import { MessageModel } from "../models/MessageModel";
-
+interface FormattedMessage {
+    userId: number;
+    username: string;
+    message: string;
+    createdAt: string;
+    direction: "outgoing" | "incoming";
+    position: "first" | "last" | "single";
+}
 const API_URL = "http://localhost:5002/api/getMessages";
 
-export const getMessages = async (chatId: number): Promise<MessageModel[]> => {
+export const getMessages = async (chatId: number): Promise<FormattedMessage[]> => {
     try {
         const token = localStorage.getItem('token');
 
@@ -18,7 +24,7 @@ export const getMessages = async (chatId: number): Promise<MessageModel[]> => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data: MessageModel[] = await response.json();
+        const data: FormattedMessage[] = await response.json();
         return data;
     } catch (error) {
         console.error('Error fetching messages:', error);

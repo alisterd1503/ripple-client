@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack } from '@mui/material';
+import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack, IconButton, InputAdornment } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from '../api/checkLogin';
 import { AuthModel } from '../models/AuthModel';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function LoginPage() {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
+  const [seePassword, setSeePassword] = useState(false) 
   const navigate = useNavigate(); 
 
   const validateLogin = async () => {
@@ -36,7 +39,7 @@ function LoginPage() {
           Login
         </Typography>
 
-        <Box component="form" onSubmit={(e) => { e.preventDefault(); validateLogin(); }} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={(e) => { e.preventDefault(); validateLogin(); }} sx={{ mt: 3 }} >
           <Grid2 container spacing={2}>
 
             <Grid2 size={12}>
@@ -57,10 +60,29 @@ function LoginPage() {
                 fullWidth
                 id="password"
                 label="Password"
-                type="text"
+                type={seePassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 variant="outlined"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        disableRipple
+                        onClick={() => setSeePassword(!seePassword)}
+                        edge="end"
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            opacity: 0.7,
+                          },
+                        }}
+                      >
+                        {seePassword ? <VisibilityIcon sx={{height: '20px', width: '20px', marginRight: '10px'}}/> : <VisibilityOffIcon sx={{height: '20px', width: '20px', marginRight: '10px'}}/>}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid2>
 

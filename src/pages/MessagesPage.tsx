@@ -25,19 +25,6 @@ interface MessagePageState {
     avatar: string
 }
 
-const formatMessages = (messages: MessageModel[], currentUserId: number): FormattedMessage[] => {
-    return messages.map((message) => {
-        const direction = message.userId === currentUserId ? "outgoing" : "incoming";
-        const position: "single" = "single";
-
-        return {
-            ...message,
-            direction,
-            position
-        };
-    });
-};
-
 export default function MessagesPage() {
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
     const [currentUsername, setCurrentUsername] = useState<string | null>(null);
@@ -64,11 +51,10 @@ export default function MessagesPage() {
 
     useEffect(() => {
         const fetchMessages = async () => {
-            if (chatId && currentUserId) {
+            if (chatId) {
                 try {
                     const result = await getMessages(chatId);
-                    const formattedMessages = formatMessages(result, currentUserId);
-                    setMessages(formattedMessages);
+                    setMessages(result);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
                 }
@@ -82,7 +68,7 @@ export default function MessagesPage() {
           }, 5000);
         
           return () => clearInterval(interval);
-    }, [chatId, currentUserId]);
+    }, [chatId]);
 
     const handleSend = async () => {
         if (!input.trim()) return;
