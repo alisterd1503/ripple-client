@@ -15,6 +15,7 @@ import DarkModeToggel from "../components/DarkModeToggel";
 import UpdateBio from "../components/UpdateBio";
 import ProfileCard from "../components/ProfileCard";
 import UpdateUsername from "../components/UpdateUsername";
+import ChangePassword from "../components/ChangePassword";
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -120,6 +121,14 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 onClick={handleClose}
             >
                 <UpdateUsername username={profile?.username} onClick={(e) => e.stopPropagation()} />
+            </Backdrop>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "password"}
+                onClick={handleClose}
+            >
+                <ChangePassword onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
             <Button variant="outlined" color="error" sx={{ width: "100%" }} onClick={logout}>

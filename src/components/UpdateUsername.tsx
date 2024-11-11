@@ -11,7 +11,6 @@ export default function UpdateUsername({ username, onClick }: { username: string
         const result = await updateUsername(newUsername)
     
         if (result.success) {
-            localStorage.setItem('username', newUsername);
             window.location.reload();
         } else {
             setMessage(result.message);
