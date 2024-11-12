@@ -13,6 +13,8 @@ export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
   const [value, setValue] = React.useState<UserModel[]>([]);
 
+  console.log('value',value)
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -118,7 +120,7 @@ export default function FindUsers() {
       />
 
       <div>
-        {value ? (
+        {value.length > 0 ? (
           <Button
             sx={{
               width: '40px',
