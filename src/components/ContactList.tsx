@@ -1,9 +1,11 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Avatar, AvatarGroup, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";
 import { ContactModel } from "../models/ContactModel";
 import ProfileAvatar from "./ProfileAvatar";
+import GroupIcon from '@mui/icons-material/Group';
+import { ChatModel } from "../models/ChatModel";
 
 function convertISODate(isoDate: string): string {
   const date = new Date(isoDate);
@@ -65,8 +67,15 @@ export default function ContactList() {
     return () => clearInterval(interval);
   }, []);
 
-  const openChat = (chatId: number, title: string, avatar: string, bio: string, added_at: string, userId: number) => {
-    navigate('/messages', { state: { chatId, title, avatar, bio, added_at, userId } });
+  const openChat = (user: ContactModel) => {
+    const body: ChatModel = {
+      chatId: user.chatId,
+      title: user.isGroupChat ? user.title : user.participants[0].username,
+      added_at: user.added_at,
+      isGroupChat: user.isGroupChat,
+      participants: user.participants,
+    };
+    navigate('/messages', { state: { body } });
   };
 
   return (
@@ -74,7 +83,7 @@ export default function ContactList() {
         {contacts.map((user) => (
           <Button
             key={user.chatId}
-            onClick={() => openChat(user.chatId, user.participants[0].username, user.participants[0].avatar, user.participants[0].bio, user.added_at, user.participants[0].userId)}
+            onClick={() => openChat(user)}
             style={{
               backgroundColor: 'transparent',
               borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.1px',
@@ -100,7 +109,17 @@ export default function ContactList() {
               width: '100%',
             }}
           >
-            <ProfileAvatar avatarPath={user.participants[0].avatar} username={user.participants[0].username}/>
+            {user.isGroupChat ? 
+              (<Avatar sx={{width: '60px', height: '60px', color: 'white'}}><GroupIcon /></Avatar>) 
+              :
+              (
+                <ProfileAvatar 
+                avatarPath={user.participants[0].avatar} 
+                username={user.participants[0].username}
+                />
+              )
+            }
+
             <Stack
               direction="column"
               spacing={0}
@@ -111,7 +130,7 @@ export default function ContactList() {
                 paddingLeft: '16px',
               }}
             >
-              <Typography variant="body1">{user.title}</Typography>
+              <Typography variant="body1">{user.isGroupChat ? user.title : user.participants[0].username}</Typography>
               <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage)}</Typography>
             </Stack>
             <Stack

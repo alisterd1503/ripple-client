@@ -8,32 +8,27 @@ import { jwtDecode } from "jwt-decode";
 import ChatHeader from "../components/ChatHeader";
 import MessagesInput from "../components/MessageInput";
 import { getUsername } from "../api/getUsername";
+import { ChatModel } from "../models/ChatModel";
 
 export interface FormattedMessage {
     userId: number;
     username: string;
+    avatar: string;
     message: string;
     createdAt: string;
     direction: "outgoing" | "incoming";
     position: "first" | "last" | "single";
 }
 
-interface MessagePageState {
-    chatId: number;
-    title: string;
-    avatar: string
-    bio: string;
-    added_at: string;
-    userId: number;
-}
 
 export default function MessagesPage() {
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
     const [currentUsername, setCurrentUsername] = useState<string | null>(null);
+    const [currentUserAvatar, setCurrentUserAvatar] = useState<string | null>(null);
     const [messages, setMessages] = useState<FormattedMessage[]>([]);
     const [input, setInput] = useState<string>("");
     const location = useLocation();
-    const { chatId, title, avatar, bio, added_at } = location.state as MessagePageState || {};
+    const { body } = location.state as { body: ChatModel };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -46,16 +41,17 @@ export default function MessagesPage() {
     useEffect(() => {
         const fetchUsername = async () => {
             const result = await getUsername();
-            setCurrentUsername(result);
+            setCurrentUsername(result.username);
+            setCurrentUserAvatar(result.avatar);
         };
         fetchUsername();
     }, []);
 
     useEffect(() => {
         const fetchMessages = async () => {
-            if (chatId) {
+            if (body.chatId) {
                 try {
-                    const result = await getMessages(chatId);
+                    const result = await getMessages(body.chatId);
                     setMessages(result);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
@@ -70,19 +66,22 @@ export default function MessagesPage() {
           }, 5000);
         
           return () => clearInterval(interval);
-    }, [chatId]);
+    }, [body.chatId]);
 
     const handleSend = async () => {
         if (!input.trim()) return;
         if (!currentUserId ) return;
         if (!currentUsername) return;
+        //TODO WHAT IF CURRENT USER AVATAR IS NULL, MESSAGE WONT SEND
+        if (!currentUserAvatar) return;
 
         try {
-            await postMessage(chatId, input);
+            await postMessage(body.chatId, input);
 
             const newMessage: FormattedMessage = {
                 userId: currentUserId,
                 username: currentUsername,
+                avatar: currentUserAvatar,
                 message: input,
                 createdAt: new Date().toISOString(),
                 direction: "outgoing",
@@ -105,7 +104,7 @@ export default function MessagesPage() {
             padding: 0
         }}>
             <div>
-                <ChatHeader title={title} avatar={avatar} bio={bio} added_at={added_at} chatId={chatId}/>
+                <ChatHeader body={body}/>
             </div>
             
             <div style={{
@@ -131,7 +130,7 @@ export default function MessagesPage() {
                         {message.userId !== currentUserId && (
                             <Avatar
                                 name={message.username}
-                                src={`http://localhost:5002${avatar}`}
+                                src={`http://localhost:5002${message.avatar}`}
                             />
                         )}
                     </Message>

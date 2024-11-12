@@ -1,6 +1,7 @@
 interface FormattedMessage {
     userId: number;
     username: string;
+    avatar: string;
     message: string;
     createdAt: string;
     direction: "outgoing" | "incoming";
