@@ -1,9 +1,7 @@
 import { AppBar, Stack, Toolbar, Typography } from "@mui/material";
-import ContactList from "../components/ContactList";
-import FindUsers from "../components/FindUsers";
 import Footer from "../components/Footer";
-
-
+import ContactList from "../components/ContactPage/ContactList";
+import FindUsers from "../components/ContactPage/FindUsers";
 
 export default function ContactsPage() {
     return (

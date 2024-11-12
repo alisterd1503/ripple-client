@@ -1,7 +1,7 @@
 
-const API_URL="http://localhost:5002/api/getUsername"
+const API_URL="http://localhost:5002/api/getUsernameAvatar"
 
-export const getUsername = async (): Promise<{username: string, avatar: string}> => {
+export const getUsernameAvatar = async (): Promise<{username: string, avatar: string}> => {
     try {
 
         const token = localStorage.getItem('token');

@@ -1,8 +1,9 @@
-import { AuthModel } from "../models/AuthModel";
+import { AuthModel } from "../../models/AuthModel";
+import { ResponseModel } from "../../models/ResponseModel";
 
 const API_URL = 'http://localhost:5002/api/login';
 
-export const checkLogin = async (login: AuthModel): Promise<{ success: boolean; message?: string }> => {
+export const checkLogin = async (login: AuthModel): Promise<ResponseModel> => {
     try {
         const response = await fetch(API_URL, {
             method: 'POST',

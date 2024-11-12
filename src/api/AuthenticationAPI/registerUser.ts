@@ -1,13 +1,9 @@
-import { AuthModel } from "../models/AuthModel";
+import { AuthModel } from "../../models/AuthModel";
+import { ResponseModel } from "../../models/ResponseModel";
 
 const API_URL = "http://localhost:5002/api/register";
 
-interface Response {
-  success: boolean;
-  message: string;
-}
-
-export const registerUser = async (registration: AuthModel): Promise<Response> => {
+export const registerUser = async (registration: AuthModel): Promise<ResponseModel> => {
     try {
         const response = await fetch(API_URL, {
             method: 'POST',

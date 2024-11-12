@@ -1,9 +1,9 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router-dom";
-import ProfileAvatar from "../components/ProfileAvatar";
-import ProfileButton from "../components/ProfileButton";
-import { removeFriend } from "../api/removeFriend";
+import { removeFriend } from "../../api/ProfileAPI/removeFriend";
+import ProfileAvatar from "../Reusable/ProfileAvatar";
+import ProfileButton from "./ProfileButton";
 
 interface UserProfileModel {
     userId: number;

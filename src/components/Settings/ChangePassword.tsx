@@ -1,8 +1,8 @@
-import { Box, Paper, Stack, TextField, Alert } from "@mui/material";
-import CenteredButton from './CenteredButton';
+import { Box, Paper, Stack, Alert } from "@mui/material";
 import React, { useState } from "react";
-import { changePassword } from "../api/changePassword";
-import PasswordInput from "./PasswordInput";
+import { changePassword } from "../../api/SettingsAPI/changePassword";
+import CenteredButton from "../Reusable/CenteredButton";
+import PasswordInput from "../Reusable/PasswordInput";
 
 interface NewPassword {
     currentPassword: string,

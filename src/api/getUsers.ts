@@ -1,5 +1,4 @@
 import { UserModel } from "../models/UserModel";
-
 const API_URL="http://localhost:5002/api/getUsers"
 
 export const getUsers = async (): Promise<UserModel[]> => {

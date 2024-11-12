@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Stack } from '@mui/system';
-import { Autocomplete, Button, InputAdornment, TextField } from '@mui/material';
+import { Autocomplete, Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { startChat } from '../api/startChat';
-import { getUsers } from '../api/getUsers';
-import { UserModel } from '../models/UserModel';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { startGroupChat } from '../api/startGroupChat';
-//import SearchIcon from '@mui/icons-material/Search';
+import { getUsers } from '../../api/getUsers';
+import { startChat } from '../../api/startChat';
+import { startGroupChat } from '../../api/startGroupChat';
+import { UserModel } from '../../models/UserModel';
 
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);

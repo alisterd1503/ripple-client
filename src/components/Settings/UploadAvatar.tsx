@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Avatar, Box, Paper, Stack, } from "@mui/material";
-import CenteredButton from './CenteredButton';
-import { uploadPhoto } from '../api/saveAvatar';
-import { deletePhoto } from '../api/deletePhoto';
-import ProfileAvatar from './ProfileAvatar';
+import { deletePhoto } from '../../api/SettingsAPI/deletePhoto';
+import { uploadPhoto } from '../../api/SettingsAPI/saveAvatar';
+import CenteredButton from '../Reusable/CenteredButton';
 
 export default function AvatarUpload({currentAvatar, onClick, username}: {currentAvatar: string | undefined, username: string | undefined, onClick: (e: any) => any}) {
     const [avatar, setAvatar] = useState<string | null>(null); 

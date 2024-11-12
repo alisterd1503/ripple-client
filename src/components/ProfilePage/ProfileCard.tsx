@@ -1,5 +1,5 @@
 import { Paper, Stack, Typography } from "@mui/material";
-import ProfileAvatar from "./ProfileAvatar";
+import ProfileAvatar from "../Reusable/ProfileAvatar";
 
 export default function ProfileCard({ avatar, username, bio }: { avatar: string | undefined, username: string | undefined, bio: string | undefined }) {
     return (

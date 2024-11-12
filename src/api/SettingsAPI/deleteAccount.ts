@@ -1,11 +1,7 @@
+import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = 'http://localhost:5002/api/deleteAccount';
 
-interface Response {
-    success: boolean;
-    message: string;
-}
-
-export const deleteAccount = async (currentPassword: string): Promise<Response> => {
+export const deleteAccount = async (currentPassword: string): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
         

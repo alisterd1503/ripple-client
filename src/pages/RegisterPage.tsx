@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, TextField, Button, Typography, Container, Grid2, Alert, Link, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../api/registerUser';
 import { AuthModel } from '../models/AuthModel';
+import { registerUser } from '../api/AuthenticationAPI/registerUser';
 
 export default function SignUpPage() {
   const [username, setUsername] = useState<string>('');

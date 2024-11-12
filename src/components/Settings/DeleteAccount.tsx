@@ -1,9 +1,9 @@
-import { Box, Paper, Stack, TextField, Typography, Alert, Button } from "@mui/material";
-import CenteredButton from './CenteredButton';
+import { Box, Paper, Stack, Alert, Button } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteAccount } from "../api/deleteAccount";
-import PasswordInput from "./PasswordInput";
+import { deleteAccount } from "../../api/SettingsAPI/deleteAccount";
+import CenteredButton from "../Reusable/CenteredButton";
+import PasswordInput from "../Reusable/PasswordInput";
 
 export default function DeleteAccount({ onClick }: { onClick: (e: any) => any }) {
     const [message, setMessage] = useState<string | null>(null);
@@ -20,11 +20,6 @@ export default function DeleteAccount({ onClick }: { onClick: (e: any) => any })
         } else {
             setMessage(result.message);
         }
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setCurrentPassword(value);
     };
 
     const handleConfirmClick = () => {

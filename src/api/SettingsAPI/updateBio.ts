@@ -1,11 +1,7 @@
+import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = "http://localhost:5002/api/updateBio"
 
-interface Response {
-    success: boolean;
-    message: string;
-}
-
-export const updateBio = async ( bio: string): Promise<Response> => {
+export const updateBio = async ( bio: string): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
 

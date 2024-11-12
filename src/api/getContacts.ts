@@ -1,5 +1,3 @@
-import { ContactModel } from "../models/ContactModel";
-
 const API_URL="http://localhost:5002/api/getUserChat"
 
 export const getContacts = async (): Promise<any> => {

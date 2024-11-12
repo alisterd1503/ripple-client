@@ -1,3 +1,4 @@
+import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = 'http://localhost:5002/api/changePassword';
 
 interface NewPassword {
@@ -5,12 +6,8 @@ interface NewPassword {
     newPassword: string,
     confirmPassword: string
 }
-interface Response {
-    success: boolean;
-    message: string;
-}
 
-export const changePassword = async (passwords: NewPassword): Promise<Response> => {
+export const changePassword = async (passwords: NewPassword): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
         

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Avatar } from '@mui/material';
-import stringAvatar from '../utils/stringAvatar';
+import stringAvatar from '../../utils/stringAvatar';
 
 interface ProfileAvatarProps {
     avatarPath?: string | undefined;

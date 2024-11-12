@@ -1,24 +1,24 @@
-import { Backdrop, Button, Paper, Stack, Typography } from "@mui/material";
+import { Backdrop, Paper, Stack, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import PenIcon from '@mui/icons-material/EditOutlined';
 import PasswordIcon from '@mui/icons-material/PasswordOutlined';
 import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
 import TextIcon from '@mui/icons-material/ShortTextOutlined';
-import SettingsButton from "../components/SettingsButton";
-import SearchSettings from "../components/SearchSettings";
 import { useState, useEffect } from "react";
 import { ProfileModel } from "../models/ProfileModel";
-import { getProfile } from "../api/getProfile";
-import UploadAvatar from "../components/UploadAvatar";
-import DarkModeToggel from "../components/DarkModeToggel";
-import UpdateBio from "../components/UpdateBio";
-import ProfileCard from "../components/ProfileCard";
-import UpdateUsername from "../components/UpdateUsername";
-import ChangePassword from "../components/ChangePassword";
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import DeleteAccount from "../components/DeleteAccount";
 import LogoutIcon from '@mui/icons-material/LogoutOutlined';
+import { getProfile } from "../api/SettingsAPI/getProfile";
+import ProfileCard from "../components/ProfilePage/ProfileCard";
+import SearchSettings from "../components/SettingPage/SearchSettings";
+import SettingsButton from "../components/SettingPage/SettingsButton";
+import ChangePassword from "../components/Settings/ChangePassword";
+import DarkModeToggel from "../components/Settings/DarkModeToggel";
+import DeleteAccount from "../components/Settings/DeleteAccount";
+import UpdateBio from "../components/Settings/UpdateBio";
+import UpdateUsername from "../components/Settings/UpdateUsername";
+import UploadAvatar from "../components/Settings/UploadAvatar";
 
 interface SettingsPageProps {
     toggleTheme: () => void;

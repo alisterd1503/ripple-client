@@ -1,12 +1,12 @@
 import { Avatar, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";
-import { ContactModel } from "../models/ContactModel";
-import ProfileAvatar from "./ProfileAvatar";
 import GroupIcon from '@mui/icons-material/Group';
-import { ChatModel } from "../models/ChatModel";
-import { convertISODate } from "../utils/convertISODate";
+import { getContacts } from "../../api/getContacts";
+import { ChatModel } from "../../models/ChatModel";
+import { ContactModel } from "../../models/ContactModel";
+import { convertISODate } from "../../utils/convertISODate";
+import ProfileAvatar from "../Reusable/ProfileAvatar";
 
 function formatLastMessage(lastMessage: string): string {
   let formattedMessage = ''

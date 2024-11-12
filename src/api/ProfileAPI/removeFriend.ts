@@ -1,11 +1,7 @@
+import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = 'http://localhost:5002/api/removeFriend';
 
-interface Response {
-    success: boolean;
-    message: string;
-}
-
-export const removeFriend = async (chatId: number): Promise<Response> => {
+export const removeFriend = async (chatId: number): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
         

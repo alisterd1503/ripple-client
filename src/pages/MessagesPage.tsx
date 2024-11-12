@@ -2,30 +2,21 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { MessageList, Message, Avatar } from "@chatscope/chat-ui-kit-react";
-import { getMessages } from "../api/getMessages";
-import { postMessage } from "../api/postMessage";
 import { jwtDecode } from "jwt-decode";
-import ChatHeader from "../components/ChatHeader";
-import MessagesInput from "../components/MessageInput";
-import { getUsername } from "../api/getUsername";
 import { ChatModel } from "../models/ChatModel";
-
-export interface FormattedMessage {
-    userId: number;
-    username: string;
-    avatar: string;
-    message: string;
-    createdAt: string;
-    direction: "outgoing" | "incoming";
-    position: "first" | "last" | "single";
-}
+import { getMessages } from "../api/MessagesAPI/getMessages";
+import { postMessage } from "../api/MessagesAPI/postMessage";
+import { MessageModel } from "../models/MessageModel";
+import ChatHeader from "../components/MessagePage/ChatHeader";
+import MessagesInput from "../components/MessagePage/MessageInput";
+import { getUsernameAvatar } from "../api/getUsernameAvatar";
 
 
 export default function MessagesPage() {
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
     const [currentUsername, setCurrentUsername] = useState<string | null>(null);
     const [currentUserAvatar, setCurrentUserAvatar] = useState<string | null>(null);
-    const [messages, setMessages] = useState<FormattedMessage[]>([]);
+    const [messages, setMessages] = useState<MessageModel[]>([]);
     const [input, setInput] = useState<string>("");
     const location = useLocation();
     const { body } = location.state as { body: ChatModel };
@@ -40,7 +31,7 @@ export default function MessagesPage() {
 
     useEffect(() => {
         const fetchUsername = async () => {
-            const result = await getUsername();
+            const result = await getUsernameAvatar();
             setCurrentUsername(result.username);
             setCurrentUserAvatar(result.avatar);
         };
@@ -69,16 +60,17 @@ export default function MessagesPage() {
     }, [body.chatId]);
 
     const handleSend = async () => {
-        if (!input.trim()) return;
-        if (!currentUserId ) return;
-        if (!currentUsername) return;
+        if (!input.trim()) {console.log('1'); return}
+        if (!currentUserId ) {console.log('2'); return}
+        if (!currentUsername) {console.log('3'); return}
         //TODO WHAT IF CURRENT USER AVATAR IS NULL, MESSAGE WONT SEND
-        if (!currentUserAvatar) return;
+        if (!currentUserAvatar) {console.log('4'); return}
 
         try {
+            console.log('post')
             await postMessage(body.chatId, input);
 
-            const newMessage: FormattedMessage = {
+            const newMessage: MessageModel = {
                 userId: currentUserId,
                 username: currentUsername,
                 avatar: currentUserAvatar,

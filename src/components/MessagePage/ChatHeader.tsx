@@ -6,9 +6,9 @@ import { Avatar, Stack,  } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ProfileAvatar from './ProfileAvatar';
-import { ChatModel } from '../models/ChatModel';
 import GroupIcon from '@mui/icons-material/Group';
+import { ChatModel } from '../../models/ChatModel';
+import ProfileAvatar from '../Reusable/ProfileAvatar';
 
 export default function ChatHeader({body}:{body: ChatModel}) {
     const navigate = useNavigate(); 
@@ -42,7 +42,7 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
-                        onClick={() => navigate("/contacts")}
+                        onClick={() => navigate(-1)}
                     >
                         <ArrowBackIosNewIcon fontSize="large" sx={{ color: 'white' }} />
                     </button>

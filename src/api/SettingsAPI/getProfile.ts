@@ -1,5 +1,4 @@
-import { ProfileModel } from "../models/ProfileModel";
-
+import { ProfileModel } from "../../models/ProfileModel";
 const API_URL="http://localhost:5002/api/getProfile"
 
 export const getProfile = async (): Promise<ProfileModel> => {

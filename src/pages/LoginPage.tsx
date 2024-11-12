@@ -1,19 +1,16 @@
 import { useState } from 'react';
-import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack, IconButton, InputAdornment } from '@mui/material';
+import { Container, Box, Typography, Grid2, TextField, Button, Alert, Link, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { checkLogin } from '../api/checkLogin';
 import { AuthModel } from '../models/AuthModel';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import PasswordInput from '../components/PasswordInput';
+import { checkLogin } from '../api/AuthenticationAPI/checkLogin';
+import PasswordInput from '../components/Reusable/PasswordInput';
 
 function LoginPage() {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
-  const [seePassword, setSeePassword] = useState(false) 
   const navigate = useNavigate(); 
 
   const validateLogin = async () => {

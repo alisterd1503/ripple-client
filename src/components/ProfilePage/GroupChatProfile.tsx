@@ -1,16 +1,16 @@
 import { Avatar, Backdrop, Paper, Stack, TextField, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router-dom";
-import ProfileButton from "../components/ProfileButton";
 import GroupIcon from '@mui/icons-material/Group';
-import { ChatModel } from "../models/ChatModel";
-import ListMembers from "../components/ListMembers";
-import { convertISODate } from "../utils/convertISODate";
-import SettingsButton from "../components/SettingsButton";
 import { useState } from "react";
 import PenIcon from '@mui/icons-material/EditOutlined';
 import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
 import TextIcon from '@mui/icons-material/ShortTextOutlined';
+import { ChatModel } from "../../models/ChatModel";
+import { convertISODate } from "../../utils/convertISODate";
+import SettingsButton from "../SettingPage/SettingsButton";
+import ListMembers from "./ListMembers";
+import ProfileButton from "./ProfileButton";
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();

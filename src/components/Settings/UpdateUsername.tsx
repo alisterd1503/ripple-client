@@ -1,15 +1,14 @@
-import { Box, Paper, Stack, TextField, Typography, Alert } from "@mui/material";
-import CenteredButton from './CenteredButton';
+import { Box, Paper, Stack, TextField, Alert } from "@mui/material";
 import React, { useState } from "react";
-import { updateBio } from "../api/updateBio";
+import CenteredButton from "../Reusable/CenteredButton";
+import { updateUsername } from "../../api/SettingsAPI/udpateUsername";
 
-export default function UpdateBio({ bio, onClick }: { bio: string | undefined, onClick: (e: any) => any }) {
-    const [count, setCount] = useState(0);
-    const [newBio, setNewBio] = useState<string>('');
+export default function UpdateUsername({ username, onClick }: { username: string | undefined, onClick: (e: any) => any }) {
+    const [newUsername, setNewUsername] = useState<string>('');
     const [message, setMessage] = useState<string | null>(null);
 
-    const handleUpdateBio = async () => {
-        const result = await updateBio(newBio)
+    const handleUpdateUsername = async () => {
+        const result = await updateUsername(newUsername)
     
         if (result.success) {
             window.location.reload();
@@ -20,8 +19,7 @@ export default function UpdateBio({ bio, onClick }: { bio: string | undefined, o
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setCount(value.length);
-        setNewBio(value);
+        setNewUsername(value);
     };
 
     return (
@@ -36,12 +34,10 @@ export default function UpdateBio({ bio, onClick }: { bio: string | undefined, o
             >
                 <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 20px 10px 20px', flexDirection: 'column' }}>
                     <TextField
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={4}
-                        placeholder={bio}
+                        id="outlined-basic"
+                        placeholder={username}
                         sx={{ width: '100%' }}
-                        value={newBio}
+                        value={newUsername}
                         onChange={handleChange}
                     />
                     <Stack
@@ -53,13 +49,12 @@ export default function UpdateBio({ bio, onClick }: { bio: string | undefined, o
                             width: '100%',
                         }}
                     >
-                        <div>{message && <Alert severity="info" sx={{ padding: 0, backgroundColor: 'transparent'}}>{message}</Alert>}</div>
-                        <Typography sx={{ opacity: 0.5 }}>{count}/100</Typography>
+                        <div style={{height: '30px'}}>{message && <Alert severity="info" sx={{ backgroundColor: 'transparent', padding: 0}}>{message}</Alert>}</div>
                     </Stack>
                 </Box>
                 <CenteredButton 
-                    onClick={handleUpdateBio}
-                    text="Update Bio"
+                    onClick={handleUpdateUsername}
+                    text="Update Username"
                 />
             </Stack>
         </Paper>

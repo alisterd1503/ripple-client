@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { ChatModel } from "../models/ChatModel";
-import GCProfilePage from "./GCProfilePage";
-import UserProfilePage from "./UserProfilePage";
+import GCProfilePage from "../components/ProfilePage/GroupChatProfile";
+import UserProfilePage from "../components/ProfilePage/UserProfile";
 
 export default function ProfilePage() {
     const location = useLocation();

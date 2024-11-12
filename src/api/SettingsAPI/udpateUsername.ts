@@ -1,11 +1,7 @@
+import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = "http://localhost:5002/api/updateUsername"
 
-interface Response {
-    success: boolean;
-    message: string;
-}
-
-export const updateUsername = async ( username: string): Promise<Response> => {
+export const updateUsername = async ( username: string): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
 
