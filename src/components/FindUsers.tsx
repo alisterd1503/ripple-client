@@ -12,8 +12,7 @@ import { startGroupChat } from '../api/startGroupChat';
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
   const [value, setValue] = React.useState<UserModel[]>([]);
-
-  console.log('value',value)
+  const [title, setTitle] = React.useState<string>('');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -28,7 +27,7 @@ export default function FindUsers() {
   }, []);
 
   const handleOnClick = () => {
-    value.length > 1 ? startNewGroupChat(value, 'hello') : startNewChat(value[0].userId, value[0].username)
+    value.length > 1 ? startNewGroupChat(value, title) : startNewChat(value[0].userId, value[0].username)
   }
 
   const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
@@ -54,100 +53,156 @@ export default function FindUsers() {
   }
 
   return (
-    <Stack
-      direction="row"
-      spacing={1}
-      sx={{
-        justifyContent: "flex-start",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
-      <Autocomplete
-        multiple
-        id="tags-standard"
-        options={allUsers}
-        value={value}
-        onChange={(event, newValue) => setValue(newValue)}
-        getOptionLabel={(option) => option.username}
+    <Stack direction="column" spacing={2} sx={{ justifyContent: "center", alignItems: "center", width: '100%', paddingTop: 2}}>
+      <Stack
+        direction="row"
+        spacing={1}
         sx={{
-          width: '100%',
-          '& .MuiInputBase-root': {
-            padding: 0,
-            borderRadius: '8px',
-            backgroundColor: '#272727',
-            border: '1px solid #3C3D37',
-            '&.Mui-focused': {
-              borderColor: '#1d6d5b',
-            },
-          },
-          '& .MuiOutlinedInput-notchedOutline': {
-            border: 'none',
-          },
-          '& .MuiOutlinedInput-input': {
-            padding: '10px 16px',
-            color: 'white',
-            fontSize: '16px',
-            '::placeholder': {
-              color: '#a0d7d1',
-              opacity: 1,
-            },
-          },
-          '& .MuiAutocomplete-endAdornment': {
-            display: 'none',
-          },
-          '& .MuiAutocomplete-paper': {
-            backgroundColor: '#054640',
-            color: 'white',
-            borderRadius: '8px',
-          },
-          '& .MuiAutocomplete-option': {
-            padding: '8px 16px',
-            '&[aria-selected="true"]': {
-              backgroundColor: '#1d6d5b',
-            },
-            '&:hover': {
-              backgroundColor: '#065a4b',
-            },
-          },
+          justifyContent: "flex-start",
+          alignItems: "center",
+          width: "100%",
         }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Search Username"
-          />
-        )}
-      />
+      >
+        <Autocomplete
+          multiple
+          id="tags-standard"
+          options={allUsers}
+          value={value}
+          onChange={(event, newValue) => setValue(newValue)}
+          getOptionLabel={(option) => option.username}
+          sx={style}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Search Username"
+            />
+          )}
+        />
 
-      <div>
-        {value.length > 0 ? (
-          <Button
-            sx={{
-              width: '40px',
-              height: '40px',
-              minWidth: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              borderRadius: '50%',
-            }}
-            onClick={handleOnClick}>
-            <PersonAddIcon fontSize="medium" sx={{color: 'white'}} />
-          </Button>
-        ) : (
-          <Button disabled
-            sx={{
-              width: '40px',
-              height: '40px',
-              minWidth: 'auto',
-              display: 'flex',
-              alignItems: 'center',
-              borderRadius: '50%',
-            }}
-          >
-            <PersonAddIcon fontSize="medium" />
-          </Button>
-        )}
-      </div>
+        <div>
+          {(value.length > 0 && title)? (
+            <Button
+              sx={{
+                width: '40px',
+                height: '40px',
+                minWidth: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                borderRadius: '50%',
+              }}
+              onClick={handleOnClick}>
+              <PersonAddIcon fontSize="medium" sx={{color: 'white'}} />
+            </Button>
+          ) : (
+            <Button disabled
+              sx={{
+                width: '40px',
+                height: '40px',
+                minWidth: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                borderRadius: '50%',
+              }}
+            >
+              <PersonAddIcon fontSize="medium" />
+            </Button>
+          )}
+        </div>
+      </Stack>
+      <TextField sx={Textstyle} required
+        fullWidth
+        id="title"
+        placeholder="Add Group Name"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        variant="outlined"
+      />
     </Stack>
   );
 }
+
+const style = {
+  width: '100%',
+  '& .MuiInputBase-root': {
+    padding: 0,
+    borderRadius: '8px',
+    backgroundColor: '#272727',
+    border: '1px solid #3C3D37',
+    '&.Mui-focused': {
+      borderColor: '#1d6d5b',
+    },
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+  '& .MuiOutlinedInput-input': {
+    padding: '10px 16px',
+    color: 'white',
+    fontSize: '16px',
+    marginLeft: 1,
+    '::placeholder': {
+      color: '#a0d7d1',
+      opacity: 1,
+    },
+  },
+  '& .MuiAutocomplete-endAdornment': {
+    display: 'none',
+  },
+  '& .MuiAutocomplete-paper': {
+    backgroundColor: '#054640',
+    color: 'white',
+    borderRadius: '8px',
+  },
+  '& .MuiAutocomplete-option': {
+    padding: '8px 16px',
+    '&[aria-selected="true"]': {
+      backgroundColor: '#1d6d5b',
+    },
+    '&:hover': {
+      backgroundColor: '#065a4b',
+    },
+  },
+};
+
+const Textstyle = {
+  width: '100%',
+  '& .MuiInputBase-root': {
+    padding: 0,
+    borderRadius: '8px',
+    backgroundColor: '#272727',
+    border: '1px solid #3C3D37',
+    '&.Mui-focused': {
+      borderColor: '#1d6d5b',
+    },
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+  '& .MuiOutlinedInput-input': {
+    height: '15px',
+    padding: '10px 16px',
+    color: 'white',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#a0d7d1',
+      opacity: 1,
+    },
+  },
+  '& .MuiAutocomplete-endAdornment': {
+    display: 'none',
+  },
+  '& .MuiAutocomplete-paper': {
+    backgroundColor: '#054640',
+    color: 'white',
+    borderRadius: '8px',
+  },
+  '& .MuiAutocomplete-option': {
+    padding: '8px 16px',
+    '&[aria-selected="true"]': {
+      backgroundColor: '#1d6d5b',
+    },
+    '&:hover': {
+      backgroundColor: '#065a4b',
+    },
+  },
+};

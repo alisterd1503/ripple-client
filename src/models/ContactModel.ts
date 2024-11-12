@@ -12,23 +12,3 @@ export interface ContactModel {
         bio: string,
     }],
 }
-
-interface ProfileModel {
-    username: string,
-    userId: number,
-    bio: string,
-    avatar: string,
-    added_at: string
-}
-
-interface GroupChatModel {
-    title: string,
-    chatId: number,
-    created_at: number
-    participants: [{
-        userId: number,
-        username: string,
-        avatar: string,
-        bio: string,
-    }],
-}

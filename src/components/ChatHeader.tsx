@@ -57,12 +57,13 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                         }}
                     >
                         {body.isGroupChat ? 
-                        (<Avatar sx={{width: '40px', height: '40px', color: 'white', transition: '0.3s',
-                            '&:hover': {
-                                cursor: 'pointer',
-                                opacity: 0.8,
-                                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                            }}} onClick={()=>openProfile(body)}><GroupIcon /></Avatar>) 
+                        (<Avatar 
+                            sx={{width: '40px', height: '40px', color: 'white', transition: '0.3s',
+                            '&:hover': { cursor: 'pointer', opacity: 0.8, boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)' }}} 
+                            onClick={()=>openProfile(body)}
+                        >
+                            <GroupIcon />
+                        </Avatar>) 
                         : 
                         (<ProfileAvatar avatarPath={body.participants[0].avatar} username={body.participants[0].username} height='40px' width='40px' onClick={()=>openProfile(body)}/>)}
                         <Typography variant="h4" component="div" fontWeight={'10px'} sx={{ flexGrow: 1, textAlign: 'center' }}>

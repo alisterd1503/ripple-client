@@ -1,6 +1,8 @@
 import { Paper, Stack, Button, Typography } from "@mui/material";
 import ProfileAvatar from "./ProfileAvatar";
 import ArrowIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import { ChatModel } from "../models/ChatModel";
+import { useNavigate } from "react-router-dom";
 
 interface Members {
     userId: number;
@@ -10,6 +12,12 @@ interface Members {
 }
 
 export default function ListMembers({members, count}:{members:Members[], count: number}) {
+    const navigate = useNavigate(); 
+
+    const openProfile = (body: ChatModel) => {
+        navigate('/profile', { state: { body } });
+    };
+
     return (
         <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: '100%'}}>
             <Typography variant="h6" fontSize={20} fontWeight={"bold"} gutterBottom>

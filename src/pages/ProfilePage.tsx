@@ -9,7 +9,7 @@ export default function ProfilePage() {
 
     return (
         <>
-            {body.isGroupChat ? (<GCProfilePage body={body}/>) : (<UserProfilePage body={body}/>)}
+            {body.isGroupChat ? (<GCProfilePage body={body}/>) : (<UserProfilePage body={body.participants[0]} chatId={body.chatId}/>)}
         </>
     )
 }

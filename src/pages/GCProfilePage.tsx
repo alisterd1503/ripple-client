@@ -1,44 +1,29 @@
-import { Avatar, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Backdrop, Paper, Stack, TextField, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
 import GroupIcon from '@mui/icons-material/Group';
 import { ChatModel } from "../models/ChatModel";
 import ListMembers from "../components/ListMembers";
-
-
-function convertISODate(isoDate: string): string {
-    const date = new Date(isoDate);
-    const now = new Date();
-  
-    const formattedDate = date.toLocaleDateString('en-GB');
-    const formattedTime = date.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-    const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'long' });
-  
-    // Check if the date is today
-    const isToday = date.toDateString() === now.toDateString();
-    if (isToday) {
-      return formattedTime;
-    }
-  
-    // Check if the date is within the current week
-    const dayDifference = (now.getDay() + 7 - date.getDay()) % 7;
-    const isThisWeek = dayDifference < now.getDay() && dayDifference >= 0;
-  
-    if (isThisWeek) {
-      return dayOfWeek;
-    }
-  
-    // For any other dates, return the formatted date (dd/mm/yyyy)
-    return formattedDate;
-}
+import { convertISODate } from "../utils/convertISODate";
+import SettingsButton from "../components/SettingsButton";
+import { useState } from "react";
+import PenIcon from '@mui/icons-material/EditOutlined';
+import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
+import TextIcon from '@mui/icons-material/ShortTextOutlined';
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
+
+    const [openBackdrop, setOpenBackdrop] = useState<string | null>(null);
+
+    const handleClose = () => {
+        setOpenBackdrop(null);
+    };
+
+    const handleButtonClick = (action: string) => {
+        setOpenBackdrop(action);
+    };
 
     return (
         <Stack
@@ -112,6 +97,33 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                 </Stack>
             </Paper>
 
+            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                <Stack
+                    direction="column"
+                    spacing={0}
+                    sx={{
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                    }}
+                >
+                    <SettingsButton 
+                        onClick={() => handleButtonClick("title")}
+                        icon={<PenIcon/>}
+                        text="Edit title"
+                    />
+                    <SettingsButton 
+                        onClick={() => handleButtonClick("description")}
+                        icon={<TextIcon />}
+                        text="Edit description"
+                    />
+                    <SettingsButton 
+                        onClick={() => handleButtonClick("avatar")}
+                        icon={<PhotoIcon />}
+                        text="Change group picture"
+                    />
+                </Stack>
+            </Paper>
+
             <ListMembers members={body.participants} count={body.participants.length}/>
 
             <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
@@ -127,7 +139,33 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                     <ProfileButton text="Leave Group" red/>
                 </Stack>
             </Paper>
-                
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "avatar"}
+                onClick={handleClose}
+            >
+                <TextField label="avatar"/>
+            </Backdrop>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "description"}
+                onClick={handleClose}
+            >
+                <TextField label="description"/>
+            </Backdrop>
+
+            <Backdrop
+                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                open={openBackdrop === "title"}
+                onClick={handleClose}
+            >
+                <TextField label="title"/>
+            </Backdrop>
+
         </Stack>
+
+        
     )
 }
