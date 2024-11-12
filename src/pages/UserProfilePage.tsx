@@ -1,6 +1,6 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileAvatar from "../components/ProfileAvatar";
 import ProfileButton from "../components/ProfileButton";
 import { removeFriend } from "../api/removeFriend";
@@ -39,7 +39,6 @@ function convertISODate(isoDate: string): string {
 
 export default function UserProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
-    const location = useLocation();
 
     const handleRemoveFriend = async () => {
         try {

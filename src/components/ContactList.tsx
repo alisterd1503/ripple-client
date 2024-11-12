@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getContacts } from "../api/getContacts";
 import { useNavigate } from "react-router-dom";

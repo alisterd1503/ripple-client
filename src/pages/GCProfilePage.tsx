@@ -1,11 +1,10 @@
 import { Avatar, Paper, Stack, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { useLocation, useNavigate } from "react-router-dom";
-import ProfileAvatar from "../components/ProfileAvatar";
+import { useNavigate } from "react-router-dom";
 import ProfileButton from "../components/ProfileButton";
 import GroupIcon from '@mui/icons-material/Group';
 import { ChatModel } from "../models/ChatModel";
-import SettingsButton from "../components/SettingsButton";
+import ListMembers from "../components/ListMembers";
 
 
 function convertISODate(isoDate: string): string {
@@ -40,7 +39,6 @@ function convertISODate(isoDate: string): string {
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
-    const location = useLocation();
 
     return (
         <Stack
@@ -113,6 +111,8 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                     <Typography sx={{padding: '10px', opacity: 0.7}}>Created: {convertISODate(body.added_at)}</Typography>
                 </Stack>
             </Paper>
+
+            <ListMembers members={body.participants} count={body.participants.length}/>
 
             <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
                 <Stack
