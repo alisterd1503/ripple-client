@@ -13,6 +13,7 @@ import ListMembers from "./ListMembers";
 import ProfileButton from "./ProfileButton";
 import { leaveGroup } from "../../api/ProfileAPI/leaveGroup";
 import UpdateTitle from "../GroupChatSettings/UpdateTitle";
+import UpdateDescription from "../GroupChatSettings/UpdateDescription";
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
@@ -164,7 +165,7 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                 open={openBackdrop === "description"}
                 onClick={handleClose}
             >
-                <TextField label="description"/>
+                <UpdateDescription chatId={body.chatId} description={body.description} onClick={(e) => e.stopPropagation()}/>
             </Backdrop>
 
             <Backdrop
