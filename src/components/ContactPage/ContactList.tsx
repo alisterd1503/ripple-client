@@ -7,13 +7,15 @@ import { ContactModel } from "../../models/ContactModel";
 import { convertISODate } from "../../utils/convertISODate";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 
-function formatLastMessage(lastMessage: string): string {
+function formatLastMessage(lastMessage: string, username: string, isGroupChat: boolean): string {
   let formattedMessage = ''
   if (!lastMessage) {
     formattedMessage = 'Start Chat...'
     return formattedMessage
   }
-  lastMessage.length > 70 ? formattedMessage = lastMessage.substring(0, 70) + '...' : formattedMessage = lastMessage
+  if (isGroupChat) formattedMessage += `${username}: `
+
+  lastMessage.length > 70 ? formattedMessage += lastMessage.substring(0, 50) + '...' : formattedMessage += lastMessage
   return formattedMessage
 }
 
@@ -96,7 +98,7 @@ export default function ContactList() {
               }}
             >
               <Typography variant="body1">{user.isGroupChat ? user.title : user.participants[0].username}</Typography>
-              <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage)}</Typography>
+              <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage, user.lastMessageSender, user.isGroupChat)}</Typography>
             </Stack>
             <Stack
               direction="column"
