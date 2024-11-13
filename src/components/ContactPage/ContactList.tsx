@@ -1,7 +1,6 @@
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import GroupIcon from '@mui/icons-material/Group';
 import { getContacts } from "../../api/getContacts";
 import { ChatModel } from "../../models/ChatModel";
 import { ContactModel } from "../../models/ContactModel";
@@ -42,6 +41,7 @@ export default function ContactList() {
       chatId: user.chatId,
       title: user.isGroupChat ? user.title : user.participants[0].username,
       description: user.description,
+      groupAvatar: user.groupAvatar,
       added_at: user.added_at,
       isGroupChat: user.isGroupChat,
       participants: user.participants,
@@ -80,16 +80,10 @@ export default function ContactList() {
               width: '100%',
             }}
           >
-            {user.isGroupChat ? 
-              (<Avatar sx={{width: '60px', height: '60px', color: 'white'}}><GroupIcon /></Avatar>) 
-              :
-              (
-                <ProfileAvatar 
-                avatarPath={user.participants[0].avatar} 
-                username={user.participants[0].username}
-                />
-              )
-            }
+            <ProfileAvatar 
+              avatarPath={user.isGroupChat ? user.groupAvatar : user.participants[0].avatar} 
+              username={user.isGroupChat ? user.title : user.participants[0].username}
+            />
 
             <Stack
               direction="column"

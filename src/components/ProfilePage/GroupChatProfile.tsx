@@ -1,7 +1,6 @@
-import { Avatar, Backdrop, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Backdrop, Paper, Stack, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router-dom";
-import GroupIcon from '@mui/icons-material/Group';
 import { useState } from "react";
 import PenIcon from '@mui/icons-material/EditOutlined';
 import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
@@ -14,6 +13,8 @@ import ProfileButton from "./ProfileButton";
 import { leaveGroup } from "../../api/ProfileAPI/leaveGroup";
 import UpdateTitle from "../GroupChatSettings/UpdateTitle";
 import UpdateDescription from "../GroupChatSettings/UpdateDescription";
+import UploadGroupAvatar from "../GroupChatSettings/UploadGroupAvatar";
+import ProfileAvatar from "../Reusable/ProfileAvatar";
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
@@ -74,7 +75,8 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                     <Typography variant="h6" fontSize={18} gutterBottom>Edit</Typography>
             </Stack>
 
-            <Avatar sx={{width: '100px', height: '100px', color: 'white'}}><GroupIcon /></Avatar>
+            <ProfileAvatar avatarPath={body.groupAvatar} username={body.title} width={'100px'} height={'100px'}/>
+            
             <Typography variant="h3" fontWeight={"bold"} fontSize={30} gutterBottom>
                     {body.title}
             </Typography>
@@ -157,7 +159,7 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                 open={openBackdrop === "avatar"}
                 onClick={handleClose}
             >
-                <TextField label="avatar"/>
+                <UploadGroupAvatar title={body.title} currentAvatar={body.groupAvatar} chatId={body.chatId} onClick={(e) => e.stopPropagation()}/>
             </Backdrop>
 
             <Backdrop

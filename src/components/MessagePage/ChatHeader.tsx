@@ -2,11 +2,10 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar, Stack,  } from '@mui/material';
+import { Stack,  } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import GroupIcon from '@mui/icons-material/Group';
 import { ChatModel } from '../../models/ChatModel';
 import ProfileAvatar from '../Reusable/ProfileAvatar';
 
@@ -56,16 +55,13 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                             alignItems: "center",
                         }}
                     >
-                        {body.isGroupChat ? 
-                        (<Avatar 
-                            sx={{width: '40px', height: '40px', color: 'white', transition: '0.3s',
-                            '&:hover': { cursor: 'pointer', opacity: 0.8, boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)' }}} 
+                        <ProfileAvatar 
+                            avatarPath={body.isGroupChat ? body.groupAvatar : body.participants[0].avatar} 
+                            username={body.isGroupChat ? body.title : body.participants[0].username}
                             onClick={()=>openProfile(body)}
-                        >
-                            <GroupIcon />
-                        </Avatar>) 
-                        : 
-                        (<ProfileAvatar avatarPath={body.participants[0].avatar} username={body.participants[0].username} height='40px' width='40px' onClick={()=>openProfile(body)}/>)}
+                            height='40px' width='40px'
+                        />
+
                         <Typography variant="h4" component="div" fontWeight={'10px'} sx={{ flexGrow: 1, textAlign: 'center' }}>
                             {body.isGroupChat ? body.title : body.participants[0].username}
                         </Typography>
