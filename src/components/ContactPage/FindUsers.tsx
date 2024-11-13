@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Stack } from '@mui/system';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AddIcon from '@mui/icons-material/AddBox';
 import { getUsers } from '../../api/getUsers';
 import { startChat } from '../../api/startChat';
 import { startGroupChat } from '../../api/startGroupChat';
@@ -90,7 +90,7 @@ export default function FindUsers() {
                 borderRadius: '50%',
               }}
               onClick={handleOnClick}>
-              <PersonAddIcon fontSize="medium" sx={{color: 'white'}} />
+              <AddIcon fontSize="large" sx={{color: 'white'}} />
             </Button>
           ) : (
             <Button disabled
@@ -103,7 +103,7 @@ export default function FindUsers() {
                 borderRadius: '50%',
               }}
             >
-              <PersonAddIcon fontSize="medium" />
+              <AddIcon fontSize="large" />
             </Button>
           )}
         </div>

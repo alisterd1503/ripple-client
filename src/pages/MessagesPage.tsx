@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import { MessageList, Message, Avatar } from "@chatscope/chat-ui-kit-react";
+import { MessageList, Message, Avatar, MessageGroup } from "@chatscope/chat-ui-kit-react";
 import { jwtDecode } from "jwt-decode";
 import { ChatModel } from "../models/ChatModel";
 import { getMessages } from "../api/MessagesAPI/getMessages";
@@ -10,7 +10,8 @@ import { MessageModel } from "../models/MessageModel";
 import ChatHeader from "../components/MessagePage/ChatHeader";
 import MessagesInput from "../components/MessagePage/MessageInput";
 import { getUsernameAvatar } from "../api/getUsernameAvatar";
-
+import { Typography } from "@mui/material";
+import { convertISODate } from "../utils/convertISODate";
 
 export default function MessagesPage() {
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
@@ -67,7 +68,6 @@ export default function MessagesPage() {
         if (!currentUserAvatar) {console.log('4'); return}
 
         try {
-            console.log('post')
             await postMessage(body.chatId, input);
 
             const newMessage: MessageModel = {
@@ -86,6 +86,18 @@ export default function MessagesPage() {
             console.error("Error sending message:", error);
         }
     };
+
+    function messageFooter(isGroupChat: boolean, userId: number, currentUserId: number | null, username: string, time: string): string {
+        let footer = ''
+        let formattedTime = convertISODate(time)
+        if (isGroupChat) {
+            if (userId !== currentUserId) footer += (username+' ')
+            footer += formattedTime
+        } else {
+            footer += formattedTime
+        }
+        return footer
+    }
 
     return (
         <div style={{
@@ -109,6 +121,8 @@ export default function MessagesPage() {
                 }}
             >
                 {messages.map((message) => (<>
+                    <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>
+                    <MessageGroup.Messages>
                     <Message
                         key={message.createdAt}
                         model={{
@@ -126,6 +140,13 @@ export default function MessagesPage() {
                             />
                         )}
                     </Message>
+                    </MessageGroup.Messages>
+                    <MessageGroup.Footer>
+                        <Typography sx={{color: 'white', fontSize: 12, opacity: 0.5}}>
+                            {messageFooter(body.isGroupChat, message.userId, currentUserId, message.username, message.createdAt)}
+                        </Typography>
+                    </MessageGroup.Footer>
+                    </MessageGroup>
                     </>
                 ))}
                 </MessageList>

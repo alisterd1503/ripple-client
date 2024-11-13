@@ -5,6 +5,7 @@ export interface ContactModel {
     groupAvatar: string,
     isGroupChat: boolean,
     lastMessage: string,
+    lastSender: number,
     lastMessageTime: string,
     added_at: string,
     participants: [{
