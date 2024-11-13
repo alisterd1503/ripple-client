@@ -24,6 +24,7 @@ export default function UserProfilePage({body, chatId}:{body: UserProfileModel, 
             console.error("Error sending message:", error);
         }
     }
+    
     return (
         <Stack
             direction="column"

@@ -11,6 +11,7 @@ import { convertISODate } from "../../utils/convertISODate";
 import SettingsButton from "../SettingPage/SettingsButton";
 import ListMembers from "./ListMembers";
 import ProfileButton from "./ProfileButton";
+import { leaveGroup } from "../../api/ProfileAPI/leaveGroup";
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
@@ -24,6 +25,15 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
     const handleButtonClick = (action: string) => {
         setOpenBackdrop(action);
     };
+
+    const handleLeaveGroup = async () => {
+        try {
+            await leaveGroup(body.chatId);
+            navigate('/contacts')
+        } catch (error) {
+            console.error("Error leaving group:", error);
+        }
+    }
 
     return (
         <Stack
@@ -136,7 +146,7 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                     }}
                 >
                     <ProfileButton text="Add to Favourites"/>
-                    <ProfileButton text="Leave Group" red/>
+                    <ProfileButton onClick={handleLeaveGroup} text="Leave Group" red/>
                 </Stack>
             </Paper>
 
