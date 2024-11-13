@@ -64,8 +64,6 @@ export default function MessagesPage() {
         if (!input.trim()) {console.log('1'); return}
         if (!currentUserId ) {console.log('2'); return}
         if (!currentUsername) {console.log('3'); return}
-        //TODO WHAT IF CURRENT USER AVATAR IS NULL, MESSAGE WONT SEND
-        if (!currentUserAvatar) {console.log('4'); return}
 
         try {
             await postMessage(body.chatId, input);
@@ -136,7 +134,7 @@ export default function MessagesPage() {
                         {message.userId !== currentUserId && (
                             <Avatar
                                 name={message.username}
-                                src={`http://localhost:5002${message.avatar}`}
+                                src={message.avatar ? `http://localhost:5002${message.avatar}` : `https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg`}
                             />
                         )}
                     </Message>
