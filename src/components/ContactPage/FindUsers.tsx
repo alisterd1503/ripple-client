@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Stack } from '@mui/system';
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { borderRadius, Stack } from '@mui/system';
+import { Autocomplete, Button, SvgIcon, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import AddIcon from '@mui/icons-material/AddBox';
+import AddIcon from '@mui/icons-material/AddCircleOutline';
 import { getUsers } from '../../api/getUsers';
 import { startChat } from '../../api/startChat';
 import { startGroupChat } from '../../api/startGroupChat';
@@ -51,6 +51,18 @@ export default function FindUsers() {
     window.location.reload();
   }
 
+  const CustomAddIcon = (props: any) => (
+    <SvgIcon {...props}>
+      <path
+        d="M12 4v16m8-8H4" 
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        fontSize={20}
+      />
+    </SvgIcon>
+  );
+
   return (
     <Stack direction="column" spacing={2} sx={{ justifyContent: "center", alignItems: "center", width: '100%', paddingTop: 2}}>
       <Stack
@@ -90,7 +102,7 @@ export default function FindUsers() {
                 borderRadius: '50%',
               }}
               onClick={handleOnClick}>
-              <AddIcon fontSize="large" sx={{color: 'white'}} />
+              <CustomAddIcon sx={{color: 'primary', borderRadius: '50%'}}/>
             </Button>
           ) : (
             <Button disabled
@@ -103,7 +115,7 @@ export default function FindUsers() {
                 borderRadius: '50%',
               }}
             >
-              <AddIcon fontSize="large" />
+              <CustomAddIcon sx={{color: 'inherit', border: 'solid inherit 2px', borderRadius: '50%'}}/>
             </Button>
           )}
         </div>
@@ -124,7 +136,7 @@ const style = {
   width: '100%',
   '& .MuiInputBase-root': {
     padding: 0,
-    borderRadius: '8px',
+    borderRadius: '20px',
     backgroundColor: '#272727',
     border: '1px solid #3C3D37',
     '&.Mui-focused': {
