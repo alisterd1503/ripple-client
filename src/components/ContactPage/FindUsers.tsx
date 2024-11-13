@@ -1,17 +1,24 @@
 import * as React from 'react';
 import { borderRadius, Stack } from '@mui/system';
-import { Autocomplete, Button, SvgIcon, TextField } from '@mui/material';
+import { Autocomplete, Backdrop, Button, SvgIcon, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/AddCircleOutline';
 import { getUsers } from '../../api/getUsers';
 import { startChat } from '../../api/startChat';
 import { startGroupChat } from '../../api/startGroupChat';
 import { UserModel } from '../../models/UserModel';
+import MakeNewGroup from '../GroupChatSettings/MakeNewGroup';
 
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
   const [value, setValue] = React.useState<UserModel[]>([]);
   const [title, setTitle] = React.useState<string>('');
+
+  const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
+
+  const handleClose = () => {
+      setOpenBackdrop(false);
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -25,8 +32,9 @@ export default function FindUsers() {
     fetchUsers();
   }, []);
 
+
   const handleOnClick = () => {
-    value.length > 1 ? startNewGroupChat(value, title) : startNewChat(value[0].userId, value[0].username)
+    value.length > 1 ? setOpenBackdrop(true) : startNewChat(value[0].userId, value[0].username)
   }
 
   const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
@@ -91,7 +99,7 @@ export default function FindUsers() {
         />
 
         <div>
-          {(value.length > 0 && title)? (
+          {(value.length > 0) ? (
             <Button
               sx={{
                 width: '40px',
@@ -128,7 +136,16 @@ export default function FindUsers() {
         onChange={(e) => setTitle(e.target.value)}
         variant="outlined"
       />
+
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={openBackdrop}
+        onClick={handleClose}
+      >
+        <MakeNewGroup/>
+      </Backdrop>
     </Stack>
+    
   );
 }
 
