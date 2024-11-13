@@ -41,6 +41,7 @@ export default function ContactList() {
     const body: ChatModel = {
       chatId: user.chatId,
       title: user.isGroupChat ? user.title : user.participants[0].username,
+      description: user.description,
       added_at: user.added_at,
       isGroupChat: user.isGroupChat,
       participants: user.participants,

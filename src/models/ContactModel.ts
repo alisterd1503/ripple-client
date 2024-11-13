@@ -1,6 +1,7 @@
 export interface ContactModel {
     chatId: number,
     title: string,
+    description: string,
     isGroupChat: boolean,
     lastMessage: string,
     lastMessageTime: string,

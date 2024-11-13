@@ -12,6 +12,7 @@ import SettingsButton from "../SettingPage/SettingsButton";
 import ListMembers from "./ListMembers";
 import ProfileButton from "./ProfileButton";
 import { leaveGroup } from "../../api/ProfileAPI/leaveGroup";
+import UpdateTitle from "../GroupChatSettings/UpdateTitle";
 
 export default function GCProfilePage({body}:{body: ChatModel}) {
     const navigate = useNavigate();
@@ -90,7 +91,7 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                         alignItems: "flex-start",
                     }}
                 >
-                    <Typography sx={{padding: '10px', opacity: 0.7}}>group description</Typography>
+                    <Typography sx={{padding: '10px', opacity: 0.7}}>{body.description}</Typography>
                 </Stack>
             </Paper>
 
@@ -171,7 +172,7 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                 open={openBackdrop === "title"}
                 onClick={handleClose}
             >
-                <TextField label="title"/>
+                <UpdateTitle chatId={body.chatId} title={body.title} onClick={(e) => e.stopPropagation()}/>
             </Backdrop>
 
         </Stack>
