@@ -13,13 +13,21 @@ export const startGroupChat = async (body: StartGroupChatModel): Promise<Respons
     try {
         const token = localStorage.getItem('token');
 
+        const formData = new FormData();
+        if (body.avatar) formData.append('avatar', body.avatar);
+        formData.append('title', String(body.title));
+        formData.append('description', String(body.description));
+
+        body.users.forEach((user, index) => {
+            formData.append(`users[${index}]`, JSON.stringify(user));
+        });
+
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({body}),
+            body: formData,
         });
 
         if (!response.ok) {

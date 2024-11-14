@@ -10,7 +10,6 @@ import MakeNewGroup from '../GroupChatSettings/MakeNewGroup';
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
   const [users, setUsers] = React.useState<UserModel[]>([]);
-  const [title, setTitle] = React.useState<string>('');
 
   const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
 
@@ -29,6 +28,12 @@ export default function FindUsers() {
     };
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (users.length <= 1) {
+      handleClose()
+    }
+  }, [users]);
 
 
   const handleOnClick = () => {
@@ -118,21 +123,13 @@ export default function FindUsers() {
           )}
         </div>
       </Stack>
-      <TextField sx={Textstyle} required
-        fullWidth
-        id="title"
-        placeholder="Add Group Name"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        variant="outlined"
-      />
 
       <Backdrop
         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
         open={openBackdrop}
         onClick={handleClose}
       >
-        <MakeNewGroup users={users} setUsers={setUsers}/>
+        <MakeNewGroup users={users} setUsers={setUsers} setOpenBackdrop={setOpenBackdrop}/>
       </Backdrop>
     </Stack>
     
@@ -158,49 +155,6 @@ const style = {
     color: 'white',
     fontSize: '16px',
     marginLeft: 1,
-    '::placeholder': {
-      color: '#a0d7d1',
-      opacity: 1,
-    },
-  },
-  '& .MuiAutocomplete-endAdornment': {
-    display: 'none',
-  },
-  '& .MuiAutocomplete-paper': {
-    backgroundColor: '#054640',
-    color: 'white',
-    borderRadius: '8px',
-  },
-  '& .MuiAutocomplete-option': {
-    padding: '8px 16px',
-    '&[aria-selected="true"]': {
-      backgroundColor: '#1d6d5b',
-    },
-    '&:hover': {
-      backgroundColor: '#065a4b',
-    },
-  },
-};
-
-const Textstyle = {
-  width: '100%',
-  '& .MuiInputBase-root': {
-    padding: 0,
-    borderRadius: '8px',
-    backgroundColor: '#272727',
-    border: '1px solid #3C3D37',
-    '&.Mui-focused': {
-      borderColor: '#1d6d5b',
-    },
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    border: 'none',
-  },
-  '& .MuiOutlinedInput-input': {
-    height: '15px',
-    padding: '10px 16px',
-    color: 'white',
-    fontSize: '16px',
     '::placeholder': {
       color: '#a0d7d1',
       opacity: 1,

@@ -17,7 +17,7 @@ interface StartGroupChatModel {
     avatar: File | null,
 }
 
-export default function MakeNewGroup({users, setUsers}: {users: UserModel[], setUsers: React.Dispatch<React.SetStateAction<UserModel[]>>}) {
+export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users: UserModel[], setUsers: React.Dispatch<React.SetStateAction<UserModel[]>>, setOpenBackdrop: React.Dispatch<React.SetStateAction<boolean>>}) {
 
     const [avatar, setAvatar] = useState<string | null>(null); 
     const [preview, setPreview] = useState<string | null>(null);
@@ -78,9 +78,11 @@ export default function MakeNewGroup({users, setUsers}: {users: UserModel[], set
             description: newDescription,
             avatar: avatarFile
         }
+        console.log(avatar)
         const result =  await startGroupChat(body);
         if (result.success) {
-            navigate('/contacts');
+            setOpenBackdrop(false)
+            setUsers([])
         } else {
             setMessage(result.message);
         }
@@ -90,10 +92,11 @@ export default function MakeNewGroup({users, setUsers}: {users: UserModel[], set
         <Paper elevation={1} sx={{ width: '80%', borderRadius: '7px' }} onClick={(e) => e.stopPropagation()}>
             <Stack
                 direction="column"
-                spacing={0}
+                spacing={2}
                 sx={{
                     justifyContent: "center",
                     alignItems: "center",
+                    padding: '20px'
                 }}
             >
                 <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
@@ -208,12 +211,11 @@ export default function MakeNewGroup({users, setUsers}: {users: UserModel[], set
                 >
                     <div style={{height: '30px'}}>{message && <Alert severity="info" sx={{ backgroundColor: 'transparent', padding: 0}}>{message}</Alert>}</div>
                 </Stack>
-
-                <CenteredButton 
+            </Stack>
+            <CenteredButton 
                     onClick={startNewGroupChat}
                     text="Create Group"
                 />
-            </Stack>
         </Paper>
     );
 }
