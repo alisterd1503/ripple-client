@@ -27,7 +27,7 @@ export default function ContactsPage() {
                     justifyContent: "center",
                     alignItems: "flex-start",
                     width: "100%",
-                    padding: '10px'
+                    padding: '20px'
                 }}
                 >
                 <Typography variant="h3" fontWeight={"bold"} fontSize={35} gutterBottom>

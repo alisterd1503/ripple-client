@@ -141,10 +141,10 @@ const style = {
   '& .MuiInputBase-root': {
     padding: 0,
     borderRadius: '20px',
-    backgroundColor: 'primary',
-    border: '1px solid white',
+    backgroundColor: '#272727',
+    border: '1px solid #3C3D37',
     '&.Mui-focused': {
-      borderColor: 'primary',
+      borderColor: '#1d6d5b',
     },
   },
   '& .MuiOutlinedInput-notchedOutline': {
@@ -152,11 +152,11 @@ const style = {
   },
   '& .MuiOutlinedInput-input': {
     padding: '10px 16px',
-    color: 'primary',
+    color: 'white',
     fontSize: '16px',
     marginLeft: 1,
     '::placeholder': {
-      color: 'primary',
+      color: '#a0d7d1',
       opacity: 1,
     },
   },
@@ -164,17 +164,17 @@ const style = {
     display: 'none',
   },
   '& .MuiAutocomplete-paper': {
-    backgroundColor: 'primary',
-    color: 'primary',
+    backgroundColor: '#054640',
+    color: 'white',
     borderRadius: '8px',
   },
   '& .MuiAutocomplete-option': {
     padding: '8px 16px',
     '&[aria-selected="true"]': {
-      backgroundColor: 'primary',
+      backgroundColor: '#1d6d5b',
     },
     '&:hover': {
-      backgroundColor: 'primary',
+      backgroundColor: '#065a4b',
     },
   },
 };

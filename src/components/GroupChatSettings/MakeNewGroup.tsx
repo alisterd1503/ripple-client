@@ -8,7 +8,6 @@ import ProfileAvatar from "../Reusable/ProfileAvatar";
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { startGroupChat } from "../../api/startGroupChat";
-import { useNavigate } from "react-router-dom";
 
 interface StartGroupChatModel {
     users: UserModel[],
@@ -29,8 +28,6 @@ export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users:
     const [message, setMessage] = useState<string | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -53,11 +50,11 @@ export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users:
             setPreview(previewUrl);
 
             const reader = new FileReader();
-            reader.onloadend = () => {
-                if (reader.result) {
-                    setAvatar(reader.result as string);
-                }
-            };
+            // reader.onloadend = () => {
+            //     if (reader.result) {
+            //         setAvatar(reader.result as string);
+            //     }
+            // };
             reader.readAsDataURL(file);
         }
     };
