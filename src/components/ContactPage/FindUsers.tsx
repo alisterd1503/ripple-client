@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Stack } from '@mui/system';
+import { borderRadius, Stack } from '@mui/system';
 import { Autocomplete, Backdrop, Button, SvgIcon, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { getUsers } from '../../api/getUsers';
@@ -138,9 +138,12 @@ export default function FindUsers() {
 
 const style = {
   width: '100%',
+  '& .MuiChip-root': {
+    borderRadius: '5px'
+  },
   '& .MuiInputBase-root': {
     padding: 0,
-    borderRadius: '20px',
+    borderRadius: '10px',
     backgroundColor: '#272727',
     border: '1px solid #3C3D37',
     '&.Mui-focused': {
