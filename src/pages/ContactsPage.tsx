@@ -12,10 +12,11 @@ export default function ContactsPage() {
                     zIndex: 1100, 
                     backgroundColor: 'primary', 
                     boxShadow: 'none',
+                    padding: 0
                 }}
                 elevation={0}
             >
-                <Toolbar>
+                <Toolbar sx={{padding: '10px 10px 10px 10px'}}>
                     <FindUsers />
                 </Toolbar>
             </AppBar>

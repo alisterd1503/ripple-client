@@ -67,14 +67,14 @@ export default function FindUsers() {
   );
 
   return (
-    <Stack direction="column" spacing={2} sx={{ justifyContent: "center", alignItems: "center", width: '100%', paddingTop: 2}}>
+    <Stack direction="column" spacing={2} sx={{ justifyContent: "center", alignItems: "center", width: '100%'}}>
       <Stack
         direction="row"
         spacing={1}
         sx={{
           justifyContent: "flex-start",
           alignItems: "center",
-          width: "100%",
+          width: "100%"
         }}
       >
         <Autocomplete
