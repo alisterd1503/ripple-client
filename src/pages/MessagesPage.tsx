@@ -61,9 +61,9 @@ export default function MessagesPage() {
     }, [body.chatId]);
 
     const handleSend = async () => {
-        if (!input.trim()) {console.log('1'); return}
-        if (!currentUserId ) {console.log('2'); return}
-        if (!currentUsername) {console.log('3'); return}
+        if (!input.trim()) return
+        if (!currentUserId ) return
+        if (!currentUsername) return
 
         try {
             await postMessage(body.chatId, input);

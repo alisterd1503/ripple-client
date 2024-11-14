@@ -78,7 +78,6 @@ export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users:
             description: newDescription,
             avatar: avatarFile
         }
-        console.log(avatar)
         const result =  await startGroupChat(body);
         if (result.success) {
             setOpenBackdrop(false)
