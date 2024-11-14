@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5002/api/postMessage"
+const API_URL = `${process.env.REACT_APP_API_URL}/api/postMessage`
 
 export const postMessage = async (chatId: number, message: string): Promise<any> => {
     try {

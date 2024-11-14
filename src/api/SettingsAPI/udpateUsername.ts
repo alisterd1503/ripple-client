@@ -1,5 +1,5 @@
 import { ResponseModel } from "../../models/ResponseModel";
-const API_URL = "http://localhost:5002/api/updateUsername"
+const API_URL = `${process.env.REACT_APP_API_URL}/api/updateUsername`
 
 export const updateUsername = async ( username: string): Promise<ResponseModel> => {
     try {

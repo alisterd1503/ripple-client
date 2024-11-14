@@ -1,6 +1,6 @@
 import { ResponseModel } from "../models/ResponseModel";
 import { UserModel } from "../models/UserModel";
-const API_URL = 'http://localhost:5002/api/startGroupChat'
+const API_URL = `${process.env.REACT_APP_API_URL}/api/startGroupChat`
 
 interface StartGroupChatModel {
     users: UserModel[],

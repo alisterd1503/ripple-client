@@ -1,5 +1,5 @@
 
-const API_URL="http://localhost:5002/api/getUsernameAvatar"
+const API_URL=`${process.env.REACT_APP_API_URL}/api/getUsernameAvatar`
 
 export const getUsernameAvatar = async (): Promise<{username: string, avatar: string}> => {
     try {

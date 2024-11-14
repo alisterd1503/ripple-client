@@ -1,5 +1,5 @@
 import { ResponseModel } from "../../models/ResponseModel";
-const API_URL = 'http://localhost:5002/api/leaveGroup';
+const API_URL = `${process.env.REACT_APP_API_URL}/api/leaveGroup`;
 
 export const leaveGroup = async (chatId: number): Promise<ResponseModel> => {
     try {

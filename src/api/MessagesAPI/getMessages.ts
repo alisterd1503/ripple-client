@@ -1,6 +1,5 @@
 import { MessageModel } from "../../models/MessageModel";
-
-const API_URL = "http://localhost:5002/api/getMessages";
+const API_URL = `${process.env.REACT_APP_API_URL}/api/getMessages`;
 
 export const getMessages = async (chatId: number): Promise<MessageModel[]> => {
     try {

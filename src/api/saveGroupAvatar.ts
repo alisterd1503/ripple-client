@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5002/api/uploadGroupPhoto";
+const API_URL = `${process.env.REACT_APP_API_URL}/api/uploadGroupPhoto`
 
 export const uploadGroupPhoto = async (chatId: number, avatar: File): Promise<any> => {
     try {

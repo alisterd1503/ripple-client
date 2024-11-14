@@ -1,7 +1,6 @@
 import { AuthModel } from "../../models/AuthModel";
 import { ResponseModel } from "../../models/ResponseModel";
-
-const API_URL = 'http://localhost:5002/api/login';
+const API_URL = `${process.env.REACT_APP_API_URL}/api/login`;
 
 export const checkLogin = async (login: AuthModel): Promise<ResponseModel> => {
     try {
