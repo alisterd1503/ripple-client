@@ -18,7 +18,6 @@ interface StartGroupChatModel {
 
 export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users: UserModel[], setUsers: React.Dispatch<React.SetStateAction<UserModel[]>>, setOpenBackdrop: React.Dispatch<React.SetStateAction<boolean>>}) {
 
-    const [avatar, setAvatar] = useState<string | null>(null); 
     const [preview, setPreview] = useState<string | null>(null);
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
@@ -50,11 +49,6 @@ export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users:
             setPreview(previewUrl);
 
             const reader = new FileReader();
-            // reader.onloadend = () => {
-            //     if (reader.result) {
-            //         setAvatar(reader.result as string);
-            //     }
-            // };
             reader.readAsDataURL(file);
         }
     };
