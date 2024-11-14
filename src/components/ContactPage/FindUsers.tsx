@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { borderRadius, Stack } from '@mui/system';
+import { Stack } from '@mui/system';
 import { Autocomplete, Backdrop, Button, SvgIcon, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import AddIcon from '@mui/icons-material/AddCircleOutline';
 import { getUsers } from '../../api/getUsers';
 import { startChat } from '../../api/startChat';
-import { startGroupChat } from '../../api/startGroupChat';
 import { UserModel } from '../../models/UserModel';
 import MakeNewGroup from '../GroupChatSettings/MakeNewGroup';
 
 export default function FindUsers() {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
-  const [value, setValue] = React.useState<UserModel[]>([]);
+  const [users, setUsers] = React.useState<UserModel[]>([]);
   const [title, setTitle] = React.useState<string>('');
 
   const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
@@ -34,13 +32,14 @@ export default function FindUsers() {
 
 
   const handleOnClick = () => {
-    value.length > 1 ? setOpenBackdrop(true) : startNewChat(value[0].userId, value[0].username)
+    users.length > 1 ? setOpenBackdrop(true) : startNewChat(users[0].userId, users[0].username)
   }
 
   const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
     const body: UserModel = {
       username: recipientUsername,
-      userId: recipientUserId
+      userId: recipientUserId,
+      avatar: ''
     };
     try {
       await startChat(body);
@@ -48,16 +47,7 @@ export default function FindUsers() {
       console.error("Error starting chat:", error);
     }
     window.location.reload();
-  };
-
-  const startNewGroupChat = async (value: UserModel[], title: string) => {
-    try {
-      await startGroupChat(value, title);
-    } catch (error) {
-      console.error("Error starting group chat:", error);
-    }
-    window.location.reload();
-  }
+  };  
 
   const CustomAddIcon = (props: any) => (
     <SvgIcon {...props}>
@@ -86,8 +76,8 @@ export default function FindUsers() {
           multiple
           id="tags-standard"
           options={allUsers}
-          value={value}
-          onChange={(event, newValue) => setValue(newValue)}
+          value={users}
+          onChange={(event, newValue) => setUsers(newValue)}
           getOptionLabel={(option) => option.username}
           sx={style}
           renderInput={(params) => (
@@ -99,7 +89,7 @@ export default function FindUsers() {
         />
 
         <div>
-          {(value.length > 0) ? (
+          {(users.length > 0) ? (
             <Button
               sx={{
                 width: '40px',
@@ -142,7 +132,7 @@ export default function FindUsers() {
         open={openBackdrop}
         onClick={handleClose}
       >
-        <MakeNewGroup/>
+        <MakeNewGroup users={users} setUsers={setUsers}/>
       </Backdrop>
     </Stack>
     

@@ -1,12 +1,23 @@
 import { Box, Paper, Stack, TextField, Typography, Alert, Avatar, Badge } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CenteredButton from "../Reusable/CenteredButton";
 import EditIcon from '@mui/icons-material/Edit';
 import GroupIcon from '@mui/icons-material/Group';
+import { UserModel } from "../../models/UserModel";
+import ProfileAvatar from "../Reusable/ProfileAvatar";
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { startGroupChat } from "../../api/startGroupChat";
+import { useNavigate } from "react-router-dom";
 
-export default function MakeNewGroup() {
+interface StartGroupChatModel {
+    users: UserModel[],
+    title: string | null,
+    description: string | null,
+    avatar: File | null,
+}
 
-    const description = 'set new description'
+export default function MakeNewGroup({users, setUsers}: {users: UserModel[], setUsers: React.Dispatch<React.SetStateAction<UserModel[]>>}) {
 
     const [avatar, setAvatar] = useState<string | null>(null); 
     const [preview, setPreview] = useState<string | null>(null);
@@ -14,15 +25,23 @@ export default function MakeNewGroup() {
 
     const [newTitle, setNewTitle] = useState<string>('');
     const [newDescription, setNewDescription] = useState<string>('');
-
     const [count, setCount] = useState(0);
-
     const [message, setMessage] = useState<string | null>(null);
+
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setCount(value.length);
         setNewDescription(value);
+    };
+
+    const removeUser = (userToRemove: UserModel) => {
+        setUsers((prevUsers) =>
+          prevUsers.filter(user => user.userId !== userToRemove.userId)
+        );
     };
 
     // Handler for file input change
@@ -43,15 +62,27 @@ export default function MakeNewGroup() {
         }
     };
 
-    // Function to save the avatar (calls the upload API)
-    const handleSaveAvatar = async () => {
-        if (avatarFile) {
-            try {
-                console.log(avatarFile); 
-            } catch (error) {
-                console.error("Error saving avatar:", error);
-            }
-            window.location.reload();
+    const handleAvatarClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleRemoveAvatar = () => {
+        setAvatarFile(null)
+        setPreview(null)
+    }
+
+    const startNewGroupChat = async () => {
+        const body: StartGroupChatModel = {
+            users: users,
+            title: newTitle,
+            description: newDescription,
+            avatar: avatarFile
+        }
+        const result =  await startGroupChat(body);
+        if (result.success) {
+            navigate('/contacts');
+        } else {
+            setMessage(result.message);
         }
     }
 
@@ -65,39 +96,59 @@ export default function MakeNewGroup() {
                     alignItems: "center",
                 }}
             >
-                <Box sx={{width: "100%", display: 'flex', justifyContent:'center', alignItems: 'center', padding: '20px'}}>
+                <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
                     <Badge
                         overlap="circular"
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        sx={{ '&:hover': {
+                            cursor: 'pointer',
+                            opacity: 0.8,
+                            transform: 'scale(1.05)',
+                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
+                        }}}
                         badgeContent={
-                            <EditIcon fontSize="large"/>
+                            avatarFile ? (
+                                <DeleteIcon fontSize="large" />
+                            ) : (
+                                <EditIcon fontSize="large" />
+                            )
                         }
-                        >
+                        onClick={()=> {avatarFile ? handleRemoveAvatar() : handleAvatarClick()}}
+                    >
                         <Avatar
-                            sx={{ width: 100, height: 100, color: 'white' }}
-                            alt={'Default'}
+                            sx={{ width: 100, height: 100, color: 'white'}}
+                            alt="Default"
+                            src={preview || undefined}
                         >
-                            <GroupIcon fontSize="large"/>
+                            {!preview && <GroupIcon fontSize="large"/>}
                         </Avatar>
-                    </Badge> 
-                </Box>
-
-                <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 20px 10px 20px', flexDirection: 'column' }}>
-                    <TextField
-                        id="outlined-basic"
-                        placeholder={"Group name (optional)"}
-                        sx={{ width: '100%' }}
-                        value={newTitle}
-                        onChange={handleChange}
+                    </Badge>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
                     />
                 </Box>
 
-                <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px 20px 10px 20px', flexDirection: 'column' }}>
+                {/* Additional form fields and group members list */}
+                <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                    <TextField
+                        id="outlined-basic"
+                        placeholder="Group name (optional)"
+                        sx={{ width: '100%' }}
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                    />
+                </Box>
+
+                <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <TextField
                         id="outlined-multiline-static"
                         multiline
                         rows={4}
-                        placeholder={"Group description (optional)"}
+                        placeholder="Group description (optional)"
                         sx={{ width: '100%' }}
                         value={newDescription}
                         onChange={handleChange}
@@ -111,12 +162,55 @@ export default function MakeNewGroup() {
                             width: '100%',
                         }}
                     >
-                        <div>{message && <Alert severity="info" sx={{ padding: 0, backgroundColor: 'transparent'}}>{message}</Alert>}</div>
+                        <div></div>
                         <Typography sx={{ opacity: 0.5 }}>{count}/100</Typography>
                     </Stack>
                 </Box>
+
+                {/* Displaying group members */}
+                <Box sx={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column'}}>
+                    <Typography variant="h6" fontSize={20} fontWeight="bold" gutterBottom>
+                        {users.length} members
+                    </Typography>
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        sx={{
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        {users.map((user) => (
+                            <Stack key={user.userId} direction="column" spacing={1} sx={{ justifyContent: "center", alignItems: "center" }}>
+                                <Badge
+                                    overlap="circular"
+                                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    badgeContent={
+                                        <CloseIcon fontSize='small' sx={{ borderRadius: '50%', backgroundColor: 'darkgrey', opacity: 0.9 }} onClick={() => removeUser(user)} />
+                                    }
+                                >
+                                    <ProfileAvatar username={user.username} avatarPath={user.avatar} />
+                                </Badge>
+                                <Typography sx={{ color: 'white', fontSize: 12, opacity: 0.5 }}>{user.username}</Typography>
+                            </Stack>
+                        ))}
+                    </Stack>
+                </Box>
+
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        width: '100%',
+                    }}
+                >
+                    <div style={{height: '30px'}}>{message && <Alert severity="info" sx={{ backgroundColor: 'transparent', padding: 0}}>{message}</Alert>}</div>
+                </Stack>
+
                 <CenteredButton 
-                    onClick={()=>console.log(newTitle, newDescription, avatarFile)}
+                    onClick={startNewGroupChat}
                     text="Create Group"
                 />
             </Stack>
