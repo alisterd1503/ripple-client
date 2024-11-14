@@ -19,6 +19,7 @@ import DeleteAccount from "../components/Settings/DeleteAccount";
 import UpdateBio from "../components/Settings/UpdateBio";
 import UpdateUsername from "../components/Settings/UpdateUsername";
 import UploadAvatar from "../components/Settings/UploadAvatar";
+import { convertISODate } from "../utils/convertISODate";
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -205,6 +206,8 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             >
                 <DeleteAccount onClick={(e) => e.stopPropagation()} />
             </Backdrop>
+
+            <Typography sx={{opacity: 0.4}}>Account Created: {convertISODate(profile?.created_at || '')}</Typography>
 
             <Footer />
         </Stack>
