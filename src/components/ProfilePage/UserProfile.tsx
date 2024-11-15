@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { removeFriend } from "../../api/ProfileAPI/removeFriend";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 import ProfileButton from "./ProfileButton";
+import { useEffect, useState } from "react";
+import { getUserProfile } from "../../api/ProfileAPI/getUserProfile";
+import { convertISODate } from "../../utils/convertISODate";
 
 interface UserProfileModel {
     userId: number;
@@ -11,10 +14,30 @@ interface UserProfileModel {
     avatar: string;
     bio: string;
 }
+
+
+interface UserProfile {
+    username: string,
+    avatar: string,
+    bio: string,
+    added_at: string | null,
+    groups_in: number[]
+}
   
 
-export default function UserProfilePage({body, chatId}:{body: UserProfileModel, chatId: number}) {
+export default function UserProfilePage({chatId}:{chatId: number}) {
     const navigate = useNavigate();
+
+    const [profile , setProfile] = useState<UserProfile>()
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+          const result = await getUserProfile(chatId);
+          setProfile(result)
+        };
+    
+        fetchProfile();
+    }, []);
 
     const handleRemoveFriend = async () => {
         try {
@@ -26,87 +49,91 @@ export default function UserProfilePage({body, chatId}:{body: UserProfileModel, 
     }
     
     return (
-        <Stack
-            direction="column"
-            spacing={2}
-            sx={{
-                justifyContent: "center",
-                alignItems: "center",
-                padding: '10px'
-            }}
-        >
+        <>
+        {profile && 
             <Stack
-                direction="row"
+                direction="column"
                 spacing={2}
                 sx={{
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignItems: "center",
-                    width: '100%'
+                    padding: '10px'
                 }}
             >
-                <button
-                        style={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                            padding: 0,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        width: '100%'
+                    }}
+                >
+                    <button
+                            style={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                padding: 0,
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                            onClick={() => navigate("/contacts")}
+                        >
+                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: 'white' }} />
+                        </button>
+                        <Typography variant="h6" fontWeight={"bold"} fontSize={20} gutterBottom>Contact Info</Typography>
+                        <Typography variant="h6" fontSize={18} gutterBottom>Edit</Typography>
+                </Stack>
+
+                <ProfileAvatar username={profile.username} height='100px' width='100px' avatarPath={profile.avatar}/>
+                <Typography variant="h3" fontWeight={"bold"} fontSize={30} gutterBottom>
+                        {profile.username}
+                </Typography>
+
+                <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                    <Stack
+                        direction="column"
+                        spacing={0}
+                        sx={{
+                            justifyContent: "flex-start",
+                            alignItems: "flex-start",
                         }}
-                        onClick={() => navigate("/contacts")}
                     >
-                        <ArrowBackIosNewIcon fontSize="medium" sx={{ color: 'white' }} />
-                    </button>
-                    <Typography variant="h6" fontWeight={"bold"} fontSize={20} gutterBottom>Contact Info</Typography>
-                    <Typography variant="h6" fontSize={18} gutterBottom>Edit</Typography>
+                        <Typography sx={{padding: '10px', opacity: 0.7}}>{profile.bio}</Typography>
+                    </Stack>
+                </Paper>
+
+                <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                    <Stack
+                        direction="column"
+                        spacing={0}
+                        sx={{
+                            justifyContent: "flex-start",
+                            alignItems: "flex-start",
+                        }}
+                    >
+                        <Typography sx={{padding: '10px', opacity: 0.7}}>{profile.added_at ? convertISODate(profile.added_at,'profile') : ''}</Typography>
+                    </Stack>
+                </Paper>
+
+                <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                    <Stack
+                        direction="column"
+                        spacing={0}
+                        sx={{
+                            justifyContent: "flex-start",
+                            alignItems: "flex-start",
+                        }}
+                    >
+                        <ProfileButton text="Add to Favourites"/>
+                        <ProfileButton onClick={handleRemoveFriend} text="Remove Friend" red/>
+                    </Stack>
+                </Paper>
+                    
             </Stack>
-
-            <ProfileAvatar username={body.username} height='100px' width='100px' avatarPath={body.avatar}/>
-            <Typography variant="h3" fontWeight={"bold"} fontSize={30} gutterBottom>
-                    {body.username}
-            </Typography>
-
-            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
-                <Stack
-                    direction="column"
-                    spacing={0}
-                    sx={{
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
-                    }}
-                >
-                    <Typography sx={{padding: '10px', opacity: 0.7}}>{body.bio}</Typography>
-                </Stack>
-            </Paper>
-
-            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
-                <Stack
-                    direction="column"
-                    spacing={0}
-                    sx={{
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
-                    }}
-                >
-                    <Typography sx={{padding: '10px', opacity: 0.7}}>ADD DATE SOMEHOW</Typography>
-                </Stack>
-            </Paper>
-
-            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
-                <Stack
-                    direction="column"
-                    spacing={0}
-                    sx={{
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
-                    }}
-                >
-                    <ProfileButton text="Add to Favourites"/>
-                    <ProfileButton onClick={handleRemoveFriend} text="Remove Friend" red/>
-                </Stack>
-            </Paper>
-                
-        </Stack>
+        }
+        </>
     )
 }

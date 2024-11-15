@@ -16,8 +16,8 @@ export default function ChatHeader({body}:{body: ChatModel}) {
     const usernames = body.participants.map(participant => participant.username).join(', ')
     const title: string = body.isGroupChat ? body.title : body.participants[0].username
 
-    const openProfile = (body: ChatModel) => {
-        navigate('/profile', { state: { body } });
+    const openProfile = (chatId: number, isGroupChat: boolean) => {
+        navigate('/profile', { state: { chatId, isGroupChat } });
     };
 
     return (
@@ -88,7 +88,7 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                             justifyContent: 'center',
                         }}
                     >
-                        <MenuIcon fontSize='medium' sx={{ color: 'white' }} onClick={()=>openProfile(body)}/>
+                        <MenuIcon fontSize='medium' sx={{ color: 'white' }} onClick={()=>openProfile(body.chatId, body.isGroupChat)}/>
                     </button>
                 </Stack>
                 </Toolbar>

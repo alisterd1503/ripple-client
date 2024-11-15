@@ -207,7 +207,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 <DeleteAccount onClick={(e) => e.stopPropagation()} />
             </Backdrop>
 
-            {profile?.created_at && <Typography sx={{opacity: 0.4}}>Account Created: {convertISODate(profile.created_at,'profile')}</Typography>}
+            {profile?.created_at && <Typography sx={{opacity: 0.4}}>Account {convertISODate(profile.created_at,'profile')}</Typography>}
 
             <Footer />
         </Stack>
