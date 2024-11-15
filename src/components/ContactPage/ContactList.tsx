@@ -108,7 +108,7 @@ export default function ContactList() {
                 alignItems: "flex-end",
               }}
             >
-              <Typography variant="body2">{convertISODate(user.lastMessageTime)}</Typography>
+              <Typography variant="body2">{convertISODate(user.lastMessageTime, 'contacts')}</Typography>
             </Stack>
           </Stack>
           </Button>

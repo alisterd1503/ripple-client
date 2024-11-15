@@ -107,19 +107,6 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                         alignItems: "flex-start",
                     }}
                 >
-                    <Typography sx={{padding: '10px', opacity: 0.7}}>Created: {convertISODate(body.added_at)}</Typography>
-                </Stack>
-            </Paper>
-
-            <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
-                <Stack
-                    direction="column"
-                    spacing={0}
-                    sx={{
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
-                    }}
-                >
                     <SettingsButton 
                         onClick={() => handleButtonClick("title")}
                         icon={<PenIcon/>}
@@ -153,6 +140,8 @@ export default function GCProfilePage({body}:{body: ChatModel}) {
                     <ProfileButton onClick={handleLeaveGroup} text="Leave Group" red/>
                 </Stack>
             </Paper>
+
+            <Typography sx={{opacity: 0.4, width: '100%'}}>{convertISODate(body.added_at,'profile')}</Typography>
 
             <Backdrop
                 sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}

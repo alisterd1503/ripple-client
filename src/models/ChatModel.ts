@@ -1,5 +1,5 @@
 export interface ChatModel {
-    title?: string;
+    title: string;
     description: string;
     groupAvatar: string;
     chatId: number;

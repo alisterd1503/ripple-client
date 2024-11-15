@@ -87,7 +87,7 @@ export default function MessagesPage() {
 
     function messageFooter(isGroupChat: boolean, userId: number, currentUserId: number | null, username: string, time: string): string {
         let footer = ''
-        let formattedTime = convertISODate(time)
+        let formattedTime = convertISODate(time, 'chat')
         if (isGroupChat) {
             if (userId !== currentUserId) footer += (username+' ')
             footer += formattedTime

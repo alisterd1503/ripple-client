@@ -8,9 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { ChatModel } from '../../models/ChatModel';
 import ProfileAvatar from '../Reusable/ProfileAvatar';
+import { formatText } from '../../utils/formatText';
 
 export default function ChatHeader({body}:{body: ChatModel}) {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+
+    const usernames = body.participants.map(participant => participant.username).join(', ')
+    const title: string = body.isGroupChat ? body.title : body.participants[0].username
 
     const openProfile = (body: ChatModel) => {
         navigate('/profile', { state: { body } });
@@ -43,7 +47,7 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                         }}
                         onClick={() => navigate(-1)}
                     >
-                        <ArrowBackIosNewIcon fontSize="large" sx={{ color: 'white' }} />
+                        <ArrowBackIosNewIcon fontSize="medium" sx={{ color: 'white' }} />
                     </button>
 
                     {/* Name Logo Stack */}
@@ -58,13 +62,18 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                         <ProfileAvatar 
                             avatarPath={body.isGroupChat ? body.groupAvatar : body.participants[0].avatar} 
                             username={body.isGroupChat ? body.title : body.participants[0].username}
-                            onClick={()=>openProfile(body)}
-                            height='40px' width='40px'
+                            height='50px' width='50px'
                         />
-
-                        <Typography variant="h4" component="div" fontWeight={'10px'} sx={{ flexGrow: 1, textAlign: 'center' }}>
-                            {body.isGroupChat ? body.title : body.participants[0].username}
-                        </Typography>
+                        <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start" }}>
+                            <Typography variant="h5" component="div" fontWeight={'bold'} fontSize={25} sx={{ flexGrow: 1, textAlign: 'center' }}>
+                                {formatText(title,16)}
+                            </Typography>
+                            {body.isGroupChat &&
+                            <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>
+                                {formatText(usernames,25)}
+                            </Typography>
+                            }
+                        </Stack>
                     </Stack>
 
                     {/* Menu Icon Button */}
@@ -79,7 +88,7 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                             justifyContent: 'center',
                         }}
                     >
-                        <MenuIcon fontSize='large' sx={{ color: 'white' }}/>
+                        <MenuIcon fontSize='medium' sx={{ color: 'white' }} onClick={()=>openProfile(body)}/>
                     </button>
                 </Stack>
                 </Toolbar>
