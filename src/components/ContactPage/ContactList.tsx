@@ -15,16 +15,15 @@ interface MessagePreviewProps {
   isImage: boolean;
 }
 
-// Define the MessagePreview component
 function MessagePreview({ message, username, isGroupChat, isImage }: MessagePreviewProps) {
-  return isGroupChat ? (
-    <>
-      {username}: {isImage ? <ImageIcon/> : message}
-    </>
-  ) : (
-    <>
-      {isImage ? <ImageIcon/> : message}
-    </>
+  if (!message) 
+    return <Typography sx={{ opacity: 0.5, fontSize: 15 }}>Start Chat...</Typography>;
+
+  return (
+    <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center", opacity: 0.5 }}>
+      {isGroupChat && <Typography>{username}:</Typography>}
+      {isImage ? <ImageIcon fontSize="small" /> : <Typography>{message}</Typography>}
+    </Stack>
   );
 }
 
@@ -103,7 +102,7 @@ export default function ContactList() {
                 justifyContent: "center",
                 alignItems: "flex-start",
                 flexGrow: 1,
-                paddingLeft: '16px',
+                padding: '16px',
               }}
             >
               <Typography variant="body1">{user.isGroupChat ? user.title : user.username}</Typography>
