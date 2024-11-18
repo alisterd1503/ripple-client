@@ -6,17 +6,26 @@ import { ChatModel } from "../../models/ChatModel";
 import { ContactModel } from "../../models/ContactModel";
 import { convertISODate } from "../../utils/convertISODate";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
+import ImageIcon from '@mui/icons-material/Image';
 
-function formatLastMessage(lastMessage: string, username: string, isGroupChat: boolean): string {
-  let formattedMessage = ''
-  if (!lastMessage) {
-    formattedMessage = 'Start Chat...'
-    return formattedMessage
-  }
-  if (isGroupChat) formattedMessage += `${username}: `
+interface MessagePreviewProps {
+  message: string;
+  username: string;
+  isGroupChat: boolean;
+  isImage: boolean;
+}
 
-  lastMessage.length > 70 ? formattedMessage += lastMessage.substring(0, 50) + '...' : formattedMessage += lastMessage
-  return formattedMessage
+// Define the MessagePreview component
+function MessagePreview({ message, username, isGroupChat, isImage }: MessagePreviewProps) {
+  return isGroupChat ? (
+    <>
+      {username}: {isImage ? <ImageIcon/> : message}
+    </>
+  ) : (
+    <>
+      {isImage ? <ImageIcon/> : message}
+    </>
+  );
 }
 
 export default function ContactList() { 
@@ -98,7 +107,7 @@ export default function ContactList() {
               }}
             >
               <Typography variant="body1">{user.isGroupChat ? user.title : user.username}</Typography>
-              <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage, user.lastMessageSender, user.isGroupChat)}</Typography>
+              <MessagePreview message={user.lastMessage} username={user.lastMessageSender} isGroupChat={user.isGroupChat} isImage={user.isImage}/>
             </Stack>
             <Stack
               direction="column"
