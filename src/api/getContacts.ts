@@ -1,4 +1,4 @@
-const API_URL=`${process.env.REACT_APP_API_URL}/api/getUserChat`
+const API_URL=`${process.env.REACT_APP_API_URL}/api/getContactList`
 
 export const getContacts = async (): Promise<any> => {
     try {

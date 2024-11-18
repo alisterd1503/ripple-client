@@ -1,14 +1,9 @@
 export interface ChatModel {
+    avatar: string;
     title: string;
-    description: string;
+    username: string
     groupAvatar: string;
     chatId: number;
-    added_at: string;
     isGroupChat: boolean;
-    participants: {
-      userId: number;
-      username: string;
-      avatar: string;
-      bio: string;
-    }[];
+    members: string[];
 }

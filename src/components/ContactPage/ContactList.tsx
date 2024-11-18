@@ -41,12 +41,12 @@ export default function ContactList() {
   const openChat = (user: ContactModel) => {
     const body: ChatModel = {
       chatId: user.chatId,
-      title: user.isGroupChat ? user.title : user.participants[0].username,
-      description: user.description,
+      title: user.title,
+      username: user.username,
       groupAvatar: user.groupAvatar,
-      added_at: user.added_at,
       isGroupChat: user.isGroupChat,
-      participants: user.participants,
+      members: user.members,
+      avatar: user.avatar
     };
     navigate('/messages', { state: { body } });
   };
@@ -83,8 +83,8 @@ export default function ContactList() {
             }}
           >
             <ProfileAvatar 
-              avatarPath={user.isGroupChat ? user.groupAvatar : user.participants[0].avatar} 
-              username={user.isGroupChat ? user.title : user.participants[0].username}
+              avatarPath={user.isGroupChat ? user.groupAvatar : user.avatar} 
+              username={user.isGroupChat ? user.title : user.username}
             />
 
             <Stack
@@ -97,7 +97,7 @@ export default function ContactList() {
                 paddingLeft: '16px',
               }}
             >
-              <Typography variant="body1">{user.isGroupChat ? user.title : user.participants[0].username}</Typography>
+              <Typography variant="body1">{user.isGroupChat ? user.title : user.username}</Typography>
               <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>{formatLastMessage(user.lastMessage, user.lastMessageSender, user.isGroupChat)}</Typography>
             </Stack>
             <Stack
@@ -108,7 +108,7 @@ export default function ContactList() {
                 alignItems: "flex-end",
               }}
             >
-              <Typography variant="body2">{convertISODate(user.lastMessageTime, 'contacts')}</Typography>
+              <Typography variant="body2">{user.lastMessageTime ? convertISODate(user.lastMessageTime, 'contacts') : ''}</Typography>
             </Stack>
           </Stack>
           </Button>

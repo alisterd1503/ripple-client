@@ -13,8 +13,8 @@ import { formatText } from '../../utils/formatText';
 export default function ChatHeader({body}:{body: ChatModel}) {
     const navigate = useNavigate();
 
-    const usernames = body.participants.map(participant => participant.username).join(', ')
-    const title: string = body.isGroupChat ? body.title : body.participants[0].username
+    const title: string = body.isGroupChat ? body.title : body.username
+    const usernames: string  = body.members ? (body.members).join(', ') : ''
 
     const openProfile = (chatId: number, isGroupChat: boolean) => {
         navigate('/profile', { state: { chatId, isGroupChat } });
@@ -60,8 +60,8 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                         }}
                     >
                         <ProfileAvatar 
-                            avatarPath={body.isGroupChat ? body.groupAvatar : body.participants[0].avatar} 
-                            username={body.isGroupChat ? body.title : body.participants[0].username}
+                            avatarPath={body.isGroupChat ? body.groupAvatar : body.avatar} 
+                            username={title}
                             height='50px' width='50px'
                         />
                         <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start" }}>
