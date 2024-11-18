@@ -5,7 +5,6 @@ import { MessageList, Message, Avatar, MessageGroup } from "@chatscope/chat-ui-k
 import { jwtDecode } from "jwt-decode";
 import { ChatModel } from "../models/ChatModel";
 import { getMessages } from "../api/MessagesAPI/getMessages";
-import { postMessage } from "../api/MessagesAPI/postMessage";
 import { MessageModel } from "../models/MessageModel";
 import ChatHeader from "../components/MessagePage/ChatHeader";
 import MessagesInput from "../components/MessagePage/MessageInput";
@@ -18,7 +17,6 @@ export default function MessagesPage() {
     const [currentUsername, setCurrentUsername] = useState<string | null>(null);
     const [currentUserAvatar, setCurrentUserAvatar] = useState<string | null>(null);
     const [messages, setMessages] = useState<MessageModel[]>([]);
-    const [input, setInput] = useState<string>("");
     const location = useLocation();
     const { body } = location.state as { body: ChatModel };
 
@@ -44,6 +42,7 @@ export default function MessagesPage() {
             if (body.chatId) {
                 try {
                     const result = await getMessages(body.chatId);
+                    console.log('messages:',result)
                     setMessages(result);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
@@ -59,31 +58,6 @@ export default function MessagesPage() {
         
           return () => clearInterval(interval);
     }, [body.chatId]);
-
-    const handleSend = async () => {
-        if (!input.trim()) return
-        if (!currentUserId ) return
-        if (!currentUsername) return
-
-        try {
-            await postMessage(body.chatId, input);
-
-            const newMessage: MessageModel = {
-                userId: currentUserId,
-                username: currentUsername,
-                avatar: currentUserAvatar,
-                message: input,
-                createdAt: new Date().toISOString(),
-                direction: "outgoing",
-                position: "last",
-            };
-
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
-            setInput('');
-        } catch (error) {
-            console.error("Error sending message:", error);
-        }
-    };
 
     function messageFooter(isGroupChat: boolean, userId: number, currentUserId: number | null, username: string, time: string): string {
         let footer = ''
@@ -131,6 +105,7 @@ export default function MessagesPage() {
                             position: message.position,
                         }}
                     >
+                        {message.isImage && (<Message.ImageContent src={`http://localhost:5002${message.message}`} alt="Image" width={200}/>)}
                         {message.userId !== currentUserId && (
                             <Avatar
                                 name={message.username}
@@ -155,9 +130,11 @@ export default function MessagesPage() {
                 flexShrink: 0,
             }}>
                 <MessagesInput
-                    input={input}
-                    setInput={setInput}
-                    handleSend={handleSend}
+                    currentUserId={currentUserId}
+                    currentUsername={currentUsername}
+                    currentUserAvatar={currentUserAvatar}
+                    chatId={body.chatId}
+                    setMessages={setMessages}
                 />
             </div>
 
