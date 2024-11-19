@@ -15,6 +15,7 @@ import UpdateDescription from "../GroupChatSettings/UpdateDescription";
 import UploadGroupAvatar from "../GroupChatSettings/UploadGroupAvatar";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 import { getGroupProfile } from "../../api/ProfileAPI/getGroupProfile";
+import { favouriteChat } from "../../api/ProfileAPI/favouriteChat";
 
 interface GroupProfile {
     title: string;
@@ -22,6 +23,7 @@ interface GroupProfile {
     groupAvatar: string;
     created_at: string;
     added_at: string;
+    is_favourite: boolean;
     members: {
       userId: number;
       username: string;
@@ -162,7 +164,14 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                             alignItems: "flex-start",
                         }}
                     >
-                        <ProfileButton text="Add to Favourites"/>
+                        {profile.is_favourite ? 
+                        (<ProfileButton  text="Remove from Favourites" Red
+                            onClick={() => {favouriteChat({ isFavourite: false, chatId: chatId });window.location.reload();} } 
+                        />) 
+                        : 
+                        (<ProfileButton text="Add to Favourites" 
+                            onClick={() => {favouriteChat({ isFavourite: true, chatId: chatId });window.location.reload();} } 
+                        />)}
                         <ProfileButton onClick={handleLeaveGroup} text="Leave Group" Red NotLast/>
                     </Stack>
                 </Paper>
