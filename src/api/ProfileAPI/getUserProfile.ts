@@ -1,10 +1,10 @@
 const API_URL = `${process.env.REACT_APP_API_URL}/api/getUserProfile`;
 
-export const getUserProfile = async (chatId: number): Promise<any> => {
+export const getUserProfile = async (userId: number): Promise<any> => {
     try {
         const token = localStorage.getItem('token');
 
-        const response = await fetch(`${API_URL}?chatId=${chatId}`, {
+        const response = await fetch(`${API_URL}?userId=${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

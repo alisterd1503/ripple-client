@@ -8,40 +8,38 @@ import { useEffect, useState } from "react";
 import { getUserProfile } from "../../api/ProfileAPI/getUserProfile";
 import { convertISODate } from "../../utils/convertISODate";
 
-interface UserProfileModel {
+
+interface UserProfile {
     userId: number;
     username: string;
     avatar: string;
     bio: string;
-}
-
-
-interface UserProfile {
-    username: string,
-    avatar: string,
-    bio: string,
-    added_at: string | null,
-    groups_in: number[]
+    added_at: string | null;
+    groups_in: {
+        chatId: number;
+        title: string;
+        groupAvatar: string;
+    }[];
 }
   
-
-export default function UserProfilePage({chatId}:{chatId: number}) {
+export default function UserProfilePage({userId}:{userId: number}) {
     const navigate = useNavigate();
 
     const [profile , setProfile] = useState<UserProfile>()
 
     useEffect(() => {
         const fetchProfile = async () => {
-          const result = await getUserProfile(chatId);
+          const result = await getUserProfile(userId);
+          console.log(result)
           setProfile(result)
         };
     
-        fetchProfile();
-    }, []);
+        fetchProfile()
+    }, [userId]);
 
     const handleRemoveFriend = async () => {
         try {
-            await removeFriend(chatId);
+            await removeFriend(userId);
             navigate('/contacts')
         } catch (error) {
             console.error("Error sending message:", error);

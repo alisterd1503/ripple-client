@@ -51,6 +51,7 @@ export default function ContactList() {
       chatId: user.chatId,
       title: user.title,
       username: user.username,
+      userId: user.userId,
       groupAvatar: user.groupAvatar,
       isGroupChat: user.isGroupChat,
       members: user.members,

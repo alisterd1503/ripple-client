@@ -1,7 +1,8 @@
 export interface ChatModel {
     avatar: string;
     title: string;
-    username: string
+    username: string;
+    userId: number;
     groupAvatar: string;
     chatId: number;
     isGroupChat: boolean;

@@ -2,6 +2,7 @@ export interface ContactModel {
     chatId: number,
     title: string,
     username: string,
+    userId: number,
     groupAvatar: string,
     avatar: string,
     isGroupChat: boolean,

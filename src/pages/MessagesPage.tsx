@@ -42,7 +42,6 @@ export default function MessagesPage() {
             if (body.chatId) {
                 try {
                     const result = await getMessages(body.chatId);
-                    console.log('messages:',result)
                     setMessages(result);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
