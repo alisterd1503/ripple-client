@@ -18,7 +18,9 @@ export default function ContactsPage() {
           navigate('/settings');
         } else if (newValue === 'chats') {
           navigate('/contacts');
-        }
+        } else if (newValue === 'favourites') {
+        navigate('/favourites');
+      }
     };
 
     return (

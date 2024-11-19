@@ -9,6 +9,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useEffect, useState } from 'react';
 import ProfilePage from './pages/ProfilePage';
+import FavouritesPage from './pages/FavouritesPage';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/favourites" element={<FavouritesPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/settings" element={<SettingsPage toggleTheme={toggleTheme} mode={mode} />} />
         <Route path="/profile" element={<ProfilePage />} />

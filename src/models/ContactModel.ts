@@ -11,4 +11,5 @@ export interface ContactModel {
     lastMessageTime: string,
     lastMessageSender: string,
     members: string[],
+    isFavourite: boolean,
 }
