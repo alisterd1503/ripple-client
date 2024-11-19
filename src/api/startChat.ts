@@ -1,7 +1,6 @@
-import { UserModel } from "../models/UserModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/startChat`
 
-export const startChat = async (body: UserModel): Promise<void> => {
+export const startChat = async (userId: number): Promise<void> => {
     try {
         const token = localStorage.getItem('token');
 
@@ -11,7 +10,7 @@ export const startChat = async (body: UserModel): Promise<void> => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify(body),
+            body: JSON.stringify({userId}),
         });
 
         if (!response.ok) {

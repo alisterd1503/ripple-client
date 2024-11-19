@@ -7,7 +7,8 @@ import ProfileButton from "./ProfileButton";
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../api/ProfileAPI/getUserProfile";
 import { convertISODate } from "../../utils/convertISODate";
-
+import ListGroupChats from "./ListGroupChats";
+import { startChat } from "../../api/startChat";
 
 interface UserProfile {
     userId: number;
@@ -103,32 +104,52 @@ export default function UserProfilePage({userId}:{userId: number}) {
                     </Stack>
                 </Paper>
 
-                <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
-                    <Stack
-                        direction="column"
-                        spacing={0}
-                        sx={{
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                        }}
-                    >
-                        <Typography sx={{padding: '10px', opacity: 0.7}}>{profile.added_at ? convertISODate(profile.added_at,'profile') : ''}</Typography>
-                    </Stack>
-                </Paper>
+                {profile.added_at ? 
+                    (<>
+                        <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                            <Stack
+                                direction="column"
+                                spacing={0}
+                                sx={{
+                                    justifyContent: "flex-start",
+                                    alignItems: "flex-start",
+                                }}
+                            >
+                                <Typography sx={{padding: '10px', opacity: 0.7}}>{profile.added_at ? convertISODate(profile.added_at,'profile') : ''}</Typography>
+                            </Stack>
+                        </Paper>
 
-                <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
-                    <Stack
-                        direction="column"
-                        spacing={0}
-                        sx={{
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                        }}
-                    >
-                        <ProfileButton text="Add to Favourites"/>
-                        <ProfileButton onClick={handleRemoveFriend} text="Remove Friend" red/>
-                    </Stack>
-                </Paper>
+                        { profile.groups_in.length > 0 && <ListGroupChats groupChats={profile.groups_in}/>}
+
+                        <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                            <Stack
+                                direction="column"
+                                spacing={0}
+                                sx={{
+                                    justifyContent: "flex-start",
+                                    alignItems: "flex-start",
+                                }}
+                            >
+                                <ProfileButton text="Add to Favourites"/>
+                                <ProfileButton onClick={handleRemoveFriend} text="Remove Friend" Red NotLast/>
+                            </Stack>
+                        </Paper>
+                    </>) 
+                    : 
+                    (<Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                        <Stack
+                            direction="column"
+                            spacing={0}
+                            sx={{
+                                justifyContent: "flex-start",
+                                alignItems: "flex-start",
+                            }}
+                        >
+                            <ProfileButton text="Add User" onClick={() => { startChat(profile.userId); navigate('/contacts');}}  NotLast/>
+                        </Stack>
+                    </Paper>
+                    )
+                }
                     
             </Stack>
         }

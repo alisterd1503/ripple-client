@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import PenIcon from '@mui/icons-material/EditOutlined';
 import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
 import TextIcon from '@mui/icons-material/ShortTextOutlined';
-import { ChatModel } from "../../models/ChatModel";
 import { convertISODate } from "../../utils/convertISODate";
 import SettingsButton from "../SettingPage/SettingsButton";
 import ListMembers from "./ListMembers";
@@ -44,7 +43,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
         };
     
         fetchProfile();
-    }, []);
+    }, [chatId]);
 
     const handleClose = () => {
         setOpenBackdrop(null);
@@ -152,7 +151,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                     </Stack>
                 </Paper>
 
-                <ListMembers members={profile.members} count={profile.members.length}/>
+                <ListMembers members={profile.members}/>
 
                 <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
                     <Stack
@@ -164,7 +163,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                         }}
                     >
                         <ProfileButton text="Add to Favourites"/>
-                        <ProfileButton onClick={handleLeaveGroup} text="Leave Group" red/>
+                        <ProfileButton onClick={handleLeaveGroup} text="Leave Group" Red NotLast/>
                     </Stack>
                 </Paper>
 

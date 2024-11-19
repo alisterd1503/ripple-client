@@ -1,26 +1,19 @@
 import { Paper, Stack, Button, Typography } from "@mui/material";
 import ArrowIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import { useNavigate } from "react-router-dom";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 
-interface Members {
-    userId: number;
-    username: string;
-    avatar: string;
-    bio: string;
+interface GroupChats {
+    chatId: number;
+    title: string;
+    groupAvatar: string;
 }
 
-export default function ListMembers({members}:{members:Members[]}) {
-    const navigate = useNavigate(); 
-
-    const openProfile = (userId: number) => {
-        navigate('/profile', { state: { userId } });
-    };
+export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
 
     return (
         <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: '100%'}}>
             <Typography variant="h6" fontSize={20} fontWeight={"bold"} gutterBottom>
-                {members.length} members
+                {groupChats.length} groups in common
             </Typography>
             <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
                 <Stack
@@ -31,7 +24,7 @@ export default function ListMembers({members}:{members:Members[]}) {
                         alignItems: "flex-start",
                     }}
                 >
-                    {members.map((user) => (
+                    {groupChats.map((group) => (
                     <Button
                         sx={{
                             color: 'primary', 
@@ -44,13 +37,13 @@ export default function ListMembers({members}:{members:Members[]}) {
                             justifyContent: 'space-between',
                             alignItems: 'center',
                         }} 
-                        onClick={()=>openProfile(user.userId)}
+                        onClick={()=>console.log(group.chatId)}
                     >
                         <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
-                            <ProfileAvatar avatarPath={user.avatar} username={user.username} height={'40px'} width={'40px'}/>
+                            <ProfileAvatar avatarPath={group.groupAvatar} username={group.title} height={'40px'} width={'40px'}/>
                             <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start",}}>
-                                <Typography fontSize={17}>{user.username}</Typography>
-                                <Typography fontSize={15} sx={{opacity: 0.5}}>{user.bio}</Typography>
+                                <Typography fontSize={17}>{group.title}</Typography>
+                                <Typography fontSize={15} sx={{opacity: 0.5}}>userone, usertwo, userthree</Typography>
                             </Stack>
                         </Stack>
                         <ArrowIcon sx={{opacity: 0.3}}/>

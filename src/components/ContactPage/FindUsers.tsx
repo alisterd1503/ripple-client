@@ -37,17 +37,12 @@ export default function FindUsers() {
 
 
   const handleOnClick = () => {
-    users.length > 1 ? setOpenBackdrop(true) : startNewChat(users[0].userId, users[0].username)
+    users.length > 1 ? setOpenBackdrop(true) : startNewChat(users[0].userId)
   }
 
-  const startNewChat = async (recipientUserId: number, recipientUsername: string) => {
-    const body: UserModel = {
-      username: recipientUsername,
-      userId: recipientUserId,
-      avatar: ''
-    };
+  const startNewChat = async (recipientUserId: number) => { 
     try {
-      await startChat(body);
+      await startChat(recipientUserId);
     } catch (error) {
       console.error("Error starting chat:", error);
     }
