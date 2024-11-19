@@ -9,6 +9,7 @@ import { getUserProfile } from "../../api/ProfileAPI/getUserProfile";
 import { convertISODate } from "../../utils/convertISODate";
 import ListGroupChats from "./ListGroupChats";
 import { startChat } from "../../api/startChat";
+import { favouriteChat } from "../../api/ProfileAPI/favouriteChat";
 
 interface UserProfile {
     userId: number;
@@ -16,6 +17,7 @@ interface UserProfile {
     avatar: string;
     bio: string;
     added_at: string | null;
+    is_favourite: boolean;
     groups_in: {
         chatId: number;
         title: string;
@@ -130,7 +132,15 @@ export default function UserProfilePage({userId}:{userId: number}) {
                                     alignItems: "flex-start",
                                 }}
                             >
-                                <ProfileButton text="Add to Favourites"/>
+                                {profile.is_favourite ? 
+                                (<ProfileButton  text="Remove from Favourites" Red
+                                    onClick={() => {favouriteChat({ isFavourite: false, userId: profile.userId });window.location.reload();} } 
+                                />) 
+                                : 
+                                (<ProfileButton text="Add to Favourites" 
+                                    onClick={() => {favouriteChat({ isFavourite: true, userId: profile.userId });window.location.reload();} } 
+                                />)
+                            }
                                 <ProfileButton onClick={handleRemoveFriend} text="Remove Friend" Red NotLast/>
                             </Stack>
                         </Paper>
