@@ -1,5 +1,20 @@
 const API_URL = `${process.env.REACT_APP_API_URL}/api/getUserProfile`;
 
+interface UserProfile {
+    userId: number;
+    username: string;
+    avatar: string;
+    bio: string;
+    added_at: string | null;
+    is_favourite: boolean;
+    groups_in: {
+        chatId: number;
+        title: string;
+        groupAvatar: string;
+        members: string[]
+    }[];
+}
+
 export const getUserProfile = async (userId: number): Promise<any> => {
     try {
         const token = localStorage.getItem('token');
@@ -16,8 +31,9 @@ export const getUserProfile = async (userId: number): Promise<any> => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data: any = await response.json();
-        return data;
+        const data: UserProfile = await response.json();
+        console.log('uhm',data)
+        return data
     } catch (error) {
         console.error('Error fetching profile:', error);
         return [];

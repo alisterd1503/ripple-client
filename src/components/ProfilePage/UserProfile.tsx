@@ -34,10 +34,8 @@ export default function UserProfilePage({userId}:{userId: number}) {
     useEffect(() => {
         const fetchProfile = async () => {
           const result = await getUserProfile(userId);
-          console.log(result)
           setProfile(result)
         };
-    
         fetchProfile()
     }, [userId]);
 

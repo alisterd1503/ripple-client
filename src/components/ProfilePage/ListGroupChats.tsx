@@ -39,6 +39,7 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                             alignItems: 'center',
                         }} 
                         onClick={()=>console.log(group.chatId)}
+                        // Open relevant group chat
                     >
                         <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
                             <ProfileAvatar avatarPath={group.groupAvatar} username={group.title} height={'40px'} width={'40px'}/>

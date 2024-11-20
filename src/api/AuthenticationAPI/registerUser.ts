@@ -1,6 +1,6 @@
 import { AuthModel } from "../../models/AuthModel";
 import { ResponseModel } from "../../models/ResponseModel";
-const API_URL = `${process.env.REACT_APP_API_URL}/api/register`;
+const API_URL = `${process.env.REACT_APP_API_URL}/api/registerUser`;
 
 export const registerUser = async (registration: AuthModel): Promise<ResponseModel> => {
     try {
