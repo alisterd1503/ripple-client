@@ -6,6 +6,7 @@ interface GroupChats {
     chatId: number;
     title: string;
     groupAvatar: string;
+    members: string[]
 }
 
 export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
@@ -43,7 +44,7 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                             <ProfileAvatar avatarPath={group.groupAvatar} username={group.title} height={'40px'} width={'40px'}/>
                             <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start",}}>
                                 <Typography fontSize={17}>{group.title}</Typography>
-                                <Typography fontSize={15} sx={{opacity: 0.5}}>userone, usertwo, userthree</Typography>
+                                <Typography fontSize={14} sx={{opacity: 0.5}}>{(group.members).join(', ')}</Typography>
                             </Stack>
                         </Stack>
                         <ArrowIcon sx={{opacity: 0.3}}/>

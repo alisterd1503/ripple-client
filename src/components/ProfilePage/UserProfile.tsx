@@ -22,6 +22,7 @@ interface UserProfile {
         chatId: number;
         title: string;
         groupAvatar: string;
+        members: string[]
     }[];
 }
   
