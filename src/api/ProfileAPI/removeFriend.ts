@@ -1,7 +1,7 @@
 import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/removeFriend`;
 
-export const removeFriend = async (chatId: number): Promise<ResponseModel> => {
+export const removeFriend = async (userId: number): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
         
@@ -11,7 +11,7 @@ export const removeFriend = async (chatId: number): Promise<ResponseModel> => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({chatId}),
+            body: JSON.stringify({userId}),
         });
 
         if (!response.ok) {
