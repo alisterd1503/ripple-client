@@ -32,7 +32,6 @@ export const getUserProfile = async (userId: number): Promise<any> => {
         }
 
         const data: UserProfile = await response.json();
-        console.log('uhm',data)
         return data
     } catch (error) {
         console.error('Error fetching profile:', error);
