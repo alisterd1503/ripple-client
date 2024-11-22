@@ -44,6 +44,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                 direction: "outgoing",
                 position: "last",
                 isImage: !!selectedImage,
+                readBy: []
             };
 
             setMessages((prevMessages) => [...prevMessages, newMessage]);

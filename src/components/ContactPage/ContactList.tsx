@@ -1,4 +1,4 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Badge, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getContacts } from "../../api/getContacts";
@@ -13,16 +13,17 @@ interface MessagePreviewProps {
   username: string;
   isGroupChat: boolean;
   isImage: boolean;
+  hasRead: boolean;
 }
 
-function MessagePreview({ message, username, isGroupChat, isImage }: MessagePreviewProps) {
+function MessagePreview({ message, username, isGroupChat, isImage, hasRead }: MessagePreviewProps) {
   if (!message) 
     return <Typography sx={{ opacity: 0.5, fontSize: 15 }}>Start Chat...</Typography>;
 
   return (
-    <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center", opacity: 0.5 }}>
+    <Stack direction="row" spacing={0.5} sx={{ justifyContent: "center", alignItems: "center", opacity: hasRead ? 0.5 : 1 }}>
       {isGroupChat && <Typography>{username}:</Typography>}
-      {isImage ? <ImageIcon fontSize="small" /> : <Typography>{message}</Typography>}
+      {isImage ? <ImageIcon fontSize="small" />:<Typography>{message}</Typography>}
     </Stack>
   );
 }
@@ -106,18 +107,19 @@ export default function ContactList() {
                 padding: '16px',
               }}
             >
-              <Typography variant="body1">{user.isGroupChat ? user.title : user.username}</Typography>
-              <MessagePreview message={user.lastMessage} username={user.lastMessageSender} isGroupChat={user.isGroupChat} isImage={user.isImage}/>
+              <Typography variant="body1" fontWeight={'bold'}>{user.isGroupChat ? user.title : user.username}</Typography>
+              <MessagePreview message={user.lastMessage} username={user.lastMessageSender} isGroupChat={user.isGroupChat} isImage={user.isImage} hasRead={user.readLastMessage}/>
             </Stack>
             <Stack
               direction="column"
-              spacing={0}
+              spacing={1.5}
               sx={{
                 justifyContent: "center",
-                alignItems: "flex-end",
+                alignItems: "flex-end"
               }}
             >
               <Typography variant="body2">{user.lastMessageTime ? convertISODate(user.lastMessageTime, 'contacts') : ''}</Typography>
+              {user.unReadMessages > 0 && <Badge badgeContent={user.unReadMessages} color="primary" style={{marginRight: 10}}/>}
             </Stack>
           </Stack>
           </Button>

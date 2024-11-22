@@ -12,4 +12,6 @@ export interface ContactModel {
     lastMessageSender: string,
     members: string[],
     isFavourite: boolean,
+    unReadMessages: number,
+    readLastMessage: boolean
 }
