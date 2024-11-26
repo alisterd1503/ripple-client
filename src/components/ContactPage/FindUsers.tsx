@@ -7,7 +7,7 @@ import { startChat } from '../../api/startChat';
 import { UserModel } from '../../models/UserModel';
 import MakeNewGroup from '../GroupChatSettings/MakeNewGroup';
 
-export default function FindUsers() {
+export default function FindUsers({updateUsers}:{updateUsers?: React.Dispatch<React.SetStateAction<UserModel[]>>}) {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
   const [users, setUsers] = React.useState<UserModel[]>([]);
 
@@ -47,7 +47,7 @@ export default function FindUsers() {
       console.error("Error starting chat:", error);
     }
     window.location.reload();
-  };  
+  };
 
   const CustomAddIcon = (props: any) => (
     <SvgIcon {...props}>
@@ -60,6 +60,11 @@ export default function FindUsers() {
       />
     </SvgIcon>
   );
+
+  const udpateStates = (newValue: UserModel[]) => {
+    setUsers(newValue)
+    if (updateUsers) updateUsers(newValue)
+  }
 
   return (
     <Stack direction="column" spacing={2} sx={{ justifyContent: "center", alignItems: "center", width: '100%'}}>
@@ -77,7 +82,7 @@ export default function FindUsers() {
           id="tags-standard"
           options={allUsers}
           value={users}
-          onChange={(event, newValue) => setUsers(newValue)}
+          onChange={(event, newValue) => udpateStates(newValue)}
           getOptionLabel={(option) => option.username}
           sx={style}
           renderInput={(params) => (
@@ -87,7 +92,7 @@ export default function FindUsers() {
             />
           )}
         />
-
+        {updateUsers ? <div></div> : 
         <div>
           {(users.length > 0) ? (
             <Button
@@ -117,6 +122,7 @@ export default function FindUsers() {
             </Button>
           )}
         </div>
+        }
       </Stack>
 
       <Backdrop
