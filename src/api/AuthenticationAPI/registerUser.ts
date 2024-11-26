@@ -2,9 +2,6 @@ import { AuthModel } from "../../models/AuthModel";
 import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/registerUser`;
 
-
-console.log(API_URL)
-
 export const registerUser = async (registration: AuthModel): Promise<ResponseModel> => {
     try {
         const response = await fetch(API_URL, {
