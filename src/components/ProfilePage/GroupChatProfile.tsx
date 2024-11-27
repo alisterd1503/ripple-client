@@ -107,7 +107,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
 
                 <ProfileAvatar avatarPath={profile.groupAvatar} username={profile.title} width={'100px'} height={'100px'}/>
                 
-                <Typography variant="h3" fontWeight={"bold"} fontSize={30} gutterBottom>
+                <Typography variant="h3" fontWeight={"bold"} fontSize={30} textAlign={'center'}>
                         {profile.title}
                 </Typography>
 

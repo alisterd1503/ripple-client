@@ -66,7 +66,7 @@ export default function ChatHeader({body}:{body: ChatModel}) {
                         />
                         <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start" }}>
                             <Typography variant="h5" component="div" fontWeight={'bold'} fontSize={25} sx={{ flexGrow: 1, textAlign: 'center' }}>
-                                {formatText(title,16)}
+                                {formatText(title,10)}
                             </Typography>
                             {body.isGroupChat &&
                             <Typography variant="body2" color="textSecondary" sx={{textAlign: 'left'}}>

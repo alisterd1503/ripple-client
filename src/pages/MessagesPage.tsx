@@ -23,8 +23,8 @@ function PopupReceipt({receipts}:{receipts: ReadBy[]}) {
     return (
         <Box component="section" sx={{ p: 2, fontSize: 20}}>
             <Typography>Read By:</Typography>
-            {receipts.map((receipt) => (
-                <Typography sx={{fontSize: 15}}>{`${receipt.username} - ${convertISODate(receipt.time,'profile')}`}</Typography>
+            {receipts.map((receipt, index) => (
+                <Typography key={index} sx={{fontSize: 15}}>{`${receipt.username} - ${convertISODate(receipt.time,'profile')}`}</Typography>
             ))}
         </Box>
     )
@@ -76,7 +76,6 @@ export default function MessagesPage() {
                 try {
                     const result = await getMessages(body.chatId);
                     setMessages(result);
-                    console.log(result);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
                 }

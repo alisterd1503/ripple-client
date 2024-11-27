@@ -7,6 +7,7 @@ import { ContactModel } from "../../models/ContactModel";
 import { convertISODate } from "../../utils/convertISODate";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 import ImageIcon from '@mui/icons-material/Image';
+import { formatText } from "../../utils/formatText";
 
 interface MessagePreviewProps {
   message: string;
@@ -23,7 +24,7 @@ function MessagePreview({ message, username, isGroupChat, isImage, hasRead }: Me
   return (
     <Stack direction="row" spacing={0.5} sx={{ justifyContent: "center", alignItems: "center", opacity: hasRead ? 0.5 : 1 }}>
       {isGroupChat && <Typography>{username}:</Typography>}
-      {isImage ? <ImageIcon fontSize="small" />:<Typography>{message}</Typography>}
+      {isImage ? <ImageIcon fontSize="small" />:<Typography>{formatText(message,14)}</Typography>}
     </Stack>
   );
 }
@@ -84,7 +85,7 @@ export default function ContactList() {
           >
           <Stack
             direction="row"
-            spacing={1}
+            spacing={0}
             sx={{
               justifyContent: "space-between",
               alignItems: "center",
@@ -107,7 +108,7 @@ export default function ContactList() {
                 padding: '16px',
               }}
             >
-              <Typography variant="body1" fontWeight={'bold'}>{user.isGroupChat ? user.title : user.username}</Typography>
+              <Typography variant="body1" fontWeight={'bold'}>{user.isGroupChat ? formatText(user.title,16) : user.username}</Typography>
               <MessagePreview message={user.lastMessage} username={user.lastMessageSender} isGroupChat={user.isGroupChat} isImage={user.isImage} hasRead={user.readLastMessage}/>
             </Stack>
             <Stack
