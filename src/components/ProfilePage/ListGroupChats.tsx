@@ -1,6 +1,7 @@
 import { Paper, Stack, Button, Typography } from "@mui/material";
 import ArrowIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import ProfileAvatar from "../Reusable/ProfileAvatar";
+import { formatText } from "../../utils/formatText";
 
 interface GroupChats {
     chatId: number;
@@ -43,8 +44,8 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                         <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
                             <ProfileAvatar avatarPath={group.groupAvatar} username={group.title} height={'40px'} width={'40px'}/>
                             <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start",}}>
-                                <Typography fontSize={17}>{group.title}</Typography>
-                                <Typography fontSize={14} sx={{opacity: 0.5}}>{(group.members).join(', ')}</Typography>
+                                <Typography fontSize={17}>{formatText(group.title,19)}</Typography>
+                                <Typography fontSize={14} sx={{opacity: 0.5}}>{formatText((group.members).join(', '),30)}</Typography>
                             </Stack>
                         </Stack>
                         <ArrowIcon sx={{opacity: 0.3}}/>
