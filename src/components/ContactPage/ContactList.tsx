@@ -24,7 +24,7 @@ function MessagePreview({ message, username, isGroupChat, isImage, hasRead }: Me
   return (
     <Stack direction="row" spacing={0.5} sx={{ justifyContent: "center", alignItems: "center", opacity: hasRead ? 0.5 : 1 }}>
       {isGroupChat && <Typography>{username}:</Typography>}
-      {isImage ? <ImageIcon fontSize="small" />:<Typography>{formatText(message,14)}</Typography>}
+      {isImage ? <ImageIcon fontSize="small" />:<Typography>{formatText(message,(21-username.length))}</Typography>}
     </Stack>
   );
 }
