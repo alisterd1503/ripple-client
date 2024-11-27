@@ -13,7 +13,7 @@ import FavouritesPage from './pages/FavouritesPage';
 
 
 function App() {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
 
   const theme = createTheme({
     palette: {
