@@ -36,6 +36,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
             if (!newMessageData) return;
 
             const newMessage: MessageModel = {
+                id: 0,
                 userId: currentUserId,
                 username: currentUsername,
                 avatar: currentUserAvatar,

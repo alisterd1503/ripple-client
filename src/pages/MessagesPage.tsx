@@ -131,11 +131,10 @@ export default function MessagesPage() {
                     }}
                 >
                     {messages.map((message) => (
-                        <>
                             <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>
                                 <MessageGroup.Messages>
                                     <Message
-                                        key={message.createdAt}
+                                        key={message.id}
                                         model={{
                                             message: message.message,
                                             sentTime: message.createdAt,
@@ -189,7 +188,6 @@ export default function MessagesPage() {
                                     </Stack>
                                 </MessageGroup.Footer>
                             </MessageGroup>
-                        </>
                     ))}
                 </MessageList>
             </div>
