@@ -33,6 +33,7 @@ export default function ListMembers({members}:{members:Members[]}) {
                 >
                     {members.map((user) => (
                     <Button
+                        key={user.userId}
                         sx={{
                             color: 'primary', 
                             borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
