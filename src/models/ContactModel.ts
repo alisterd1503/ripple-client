@@ -13,5 +13,6 @@ export interface ContactModel {
     members: string[],
     isFavourite: boolean,
     unReadMessages: number,
-    readLastMessage: boolean
+    readLastMessage: boolean,
+    isOnline: boolean
 }

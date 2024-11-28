@@ -9,6 +9,7 @@ interface ChatModel {
     chatId: number;
     isGroupChat: boolean;
     members: string[];
+    isOnline: boolean;
 }
 
 export const getChatHeader = async (chatId: number): Promise<ChatModel> => {

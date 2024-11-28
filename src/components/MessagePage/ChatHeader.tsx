@@ -20,6 +20,7 @@ interface ChatModel {
     chatId: number;
     isGroupChat: boolean;
     members: string[];
+    isOnline: boolean;
 }
 
 export default function ChatHeader({ chatId }: { chatId: number }) {
@@ -96,6 +97,7 @@ export default function ChatHeader({ chatId }: { chatId: number }) {
                             <ProfileAvatar
                                 avatarPath={header.isGroupChat ? header.groupAvatar : header.avatar}
                                 username={title}
+                                isOnline={header.isOnline}
                                 height="50px"
                                 width="50px"
                             />

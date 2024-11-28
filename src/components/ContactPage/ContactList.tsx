@@ -85,6 +85,7 @@ export default function ContactList() {
             <ProfileAvatar 
               avatarPath={user.isGroupChat ? user.groupAvatar : user.avatar} 
               username={user.isGroupChat ? user.title : user.username}
+              isOnline={user.isOnline}
             />
 
             <Stack
