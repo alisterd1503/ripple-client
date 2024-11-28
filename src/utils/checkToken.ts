@@ -11,8 +11,6 @@ export function checkToken() {
         const decoded: { exp: number } = jwtDecode(token);
         const currentTime = Date.now() / 1000;
         if (decoded.exp < currentTime) {
-            // Token expired
-            console.log('Token expired. Logging out...');
             localStorage.removeItem('token');
             window.location.href = '/';
         }

@@ -36,7 +36,6 @@ export default function UserProfilePage({userId}:{userId: number}) {
         const fetchProfile = async () => {
           const result = await getUserProfile(userId);
           setProfile(result)
-          console.log(profile)
         };
         fetchProfile()
     }, [userId]);
