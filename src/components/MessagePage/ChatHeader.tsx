@@ -39,7 +39,7 @@ export default function ChatHeader({ chatId }: { chatId: number }) {
     });
 
     const title = header?.isGroupChat ? header.title : header?.username;
-    const usernames = header?.members.join(', ');
+    const usernames = header?.members ? header?.members.join(', ') : '';
 
     const openProfile = () => {
         if (header) {
