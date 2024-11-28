@@ -10,6 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useEffect, useState } from 'react';
 import ProfilePage from './pages/ProfilePage';
 import FavouritesPage from './pages/FavouritesPage';
+import { logoutUser } from './api/AuthenticationAPI/logoutUser';
 
 
 function App() {
@@ -35,6 +36,19 @@ function App() {
         return newMode;
     });
   }
+
+  useEffect(() => {
+    const handleBeforeUnload = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        await logoutUser();
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
