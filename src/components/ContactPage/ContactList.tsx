@@ -49,17 +49,7 @@ export default function ContactList() {
   }, []);
 
   const openChat = (user: ContactModel) => {
-    const body: ChatModel = {
-      chatId: user.chatId,
-      title: user.title,
-      username: user.username,
-      userId: user.userId,
-      groupAvatar: user.groupAvatar,
-      isGroupChat: user.isGroupChat,
-      members: user.members,
-      avatar: user.avatar
-    };
-    navigate('/messages', { state: { body } });
+    navigate('/messages', { state: { chatId: user.chatId, isGroupChat: user.isGroupChat } });
   };
 
   return (

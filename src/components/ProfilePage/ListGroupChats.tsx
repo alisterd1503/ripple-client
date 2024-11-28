@@ -2,6 +2,7 @@ import { Paper, Stack, Button, Typography } from "@mui/material";
 import ArrowIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 import { formatText } from "../../utils/formatText";
+import { useNavigate } from "react-router-dom";
 
 interface GroupChats {
     chatId: number;
@@ -11,6 +12,12 @@ interface GroupChats {
 }
 
 export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
+
+    const navigate = useNavigate();
+
+    const openChat = (chatId: number) => {
+        navigate('/messages', { state: { chatId: chatId, isGroupChat: true } });
+    };
 
     return (
         <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: '100%'}}>
@@ -28,6 +35,7 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                 >
                     {groupChats.map((group) => (
                     <Button
+                        key={group.chatId}
                         sx={{
                             color: 'primary', 
                             borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
@@ -39,7 +47,7 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                             justifyContent: 'space-between',
                             alignItems: 'center',
                         }} 
-                        onClick={()=>console.log(group.chatId)}
+                        onClick={()=>openChat(group.chatId)}
                     >
                         <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
                             <ProfileAvatar avatarPath={group.groupAvatar} username={group.title} height={'40px'} width={'40px'}/>

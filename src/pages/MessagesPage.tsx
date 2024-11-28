@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import { MessageList, Message, Avatar, MessageGroup } from "@chatscope/chat-ui-kit-react";
 import { jwtDecode } from "jwt-decode";
-import { ChatModel } from "../models/ChatModel";
 import { getMessages } from "../api/MessagesAPI/getMessages";
 import { MessageModel } from "../models/MessageModel";
 import ChatHeader from "../components/MessagePage/ChatHeader";
@@ -37,7 +36,7 @@ export default function MessagesPage() {
     const [messages, setMessages] = useState<MessageModel[]>([]);
     const [selectedReadBy, setSelectedReadBy] = useState<ReadBy[]>([]);
     const location = useLocation();
-    const { body } = location.state as { body: ChatModel };
+    const { chatId, isGroupChat } = location.state as { chatId: number, isGroupChat: boolean };
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>, readBy: ReadBy[], currentUserId: number, userId: number) => {
@@ -72,9 +71,9 @@ export default function MessagesPage() {
 
     useEffect(() => {
         const fetchMessages = async () => {
-            if (body.chatId) {
+            if (chatId) {
                 try {
-                    const result = await getMessages(body.chatId);
+                    const result = await getMessages(chatId);
                     setMessages(result);
                 } catch (error) {
                     console.error("Error fetching messages:", error);
@@ -89,7 +88,7 @@ export default function MessagesPage() {
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [body.chatId]);
+    }, [chatId]);
 
     function messageFooter(isGroupChat: boolean, userId: number, currentUserId: number | null, username: string, time: string): string {
         let footer = "";
@@ -116,7 +115,7 @@ export default function MessagesPage() {
             }}
         >
             <div>
-                <ChatHeader body={body} />
+                <ChatHeader chatId={chatId} />
             </div>
 
             <div
@@ -171,7 +170,7 @@ export default function MessagesPage() {
                                     >
                                         <Typography sx={{ color: "white", fontSize: 12, opacity: 0.5 }}>
                                             {messageFooter(
-                                                body.isGroupChat,
+                                                isGroupChat,
                                                 message.userId,
                                                 currentUserId,
                                                 message.username,
@@ -202,7 +201,7 @@ export default function MessagesPage() {
                     currentUserId={currentUserId}
                     currentUsername={currentUsername}
                     currentUserAvatar={currentUserAvatar}
-                    chatId={body.chatId}
+                    chatId={chatId}
                     setMessages={setMessages}
                 />
             </div>
