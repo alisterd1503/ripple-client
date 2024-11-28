@@ -12,6 +12,7 @@ import { Box, Popover, Stack, Typography } from "@mui/material";
 import { convertISODate } from "../utils/convertISODate";
 import TickIcon from '@mui/icons-material/Done';
 import React from "react";
+const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 interface ReadBy {
     username: string;
@@ -145,7 +146,7 @@ export default function MessagesPage() {
                                     >
                                         {message.isImage && (
                                             <Message.ImageContent
-                                                src={`http://localhost:5002${message.message}`}
+                                                src={`${API_URL}${message.message}`}
                                                 alt="Image"
                                                 width={200}
                                             />
@@ -155,7 +156,7 @@ export default function MessagesPage() {
                                                 name={message.username}
                                                 src={
                                                     message.avatar
-                                                        ? `http://localhost:5002${message.avatar}`
+                                                        ? `${API_URL}${message.avatar}`
                                                         : `https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg`
                                                 }
                                             />

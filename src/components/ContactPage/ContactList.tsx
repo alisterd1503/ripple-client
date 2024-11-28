@@ -2,7 +2,6 @@ import { Badge, Button, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getContacts } from "../../api/getContacts";
-import { ChatModel } from "../../models/ChatModel";
 import { ContactModel } from "../../models/ContactModel";
 import { convertISODate } from "../../utils/convertISODate";
 import ProfileAvatar from "../Reusable/ProfileAvatar";

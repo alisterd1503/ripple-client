@@ -3,6 +3,7 @@ import { Avatar, Box, Paper, Stack, } from "@mui/material";
 import { deletePhoto } from '../../api/SettingsAPI/deletePhoto';
 import { uploadPhoto } from '../../api/SettingsAPI/saveAvatar';
 import CenteredButton from '../Reusable/CenteredButton';
+const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 export default function AvatarUpload({currentAvatar, onClick, username}: {currentAvatar: string | undefined, username: string | undefined, onClick: (e: any) => any}) {
     const [avatar, setAvatar] = useState<string | null>(null); 
@@ -57,7 +58,7 @@ export default function AvatarUpload({currentAvatar, onClick, username}: {curren
         >
         <Box sx={{width: "100%", display: 'flex', justifyContent:'center', alignItems: 'center', padding: '20px'}}>
             <Avatar
-                src={preview || avatar || `http://localhost:5002${currentAvatar}`}
+                src={preview || avatar || `${API_URL}${currentAvatar}`}
                 sx={{ width: 100, height: 100, color: 'white' }}
                 alt={username}
             />

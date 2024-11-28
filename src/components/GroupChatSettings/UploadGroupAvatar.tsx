@@ -3,6 +3,7 @@ import { Avatar, Box, Paper, Stack, } from "@mui/material";
 import CenteredButton from '../Reusable/CenteredButton';
 import { deleteGroupPhoto } from '../../api/deleteGroupPhoto';
 import { uploadGroupPhoto } from '../../api/saveGroupAvatar';
+const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 export default function AvatarUpload({currentAvatar, onClick, title, chatId}: {chatId: number, currentAvatar: string | undefined, title: string | undefined, onClick: (e: any) => any}) {
     const [avatar, setAvatar] = useState<string | null>(null); 
@@ -57,7 +58,7 @@ export default function AvatarUpload({currentAvatar, onClick, title, chatId}: {c
         >
         <Box sx={{width: "100%", display: 'flex', justifyContent:'center', alignItems: 'center', padding: '20px'}}>
             <Avatar
-                src={preview || avatar || `http://localhost:5002${currentAvatar}`}
+                src={preview || avatar || `${API_URL}${currentAvatar}`}
                 sx={{ width: 100, height: 100, color: 'white' }}
                 alt={title}
             />
