@@ -1,7 +1,7 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 
-export default function ProfileCard({ avatar, username, bio }: { avatar: string | undefined, username: string | undefined, bio: string | undefined }) {
+export default function ProfileCard({ avatar, username, bio, isOnline }: { avatar: string | undefined, username: string | undefined, bio: string | undefined, isOnline: boolean | undefined}) {
     return (
         <Paper elevation={1} sx={{ width: '100%', padding: '15px', borderRadius: '7px', }}>
                 <Stack
@@ -12,7 +12,7 @@ export default function ProfileCard({ avatar, username, bio }: { avatar: string 
                         alignItems: "center",
                     }}
                 >
-                    <ProfileAvatar avatarPath={avatar} username={username} height="80px" width="80px"/>
+                    <ProfileAvatar avatarPath={avatar} username={username} height="80px" width="80px" isOnline={isOnline}/>
                     <Stack
                         direction="column"
                         spacing={-1}

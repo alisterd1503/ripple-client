@@ -13,8 +13,8 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AuthModel } from '../models/AuthModel';
-import { checkLogin } from '../api/AuthenticationAPI/checkLogin';
 import PasswordInput from '../components/Reusable/PasswordInput';
+import { loginUser } from '../api/AuthenticationAPI/loginUser';
 
 function LoginPage() {
   const [username, setUsername] = useState<string>('');
@@ -30,7 +30,7 @@ function LoginPage() {
       password: password,
     };
     try {
-      const result = await checkLogin(body);
+      const result = await loginUser(body);
       if (result.success) {
         setMessage('');
         setUsername('');
@@ -91,7 +91,7 @@ function LoginPage() {
             fullWidth
             variant="contained"
             color="primary"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
             sx={{ mt: 3, mb: 2 }}
           >
             {loading ? <CircularProgress size={24} color="inherit" /> : 'Login'}

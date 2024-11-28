@@ -1,6 +1,5 @@
 import { Backdrop, Paper, Stack, Typography } from "@mui/material";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
 import PenIcon from '@mui/icons-material/EditOutlined';
 import PasswordIcon from '@mui/icons-material/PasswordOutlined';
 import PhotoIcon from '@mui/icons-material/PhotoCameraBackOutlined';
@@ -20,6 +19,7 @@ import UpdateBio from "../components/Settings/UpdateBio";
 import UpdateUsername from "../components/Settings/UpdateUsername";
 import UploadAvatar from "../components/Settings/UploadAvatar";
 import { convertISODate } from "../utils/convertISODate";
+import { logoutUser } from "../api/AuthenticationAPI/logoutUser";
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -27,7 +27,6 @@ interface SettingsPageProps {
 }
 
 export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
-    const navigate = useNavigate();
     const [profile, setProfile] = useState<ProfileModel | null>(null);
     const [openBackdrop, setOpenBackdrop] = useState<string | null>(null);
 
@@ -46,11 +45,6 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
         };
         fetchProfile();
     }, []);
-    
-    const logout = () => {
-        localStorage.removeItem("currentUser");
-        navigate("/");
-    };
 
     return (
         <Stack
@@ -68,7 +62,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             </Typography>
             <SearchSettings/>
 
-            <ProfileCard username={profile?.username} avatar={profile?.avatar} bio={profile?.bio}/>
+            <ProfileCard username={profile?.username} avatar={profile?.avatar} bio={profile?.bio} isOnline={profile?.is_online}/>
 
             <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
                 <Stack
@@ -139,7 +133,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                     }}
                 >
                     <SettingsButton 
-                        onClick={logout}
+                        onClick={logoutUser}
                         icon={<LogoutIcon />}
                         text="Logout"
                         red

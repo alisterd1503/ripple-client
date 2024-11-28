@@ -18,6 +18,7 @@ interface UserProfile {
     bio: string;
     added_at: string | null;
     is_favourite: boolean;
+    is_online: boolean;
     groups_in: {
         chatId: number;
         title: string;
@@ -35,6 +36,7 @@ export default function UserProfilePage({userId}:{userId: number}) {
         const fetchProfile = async () => {
           const result = await getUserProfile(userId);
           setProfile(result)
+          console.log(profile)
         };
         fetchProfile()
     }, [userId]);
@@ -87,7 +89,7 @@ export default function UserProfilePage({userId}:{userId: number}) {
                         <Typography variant="h6" fontSize={18} gutterBottom>Edit</Typography>
                 </Stack>
 
-                <ProfileAvatar username={profile.username} height='100px' width='100px' avatarPath={profile.avatar}/>
+                <ProfileAvatar username={profile.username} height='100px' width='100px' avatarPath={profile.avatar} isOnline={profile.is_online}/>
                 <Typography variant="h3" fontWeight={"bold"} fontSize={30} gutterBottom>
                         {profile.username}
                 </Typography>

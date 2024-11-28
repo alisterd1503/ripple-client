@@ -2,7 +2,7 @@ import { AuthModel } from "../../models/AuthModel";
 import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/loginUser`;
 
-export const checkLogin = async (login: AuthModel): Promise<ResponseModel> => {
+export const loginUser = async (login: AuthModel): Promise<ResponseModel> => {
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
