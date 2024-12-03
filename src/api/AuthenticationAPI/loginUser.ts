@@ -24,10 +24,6 @@ export const loginUser = async (login: AuthModel): Promise<ResponseModel> => {
                 ws?.send(JSON.stringify({ action: 'setOnline', token }));
             };
 
-            ws.onclose = () => {
-                console.log('WebSocket closed');
-            };
-
             window.addEventListener('beforeunload', () => {
                 if (ws?.readyState === WebSocket.OPEN) {
                     ws.send(JSON.stringify({ action: 'setOffline', token }));

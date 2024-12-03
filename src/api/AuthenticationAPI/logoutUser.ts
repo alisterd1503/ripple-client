@@ -20,9 +20,7 @@ export const logoutUser = async (): Promise<void> => {
             },
         });
 
-        if (response.ok) {
-            console.log('User logged out successfully');
-        } else if (response.status === 401) {
+        if (response.status === 401) {
             console.error('Token expired or invalid');
         } else {
             console.error('Error logging out user');
