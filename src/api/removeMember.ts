@@ -1,7 +1,7 @@
 import { ResponseModel } from "../models/ResponseModel";
-const API_URL = `${process.env.REACT_APP_API_URL}/api/addUser`
+const API_URL = `${process.env.REACT_APP_API_URL}/api/removeMember`
 
-export const addUser = async ( chatId: number, users: {userId: number, username: string}[]): Promise<ResponseModel> => {
+export const removeMember = async ( chatId: number, userId: number): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
 
@@ -11,17 +11,17 @@ export const addUser = async ( chatId: number, users: {userId: number, username:
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({ chatId, users }),
+            body: JSON.stringify({ chatId, userId }),
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            return { success: false, message: errorData.message || 'Error adding new user.' };
+            return { success: false, message: errorData.message || 'Error removing member.' };
         }
 
-        return { success: true, message: 'Added New Users' };
+        return { success: true, message: 'Removed Member' };
     } catch (error) {
-        console.error('Error adding new user:', error);
+        console.error('Error removing member:', error);
         return { success: false, message: 'Network error or server unavailable.' };
     }
 };

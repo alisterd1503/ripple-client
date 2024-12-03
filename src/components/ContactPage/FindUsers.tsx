@@ -7,7 +7,7 @@ import { startChat } from '../../api/startChat';
 import { UserModel } from '../../models/UserModel';
 import MakeNewGroup from '../GroupChatSettings/MakeNewGroup';
 
-export default function FindUsers({updateUsers}:{updateUsers?: React.Dispatch<React.SetStateAction<UserModel[]>>}) {
+export default function FindUsers({updateUsers, groupMembers}:{updateUsers?: React.Dispatch<React.SetStateAction<UserModel[]>>, groupMembers?: UserModel[]}) {
   const [allUsers, setAllUsers] = useState<UserModel[]>([]);
   const [users, setUsers] = React.useState<UserModel[]>([]);
 
@@ -80,7 +80,7 @@ export default function FindUsers({updateUsers}:{updateUsers?: React.Dispatch<Re
         <Autocomplete
           multiple
           id="tags-standard"
-          options={allUsers}
+          options={groupMembers ? groupMembers : allUsers}
           value={users}
           onChange={(event, newValue) => udpateStates(newValue)}
           getOptionLabel={(option) => option.username}

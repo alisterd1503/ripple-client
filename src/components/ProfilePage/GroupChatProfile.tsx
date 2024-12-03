@@ -16,8 +16,10 @@ import UploadGroupAvatar from "../GroupChatSettings/UploadGroupAvatar";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 import { getGroupProfile } from "../../api/ProfileAPI/getGroupProfile";
 import { favouriteChat } from "../../api/ProfileAPI/favouriteChat";
-import AddPersonIcon from '@mui/icons-material/PersonAddOutlined';
-import AddUser from "../GroupChatSettings/AddUser";
+import AddPersonIcon from '@mui/icons-material/PersonAddAltOutlined';
+import RemovePersonIcon from '@mui/icons-material/PersonRemoveOutlined';
+import AddMembers from "../GroupChatSettings/AddMembers";
+import RemoveMember from "../GroupChatSettings/RemoveMember";
 
 interface GroupProfile {
     title: string;
@@ -183,6 +185,24 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                             alignItems: "flex-start",
                         }}
                     >
+                        <SettingsButton 
+                            onClick={() => handleButtonClick("remove")}
+                            icon={<RemovePersonIcon />}
+                            text="Remove User"
+                            red
+                        />
+                    </Stack>
+                </Paper>
+
+                <Paper elevation={1} sx={{ width: '100%', borderRadius: '7px', }}>
+                    <Stack
+                        direction="column"
+                        spacing={0}
+                        sx={{
+                            justifyContent: "flex-start",
+                            alignItems: "flex-start",
+                        }}
+                    >
                         {profile.is_favourite ? 
                         (<ProfileButton  text="Remove from Favourites" Red
                             onClick={() => {favouriteChat({ isFavourite: false, chatId: chatId });window.location.reload();} } 
@@ -226,7 +246,15 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                     open={openBackdrop === "add"}
                     onClick={handleClose}
                 >
-                    <AddUser chatId={chatId} onClick={(e) => e.stopPropagation()}/>
+                    <AddMembers chatId={chatId} onClick={(e) => e.stopPropagation()}/>
+                </Backdrop>
+
+                <Backdrop
+                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                    open={openBackdrop === "remove"}
+                    onClick={handleClose}
+                >
+                    <RemoveMember chatId={chatId} onClick={(e) => e.stopPropagation()} groupMembers={profile.members}/>
                 </Backdrop>
 
             </Stack>
