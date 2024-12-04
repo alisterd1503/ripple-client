@@ -3,7 +3,7 @@ import DarkIcon from '@mui/icons-material/DarkModeOutlined';
 import LightIcon from '@mui/icons-material/LightModeOutlined';
 import { AppleSwitch } from "./IOSSwitch";
 
- DarkModeToggelProps {
+interface DarkModeToggelProps {
     mode: 'light' | 'dark';
     toggleTheme: () => void
 }
