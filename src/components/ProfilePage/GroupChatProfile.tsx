@@ -20,27 +20,13 @@ import AddPersonIcon from '@mui/icons-material/PersonAddAltOutlined';
 import RemovePersonIcon from '@mui/icons-material/PersonRemoveOutlined';
 import AddMembers from "../GroupChatSettings/AddMembers";
 import RemoveMember from "../GroupChatSettings/RemoveMember";
-
-interface GroupProfile {
-    title: string;
-    description: string;
-    groupAvatar: string;
-    created_at: string;
-    added_at: string;
-    is_favourite: boolean;
-    members: {
-      userId: number;
-      username: string;
-      avatar: string;
-      bio: string;
-    }[];
-}
+import { GroupProfileModel } from "../../models/GroupProfileModel";
 
 export default function GCProfilePage({chatId}:{chatId: number}) {
     const navigate = useNavigate();
 
     const [openBackdrop, setOpenBackdrop] = useState<string | null>(null);
-    const [profile , setProfile] = useState<GroupProfile>()
+    const [profile , setProfile] = useState<GroupProfileModel>()
 
     useEffect(() => {
         const fetchProfile = async () => {

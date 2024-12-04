@@ -1,20 +1,6 @@
-const API_URL = `${process.env.REACT_APP_API_URL}/api/getUserProfile`;
+import { UserProfileModel } from "../../models/UserProfileModel";
 
-interface UserProfile {
-    userId: number;
-    username: string;
-    avatar: string;
-    bio: string;
-    added_at: string | null;
-    is_favourite: boolean;
-    is_online: boolean;
-    groups_in: {
-        chatId: number;
-        title: string;
-        groupAvatar: string;
-        members: string[]
-    }[];
-}
+const API_URL = `${process.env.REACT_APP_API_URL}/api/getUserProfile`;
 
 export const getUserProfile = async (userId: number): Promise<any> => {
     try {
@@ -32,7 +18,7 @@ export const getUserProfile = async (userId: number): Promise<any> => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data: UserProfile = await response.json();
+        const data: UserProfileModel = await response.json();
         return data
     } catch (error) {
         console.error('Error fetching profile:', error);

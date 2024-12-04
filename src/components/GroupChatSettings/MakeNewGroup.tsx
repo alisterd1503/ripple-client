@@ -8,13 +8,7 @@ import ProfileAvatar from "../Reusable/ProfileAvatar";
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { startGroupChat } from "../../api/startGroupChat";
-
-interface StartGroupChatModel {
-    users: UserModel[],
-    title: string | null,
-    description: string | null,
-    avatar: File | null,
-}
+import { StartGroupChatModel } from "../../models/StartGroupChatModel";
 
 export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users: UserModel[], setUsers: React.Dispatch<React.SetStateAction<UserModel[]>>, setOpenBackdrop: React.Dispatch<React.SetStateAction<boolean>>}) {
 

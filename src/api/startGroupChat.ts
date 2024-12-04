@@ -1,13 +1,6 @@
 import { ResponseModel } from "../models/ResponseModel";
-import { UserModel } from "../models/UserModel";
+import { StartGroupChatModel } from "../models/StartGroupChatModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/startGroupChat`
-
-interface StartGroupChatModel {
-    users: UserModel[],
-    title: string | null,
-    description: string | null,
-    avatar: File | null,
-}
 
 export const startGroupChat = async (body: StartGroupChatModel): Promise<ResponseModel> => {
     try {

@@ -1,19 +1,5 @@
+import { GroupProfileModel } from "../../models/GroupProfileModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/getGroupProfile`;
-
-interface GroupProfile {
-    title: string;
-    description: string;
-    groupAvatar: string;
-    created_at: string;
-    added_at: string;
-    is_favourite: boolean;
-    members: {
-      userId: number;
-      username: string;
-      avatar: string;
-      bio: string;
-    }[];
-}
 
 export const getGroupProfile = async (chatId: number): Promise<any> => {
     try {
@@ -31,7 +17,7 @@ export const getGroupProfile = async (chatId: number): Promise<any> => {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        const data: GroupProfile = await response.json();
+        const data: GroupProfileModel = await response.json();
         return data;
     } catch (error) {
         console.error('Error fetching profile:', error);

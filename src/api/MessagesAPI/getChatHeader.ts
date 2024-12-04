@@ -1,16 +1,5 @@
+import { ChatModel } from "../../models/ChatModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/getChatHeader`;
-
-interface ChatModel {
-    avatar: string;
-    title: string;
-    username: string;
-    userId: number;
-    groupAvatar: string;
-    chatId: number;
-    isGroupChat: boolean;
-    members: string[];
-    isOnline: boolean;
-}
 
 export const getChatHeader = async (chatId: number): Promise<ChatModel> => {
     try {

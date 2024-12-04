@@ -7,15 +7,9 @@ import { ContactModel } from "../../models/ContactModel";
 import { convertISODate } from "../../utils/convertISODate";
 import ProfileAvatar from "../Reusable/ProfileAvatar";
 import ImageIcon from '@mui/icons-material/Image';
+import { MessagePreviewModel } from "../../models/MessagePreviewModel";
 
-interface MessagePreviewProps {
-  message: string;
-  username: string;
-  isGroupChat: boolean;
-  isImage: boolean;
-}
-
-function MessagePreview({ message, username, isGroupChat, isImage }: MessagePreviewProps) {
+function MessagePreview({ message, username, isGroupChat, isImage }: MessagePreviewModel) {
   if (!message) 
     return <Typography sx={{ opacity: 0.5, fontSize: 15 }}>Start Chat...</Typography>;
 

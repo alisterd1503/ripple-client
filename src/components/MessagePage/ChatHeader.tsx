@@ -10,18 +10,7 @@ import ProfileAvatar from '../Reusable/ProfileAvatar';
 import { formatText } from '../../utils/formatText';
 import { useEffect, useState } from 'react';
 import { getChatHeader } from '../../api/MessagesAPI/getChatHeader';
-
-interface ChatModel {
-    avatar: string;
-    title: string;
-    username: string;
-    userId: number;
-    groupAvatar: string;
-    chatId: number;
-    isGroupChat: boolean;
-    members: string[];
-    isOnline: boolean;
-}
+import { ChatModel } from '../../models/ChatModel';
 
 export default function ChatHeader({ chatId }: { chatId: number }) {
     const navigate = useNavigate();

@@ -3,12 +3,7 @@ import React, { useState } from "react";
 import { changePassword } from "../../api/SettingsAPI/changePassword";
 import CenteredButton from "../Reusable/CenteredButton";
 import PasswordInput from "../Reusable/PasswordInput";
-
-interface NewPassword {
-    currentPassword: string,
-    newPassword: string,
-    confirmPassword: string
-}
+import { NewPasswordModel } from "../../models/NewPasswordModel";
 
 export default function ChangePassword({ onClick }: { onClick: (e: any) => any }) {
 
@@ -19,7 +14,7 @@ export default function ChangePassword({ onClick }: { onClick: (e: any) => any }
     const [message, setMessage] = useState<string | null>(null);
 
     const handleUpdatePassword = async () => {
-        const passwords: NewPassword = {
+        const passwords: NewPasswordModel = {
             currentPassword: currentPassword,
             newPassword: newPassword,
             confirmPassword: confirmPassword

@@ -10,27 +10,12 @@ import { convertISODate } from "../../utils/convertISODate";
 import ListGroupChats from "./ListGroupChats";
 import { startChat } from "../../api/startChat";
 import { favouriteChat } from "../../api/ProfileAPI/favouriteChat";
-
-interface UserProfile {
-    userId: number;
-    username: string;
-    avatar: string;
-    bio: string;
-    added_at: string | null;
-    is_favourite: boolean;
-    is_online: boolean;
-    groups_in: {
-        chatId: number;
-        title: string;
-        groupAvatar: string;
-        members: string[]
-    }[];
-}
+import { UserProfileModel } from "../../models/UserProfileModel";
   
 export default function UserProfilePage({userId}:{userId: number}) {
     const navigate = useNavigate();
 
-    const [profile , setProfile] = useState<UserProfile>()
+    const [profile , setProfile] = useState<UserProfileModel>()
 
     useEffect(() => {
         const fetchProfile = async () => {

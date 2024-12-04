@@ -1,13 +1,13 @@
 import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/favouriteChat`;
 
-interface FavouriteChatParams {
+interface FavouriteChatModel {
     isFavourite: boolean;
     chatId?: number;
     userId?: number;
 }
 
-export const favouriteChat = async ({ isFavourite, chatId, userId }: FavouriteChatParams): Promise<ResponseModel> => {
+export const favouriteChat = async ({ isFavourite, chatId, userId }: FavouriteChatModel): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
         

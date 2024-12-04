@@ -1,13 +1,8 @@
+import { NewPasswordModel } from "../../models/NewPasswordModel";
 import { ResponseModel } from "../../models/ResponseModel";
 const API_URL = `${process.env.REACT_APP_API_URL}/api/changePassword`;
 
-interface NewPassword {
-    currentPassword: string,
-    newPassword: string,
-    confirmPassword: string
-}
-
-export const changePassword = async (passwords: NewPassword): Promise<ResponseModel> => {
+export const changePassword = async (passwords: NewPasswordModel): Promise<ResponseModel> => {
     try {
         const token = localStorage.getItem('token');
         

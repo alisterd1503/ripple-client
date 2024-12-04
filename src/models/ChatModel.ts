@@ -7,4 +7,5 @@ export interface ChatModel {
     chatId: number;
     isGroupChat: boolean;
     members: string[];
+    isOnline?: boolean;
 }
