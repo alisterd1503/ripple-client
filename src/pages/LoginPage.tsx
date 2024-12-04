@@ -15,6 +15,14 @@ import { useNavigate } from 'react-router-dom';
 import { AuthModel } from '../models/AuthModel';
 import PasswordInput from '../components/Reusable/PasswordInput';
 import { loginUser } from '../api/AuthenticationAPI/loginUser';
+import React from 'react';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import Slide, { SlideProps } from '@mui/material/Slide';
+import { JSX } from 'react/jsx-runtime';
+
+function SlideTransition(props: JSX.IntrinsicAttributes & SlideProps) {
+  return <Slide {...props} direction="right" />;
+}
 
 function LoginPage() {
   const [username, setUsername] = useState<string>('');
@@ -22,9 +30,22 @@ function LoginPage() {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const validateLogin = async () => {
     setLoading(true);
+    setOpen(true)
     const body: AuthModel = {
       username: username,
       password: password,
@@ -123,6 +144,23 @@ function LoginPage() {
           {message && <Alert severity="info" sx={{ mt: 2 }}>{message}</Alert>}
         </Box>
       </Box>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        TransitionComponent={SlideTransition}
+    >
+        <Alert
+            onClose={handleClose}
+            severity="info"
+            variant="filled"
+            sx={{ width: '100%' }}
+        >
+            This may take a moment, please wait.
+        </Alert>
+    </Snackbar>
+    
     </Container>
   );
 }
