@@ -21,14 +21,15 @@ function MessagePreview({ message, username, isGroupChat, isImage, hasRead }: Me
   );
 }
 
-export default function ContactList() { 
+export default function ContactList({favourites}:{favourites?: boolean}) { 
   const [contacts, setContacts] = useState<ContactModel[]>([])
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchContacts = async () => {
       const result = await getContacts();
-      setContacts(result);
+      const filteredContacts = result.filter((contact: ContactModel) => contact.isFavourite);
+      favourites ? setContacts(filteredContacts) : setContacts(result)
     };
 
     fetchContacts();
@@ -38,7 +39,7 @@ export default function ContactList() {
     }, 5000);
   
     return () => clearInterval(interval);
-  }, []);
+  }, [favourites]);
 
   const openChat = (user: ContactModel) => {
     navigate('/messages', { state: { chatId: user.chatId, isGroupChat: user.isGroupChat } });

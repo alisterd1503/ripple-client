@@ -1,7 +1,7 @@
 import { AppBar, Stack, Toolbar, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import FindUsers from "../components/ContactPage/FindUsers";
-import FavouriteList from "../components/ContactPage/FavouriteList";
+import ContactList from "../components/ContactPage/ContactList";
 
 export default function FavouritesPage() {
     return (
@@ -33,7 +33,7 @@ export default function FavouritesPage() {
                 <Typography variant="h3" fontWeight={"bold"} fontSize={35} gutterBottom>
                     Favourites
                 </Typography>
-                <FavouriteList />
+                <ContactList favourites/>
                 <Footer/>
             </Stack>
         </>
