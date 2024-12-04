@@ -2,7 +2,6 @@ import { Box, Paper, Stack, Alert } from "@mui/material";
 import React, { useState } from "react";
 import CenteredButton from "../Reusable/CenteredButton";
 import FindUsers from "../ContactPage/FindUsers";
-import { addMembers } from "../../api/addMembers";
 import { UserModel } from "../../models/UserModel";
 import { removeMember } from "../../api/removeMember";
 
