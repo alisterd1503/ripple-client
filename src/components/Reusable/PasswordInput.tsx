@@ -22,7 +22,7 @@ export default function PasswordInput({onChange, password, label, marginBottom}:
             value={password}
             onChange={onChange}
             variant="outlined"
-            sx={{marginBottom: marginBottom}}
+            sx={{marginBottom: marginBottom }}
             InputProps={{
                 endAdornment: (
                 <InputAdornment position="end">

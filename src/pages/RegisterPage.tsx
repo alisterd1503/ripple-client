@@ -4,6 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AuthModel } from '../models/AuthModel';
 import { registerUser } from '../api/AuthenticationAPI/registerUser';
+import chatBackground from '../ripplebg.png';
 
 export default function SignUpPage() {
   const [username, setUsername] = useState<string>('');
@@ -32,10 +33,35 @@ export default function SignUpPage() {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100vh",
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${chatBackground})`,
+        backgroundSize: "auto",
+        backgroundPosition: "center",
+        backgroundRepeat: "repeat",
+        backgroundColor: "transparent",
+      }}
+    >
+    <Container
+        maxWidth="xs"
+        sx={{
+          position: "relative",
+          zIndex: 2,
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: 'primary',
+        }}
+      >
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" fontWeight={'bold'} gutterBottom>
           Sign Up
         </Typography>
 
@@ -100,5 +126,6 @@ export default function SignUpPage() {
         </Box>
       </Box>
     </Container>
+    </div>
   );
 }
