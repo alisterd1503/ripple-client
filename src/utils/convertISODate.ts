@@ -1,7 +1,8 @@
 interface DateFormat {
   profile: string;
-  chat: string;
+  time: string;
   contacts: string;
+  chat: string;
 }
 
 export function convertISODate(isoDate: string, format: keyof DateFormat): string {
@@ -9,7 +10,11 @@ export function convertISODate(isoDate: string, format: keyof DateFormat): strin
   const now = new Date();
 
   // Format components
-  const formattedDate = date.toLocaleDateString('en-GB');
+  const formattedDate = date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
   const formattedTime = date.toLocaleTimeString('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
@@ -28,14 +33,14 @@ export function convertISODate(isoDate: string, format: keyof DateFormat): strin
 
   // Check if the date is within the current week
   const dayDifference = (now.getDay() + 7 - date.getDay()) % 7;
-  const isThisWeek = dayDifference < now.getDay() && dayDifference >= 0;
+  const isThisWeek = now.getTime() - date.getTime() < 7 * 24 * 60 * 60 * 1000 && now.getDay() >= date.getDay();
 
   // Format logic for each type
   const formats: DateFormat = {
     profile: isToday
       ? `Created Today at ${formattedTime}.`
       : `Created on ${shortDayOfWeek} at ${formattedTime}.`,
-    chat: formattedTime,
+    time: formattedTime,
     contacts: isToday
       ? formattedTime
       : isYesterday
@@ -43,6 +48,13 @@ export function convertISODate(isoDate: string, format: keyof DateFormat): strin
       : isThisWeek
       ? dayOfWeek
       : formattedDate,
+    chat: isToday
+      ? "Today"
+      : isYesterday
+      ? "Yesterday"
+      : isThisWeek
+      ? dayOfWeek
+      : `${shortDayOfWeek}, ${formattedDate}`,
   };
 
   // Return the requested format

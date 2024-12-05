@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import { MessageList, Message, Avatar, MessageGroup } from "@chatscope/chat-ui-kit-react";
+import { MessageList, Message, Avatar, MessageGroup, MessageSeparator } from "@chatscope/chat-ui-kit-react";
 import { jwtDecode } from "jwt-decode";
 import { getMessages } from "../api/MessagesAPI/getMessages";
 import { MessageModel } from "../models/MessageModel";
@@ -93,7 +93,7 @@ export default function MessagesPage() {
 
     function messageFooter(isGroupChat: boolean, userId: number, currentUserId: number | null, username: string, time: string): string {
         let footer = "";
-        let formattedTime = convertISODate(time, 'chat');
+        let formattedTime = convertISODate(time, 'time');
         if (isGroupChat) {
             if (userId !== currentUserId) footer += username + " ";
             footer += formattedTime;
@@ -130,65 +130,83 @@ export default function MessagesPage() {
                         backgroundColor: "transparent",
                     }}
                 >
-                    {messages.map((message) => (
-                            <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>
-                                <MessageGroup.Messages>
-                                    <Message
-                                        key={message.id}
-                                        model={{
-                                            message: message.message,
-                                            sentTime: message.createdAt,
-                                            sender: message.username,
-                                            direction: message.direction,
-                                            position: message.position,
-                                        }}
-                                        onClick={(e) => handleClick(e as React.MouseEvent<HTMLButtonElement>, message.readBy, currentUserId, message.userId)}
-                                    >
-                                        {message.isImage && (
-                                            <Message.ImageContent
-                                                src={`${API_URL}${message.message}`}
-                                                alt="Image"
-                                                width={200}
-                                            />
-                                        )}
-                                        {message.userId !== currentUserId && (
-                                            <Avatar
-                                                name={message.username}
-                                                src={
-                                                    message.avatar
-                                                        ? `${API_URL}${message.avatar}`
-                                                        : `https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg`
-                                                }
-                                            />
-                                        )}
-                                    </Message>
-                                </MessageGroup.Messages>
-                                <MessageGroup.Footer>
-                                    <Stack
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{ justifyContent: "center", alignItems: "center" }}
-                                    >
-                                        <Typography sx={{ color: "white", fontSize: 12, opacity: 0.5 }}>
-                                            {messageFooter(
-                                                isGroupChat,
-                                                message.userId,
-                                                currentUserId,
-                                                message.username,
-                                                message.createdAt
-                                            )}
-                                        </Typography>
-                                        <TickIcon
-                                            sx={{
-                                                color: message.readBy.length > 1 ? "#6495ed" : "gray",
-                                                opacity: message.readBy.length > 1 ? "1" : "0.5",
-                                                fontSize: 15,
+                    {messages.map((message, index) => {
+                        const currentDate = convertISODate(message.createdAt, 'chat');
+                        const previousDate =
+                            index > 0 ? convertISODate(messages[index - 1].createdAt, 'chat') : null;
+
+                        // Show separator only if the date is different from the previous message
+                        const showSeparator = currentDate !== previousDate;
+
+                        return (
+                            <React.Fragment key={message.id}>
+                                {showSeparator && (
+                                    <MessageSeparator
+                                        content={currentDate}
+                                        style={{ background: 'transparent' }}
+                                    />
+                                )}
+                                <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>
+                                    <MessageGroup.Messages>
+                                        <Message
+                                            model={{
+                                                message: message.message,
+                                                sentTime: message.createdAt,
+                                                sender: message.username,
+                                                direction: message.direction,
+                                                position: message.position,
                                             }}
-                                        />
-                                    </Stack>
-                                </MessageGroup.Footer>
-                            </MessageGroup>
-                    ))}
+                                            onClick={(e) =>
+                                                handleClick(e as React.MouseEvent<HTMLButtonElement>, message.readBy, currentUserId, message.userId)
+                                            }
+                                        >
+                                            {message.isImage && (
+                                                <Message.ImageContent
+                                                    src={`${API_URL}${message.message}`}
+                                                    alt="Image"
+                                                    width={200}
+                                                />
+                                            )}
+                                            {message.userId !== currentUserId && (
+                                                <Avatar
+                                                    name={message.username}
+                                                    src={
+                                                        message.avatar
+                                                            ? `${API_URL}${message.avatar}`
+                                                            : `https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg`
+                                                    }
+                                                />
+                                            )}
+                                        </Message>
+                                    </MessageGroup.Messages>
+                                    <MessageGroup.Footer>
+                                        <Stack
+                                            direction="row"
+                                            spacing={1}
+                                            sx={{ justifyContent: "center", alignItems: "center" }}
+                                        >
+                                            <Typography sx={{ color: "white", fontSize: 12, opacity: 0.5 }}>
+                                                {messageFooter(
+                                                    isGroupChat,
+                                                    message.userId,
+                                                    currentUserId,
+                                                    message.username,
+                                                    message.createdAt
+                                                )}
+                                            </Typography>
+                                            <TickIcon
+                                                sx={{
+                                                    color: message.readBy.length > 1 ? "#6495ed" : "gray",
+                                                    opacity: message.readBy.length > 1 ? "1" : "0.5",
+                                                    fontSize: 15,
+                                                }}
+                                            />
+                                        </Stack>
+                                    </MessageGroup.Footer>
+                                </MessageGroup>
+                            </React.Fragment>
+                        );
+                    })}
                 </MessageList>
             </div>
 
