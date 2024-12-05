@@ -54,7 +54,8 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                 justifyContent: "center",
                 alignItems: "flex-start",
                 width: "100%",
-                padding: '10px'
+                padding: '10px',
+                paddingTop: '30px'
             }}
         >
             <Typography variant="h3" fontWeight={"bold"} fontSize={35} gutterBottom>

@@ -12,7 +12,8 @@ import { Box, Popover, Stack, Typography } from "@mui/material";
 import { convertISODate } from "../utils/convertISODate";
 import TickIcon from '@mui/icons-material/Done';
 import React from "react";
-import defaultIcon from '../user.png'
+import defaultIcon from '../user.png';
+import chatBackground from '../ripplebg.png';
 
 const API_URL = `${process.env.REACT_APP_API_URL}`;
 
@@ -125,6 +126,11 @@ export default function MessagesPage() {
                 style={{
                     flexGrow: 1,
                     overflow: "auto",
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${chatBackground})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundColor: "transparent",
                 }}
             >
                 <MessageList
@@ -145,7 +151,7 @@ export default function MessagesPage() {
                                 {showSeparator && (
                                     <MessageSeparator
                                         content={currentDate}
-                                        style={{ background: 'transparent', opacity: 0.5 }}
+                                        style={{ background: 'transparent' }}
                                     />
                                 )}
                                 <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>
