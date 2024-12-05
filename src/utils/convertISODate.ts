@@ -3,6 +3,7 @@ interface DateFormat {
   time: string;
   contacts: string;
   chat: string;
+  receipt: string;
 }
 
 export function convertISODate(isoDate: string, format: keyof DateFormat): string {
@@ -22,6 +23,8 @@ export function convertISODate(isoDate: string, format: keyof DateFormat): strin
   });
   const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'long' });
   const shortDayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
+
+  const formattedDateTime = date.toLocaleDateString('en-UK');
 
   // Check if the date is today
   const isToday = date.toDateString() === now.toDateString();
@@ -54,6 +57,7 @@ export function convertISODate(isoDate: string, format: keyof DateFormat): strin
       : isThisWeek
       ? dayOfWeek
       : `${shortDayOfWeek}, ${formattedDate}`,
+    receipt: `${formattedDateTime} ${formattedTime}`
   };
 
   // Return the requested format

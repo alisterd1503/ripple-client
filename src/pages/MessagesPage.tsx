@@ -21,10 +21,10 @@ interface ReadBy {
 
 function PopupReceipt({receipts}:{receipts: ReadBy[]}) {
     return (
-        <Box component="section" sx={{ p: 2, fontSize: 20}}>
+        <Box component="section" sx={{ p: 1.5, fontSize: 15}}>
             <Typography>Read By:</Typography>
             {receipts.map((receipt, index) => (
-                <Typography key={index} sx={{fontSize: 15}}>{`${receipt.username} - ${convertISODate(receipt.time,'profile')}`}</Typography>
+                <Typography key={index} sx={{fontSize: 14}}>{`${receipt.username} - ${convertISODate(receipt.time,'receipt')}`}</Typography>
             ))}
         </Box>
     )
