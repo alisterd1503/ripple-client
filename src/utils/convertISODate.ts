@@ -32,7 +32,6 @@ export function convertISODate(isoDate: string, format: keyof DateFormat): strin
   const isYesterday = date.toDateString() === yesterday.toDateString();
 
   // Check if the date is within the current week
-  const dayDifference = (now.getDay() + 7 - date.getDay()) % 7;
   const isThisWeek = now.getTime() - date.getTime() < 7 * 24 * 60 * 60 * 1000 && now.getDay() >= date.getDay();
 
   // Format logic for each type
