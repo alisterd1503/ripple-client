@@ -127,9 +127,9 @@ export default function MessagesPage() {
                     flexGrow: 1,
                     overflow: "auto",
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${chatBackground})`,
-                    backgroundSize: "cover",
+                    backgroundSize: "auto",
                     backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
+                    backgroundRepeat: "repeat",
                     backgroundColor: "transparent",
                 }}
             >
