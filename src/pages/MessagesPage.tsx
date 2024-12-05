@@ -12,6 +12,8 @@ import { Box, Popover, Stack, Typography } from "@mui/material";
 import { convertISODate } from "../utils/convertISODate";
 import TickIcon from '@mui/icons-material/Done';
 import React from "react";
+import defaultIcon from '../user.png'
+
 const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 interface ReadBy {
@@ -143,7 +145,7 @@ export default function MessagesPage() {
                                 {showSeparator && (
                                     <MessageSeparator
                                         content={currentDate}
-                                        style={{ background: 'transparent' }}
+                                        style={{ background: 'transparent', opacity: 0.5 }}
                                     />
                                 )}
                                 <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>
@@ -173,7 +175,7 @@ export default function MessagesPage() {
                                                     src={
                                                         message.avatar
                                                             ? `${API_URL}${message.avatar}`
-                                                            : `https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg`
+                                                            : `${defaultIcon}`
                                                     }
                                                 />
                                             )}

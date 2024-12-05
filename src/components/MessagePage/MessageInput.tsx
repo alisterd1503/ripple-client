@@ -1,9 +1,11 @@
-import { Stack, TextField, Button, Box } from "@mui/material";
+import { Stack, TextField, Button, Box, Badge } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from "react";
 import { MessageModel } from "../../models/MessageModel";
 import { postMessage } from "../../api/MessagesAPI/postMessage";
+import InputAdornment from '@mui/material/InputAdornment';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface MessagesInputProps {
     currentUsername: string | null,
@@ -75,7 +77,11 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                     minWidth: 'auto',
                     display: 'flex',
                     alignItems: 'center',
-                    borderRadius: '50%',
+                    justifyContent: 'center',
+                    backgroundColor: '#032a28',
+                    borderRadius: '10px',
+                    transition: 'transform 0.2s',
+                    marginLeft: '3px'
                 }}
             >
                 <AddIcon fontSize="medium" sx={{ color: 'white' }} />
@@ -92,53 +98,92 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                     width: "100%",
                     '& .MuiInputBase-root': {
                         padding: 0,
-                        borderRadius: '20px',
+                        borderRadius: '12px',
                         backgroundColor: '#06625f',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
-                        borderRadius: '20px',
+                        borderRadius: '12px',
+                        borderColor: 'transparent',
                     },
                     '& .MuiOutlinedInput-input': {
-                        padding: '8px 16px',
+                        padding: '10px 16px',
                         color: 'white',
+                        fontSize: '16px',
                     },
+                }}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter' && !event.shiftKey) {
+                        event.preventDefault();
+                        handleSend();
+                    }
                 }}
                 id="outlined-multiline-flexible"
                 multiline
                 maxRows={4}
                 value={input}
                 onChange={handleChange}
-                disabled={!!selectedImage} // Disable input if image is selected
-            />
-
-            {selectedImage && (
-                <Box
-                    component="img"
-                    src={URL.createObjectURL(selectedImage)}
-                    alt="Selected"
-                    sx={{
-                        maxWidth: 40,
-                        maxHeight: 40,
-                        marginLeft: 1,
-                        borderRadius: '8px',
-                    }}
-                />
-            )}
-
-            <Button
-                sx={{
-                    width: '40px',
-                    height: '40px',
-                    minWidth: 'auto',
-                    display: 'flex',
-                    alignItems: 'center',
-                    backgroundColor: '#25d366',
-                    borderRadius: '50%',
+                disabled={!!selectedImage}
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end" sx={{ display: 'flex', alignItems: 'center', p: 0, height: "100%" }}>
+                            <Button
+                                onClick={handleSend}
+                                sx={{
+                                    width: '36px',
+                                    height: '36px',
+                                    minWidth: 'auto',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#25d366',
+                                    borderRadius: '10px',
+                                    transition: 'transform 0.2s',
+                                    marginRight: '3px'
+                                }}
+                            >
+                                <SendIcon fontSize="medium" sx={{ color: 'white' }} />
+                            </Button>
+                        </InputAdornment>
+                    )
                 }}
-                onClick={handleSend}
-            >
-                <SendIcon fontSize="medium" sx={{ color: 'black' }} />
-            </Button>
+            />
+    
+            {selectedImage && (
+                <Badge
+                    badgeContent={
+                        <CloseIcon
+                            fontSize="small"
+                            sx={{
+                                cursor: 'pointer',
+                                color: 'black',
+                                backgroundColor: 'white',
+                                borderRadius: '50%',
+                                p: 0.5,
+                                opacity: 0.5
+                            }}
+                            onClick={() => setSelectedImage(null)}
+                        />
+                    }
+                    overlap="circular"
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
+                    <Box
+                        component="img"
+                        src={URL.createObjectURL(selectedImage)}
+                        alt="Selected"
+                        sx={{
+                            maxWidth: 40,
+                            maxHeight: 40,
+                            marginLeft: 1,
+                            borderRadius: '8px',
+                        }}
+                    />
+                </Badge>
+            )}
         </Stack>
     );
+    
 }
