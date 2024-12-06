@@ -97,6 +97,7 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
                         onClick={() => handleButtonClick("avatar")}
                         icon={<PhotoIcon />}
                         text="Change profile picture"
+                        single
                     />
                 </Stack>
             </Paper>

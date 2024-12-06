@@ -103,7 +103,7 @@ export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users:
                         onClick={()=> {avatarFile ? handleRemoveAvatar() : handleAvatarClick()}}
                     >
                         <Avatar
-                            sx={{ width: 100, height: 100, color: 'white'}}
+                            sx={{ width: 100, height: 100, color: '#ece5dd'}}
                             alt="Default"
                             src={preview || undefined}
                         >
@@ -178,7 +178,7 @@ export default function MakeNewGroup({users, setUsers, setOpenBackdrop}: {users:
                                 >
                                     <ProfileAvatar username={user.username} avatarPath={user.avatar} />
                                 </Badge>
-                                <Typography sx={{ color: 'white', fontSize: 12, opacity: 0.5 }}>{user.username}</Typography>
+                                <Typography sx={{ color: '#ece5dd', fontSize: 12, opacity: 0.5 }}>{user.username}</Typography>
                             </Stack>
                         ))}
                     </Stack>

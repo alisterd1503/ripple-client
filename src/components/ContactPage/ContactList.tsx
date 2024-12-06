@@ -11,12 +11,12 @@ import { MessagePreviewModel } from "../../models/MessagePreviewModel";
 
 function MessagePreview({ message, username, isGroupChat, isImage, hasRead }: MessagePreviewModel) {
   if (!message) 
-    return <Typography sx={{ opacity: 0.5, fontSize: 15 }}>Start Chat...</Typography>;
+    return <Typography sx={{ opacity: 0.5, fontSize: 15, color: '#ece5dd' }}>Start Chat...</Typography>;
 
   return (
     <Stack direction="row" spacing={0.5} sx={{ justifyContent: "center", alignItems: "center", opacity: hasRead ? 0.5 : 1 }}>
-      {isGroupChat && <Typography>{username}:</Typography>}
-      {isImage ? <ImageIcon fontSize="small" />:<Typography>{formatText(message,(21-username.length))}</Typography>}
+      {isGroupChat && <Typography sx={{color: '#ece5dd'}}>{username}:</Typography>}
+      {isImage ? <ImageIcon fontSize="small" />:<Typography sx={{color: '#ece5dd'}}>{formatText(message,(21-username.length))}</Typography>}
     </Stack>
   );
 }
@@ -92,7 +92,7 @@ export default function ContactList({favourites}:{favourites?: boolean}) {
                 padding: '16px',
               }}
             >
-              <Typography variant="body1" fontWeight={'bold'}>{user.isGroupChat ? formatText(user.title,16) : user.username}</Typography>
+              <Typography variant="body1" fontWeight={'bold'} sx={{color: '#ece5dd'}}>{user.isGroupChat ? formatText(user.title,16) : user.username}</Typography>
               <MessagePreview message={user.lastMessage} username={user.lastMessageSender} isGroupChat={user.isGroupChat} isImage={user.isImage} hasRead={user.readLastMessage}/>
             </Stack>
             <Stack
@@ -103,8 +103,15 @@ export default function ContactList({favourites}:{favourites?: boolean}) {
                 alignItems: "flex-end"
               }}
             >
-              <Typography variant="body2">{user.lastMessageTime ? convertISODate(user.lastMessageTime, 'contacts') : ''}</Typography>
-              {user.unReadMessages > 0 && <Badge badgeContent={user.unReadMessages} color="primary" style={{marginRight: 10}}/>}
+              <Typography variant="body2" sx={{opacity: user.readLastMessage ? 0.5 : 1, color: user.readLastMessage ? '#ece5dd' : '#25d366'}}>{user.lastMessageTime ? convertISODate(user.lastMessageTime, 'contacts') : ''}</Typography>
+              {user.unReadMessages > 0 && 
+              <Badge badgeContent={user.unReadMessages} sx={{
+                '& .MuiBadge-badge': {
+                  backgroundColor: '#25d366',
+                  color: 'black',
+                  marginRight: '10px'
+                },
+              }}/>}
             </Stack>
           </Stack>
           </Button>

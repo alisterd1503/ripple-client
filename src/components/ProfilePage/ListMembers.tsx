@@ -31,12 +31,12 @@ export default function ListMembers({members}:{members:Members[]}) {
                         alignItems: "flex-start",
                     }}
                 >
-                    {members.map((user) => (
+                    {members.map((user, index) => (
                     <Button
                         key={user.userId}
                         sx={{
                             color: 'primary', 
-                            borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
+                            borderBottom: index !== members.length - 1 ? 'solid rgba(128, 128, 128, 0.2) 0.5px' : 'none',
                             width: '100%',
                             textTransform: 'none',
                             fontSize: '20px',
@@ -50,11 +50,11 @@ export default function ListMembers({members}:{members:Members[]}) {
                         <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
                             <ProfileAvatar avatarPath={user.avatar} username={user.username} height={'40px'} width={'40px'}/>
                             <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start",}}>
-                                <Typography fontSize={17}>{user.username}</Typography>
-                                <Typography fontSize={15} sx={{opacity: 0.5}}>{user.bio}</Typography>
+                                <Typography fontSize={17} sx={{color: '#ece5dd'}}>{user.username}</Typography>
+                                <Typography fontSize={15} sx={{opacity: 0.5, color: '#ece5dd'}}>{user.bio}</Typography>
                             </Stack>
                         </Stack>
-                        <ArrowIcon sx={{opacity: 0.3}}/>
+                        <ArrowIcon sx={{opacity: 0.3, color: '#ece5dd'}}/>
                     </Button>
                     ))}
                 </Stack>

@@ -47,7 +47,7 @@ export default function SearchSettings() {
           },
           '& .MuiOutlinedInput-input': {
             padding: '10px 16px',
-            color: 'white',
+            color: '#ece5dd',
             fontSize: '16px',
             '::placeholder': {
               color: '#a0d7d1',
@@ -59,7 +59,7 @@ export default function SearchSettings() {
           },
           '& .MuiAutocomplete-paper': {
             backgroundColor: '#054640',
-            color: 'white',
+            color: '#ece5dd',
             borderRadius: '8px',
           },
           '& .MuiAutocomplete-option': {

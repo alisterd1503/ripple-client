@@ -67,7 +67,7 @@ export default function UserProfilePage({userId}:{userId: number}) {
                             }}
                             onClick={() => navigate("/contacts")}
                         >
-                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: 'white' }} />
+                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: '#ece5dd' }} />
                         </button>
                         <Typography variant="h6" fontWeight={"bold"} fontSize={20} gutterBottom>Contact Info</Typography>
                         <Typography variant="h6" fontSize={18} gutterBottom>Edit</Typography>

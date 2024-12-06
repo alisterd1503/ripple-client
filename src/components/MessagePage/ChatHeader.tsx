@@ -71,7 +71,7 @@ export default function ChatHeader({ chatId }: { chatId: number }) {
                             }}
                             onClick={() => navigate(-1)}
                         >
-                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: 'white' }} />
+                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: '#ece5dd' }} />
                         </button>
 
                         {/* Name Logo Stack */}
@@ -132,7 +132,7 @@ export default function ChatHeader({ chatId }: { chatId: number }) {
                             }}
                             onClick={openProfile}
                         >
-                            <MenuIcon fontSize="medium" sx={{ color: 'white' }} />
+                            <MenuIcon fontSize="medium" sx={{ color: '#ece5dd' }} />
                         </button>
                     </Stack>
                 </Toolbar>

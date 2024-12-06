@@ -87,7 +87,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                             }}
                             onClick={() => navigate("/contacts")}
                         >
-                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: 'white' }} />
+                            <ArrowBackIosNewIcon fontSize="medium" sx={{ color: '#ece5dd' }} />
                         </button>
                         <Typography variant="h6" fontWeight={"bold"} fontSize={20} gutterBottom>Group Info</Typography>
                         <Typography variant="h6" fontSize={18} gutterBottom>Edit</Typography>
@@ -139,6 +139,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                             onClick={() => handleButtonClick("avatar")}
                             icon={<PhotoIcon />}
                             text="Change group picture"
+                            single
                         />
                     </Stack>
                 </Paper>
@@ -158,6 +159,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                             onClick={() => handleButtonClick("add")}
                             icon={<AddPersonIcon />}
                             text="Add User"
+                            single
                         />
                     </Stack>
                 </Paper>
@@ -176,6 +178,7 @@ export default function GCProfilePage({chatId}:{chatId: number}) {
                             icon={<RemovePersonIcon />}
                             text="Remove User"
                             red
+                            single
                         />
                     </Stack>
                 </Paper>

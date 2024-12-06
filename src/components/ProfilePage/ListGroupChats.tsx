@@ -33,12 +33,12 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                         alignItems: "flex-start",
                     }}
                 >
-                    {groupChats.map((group) => (
+                    {groupChats.map((group, index) => (
                     <Button
                         key={group.chatId}
                         sx={{
                             color: 'primary', 
-                            borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
+                            borderBottom: index !== groupChats.length - 1 ? 'solid rgba(128, 128, 128, 0.2) 0.5px' : 'none',
                             width: '100%',
                             textTransform: 'none',
                             fontSize: '20px',
@@ -52,11 +52,11 @@ export default function ListGroupChats({groupChats}:{groupChats:GroupChats[]}) {
                         <Stack direction="row" spacing={2} sx={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
                             <ProfileAvatar avatarPath={group.groupAvatar} username={group.title} height={'40px'} width={'40px'}/>
                             <Stack direction="column" spacing={-0.5} sx={{ justifyContent: "center", alignItems: "flex-start",}}>
-                                <Typography fontSize={17}>{formatText(group.title,19)}</Typography>
-                                <Typography fontSize={14} sx={{opacity: 0.5}}>{formatText((group.members).join(', '),30)}</Typography>
+                                <Typography fontSize={17} sx={{color: '#ece5dd'}}>{formatText(group.title,19)}</Typography>
+                                <Typography fontSize={14} sx={{opacity: 0.5, color:'#ece5dd'}}>{formatText((group.members).join(', '),30)}</Typography>
                             </Stack>
                         </Stack>
-                        <ArrowIcon sx={{opacity: 0.3}}/>
+                        <ArrowIcon sx={{opacity: 0.3, color:'#ece5dd'}}/>
                     </Button>
                     ))}
                 </Stack>

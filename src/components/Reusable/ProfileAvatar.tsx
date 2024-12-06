@@ -59,7 +59,7 @@ export default function ProfileAvatar({ avatarPath, width, height, username, onC
             sx={{
                 width: width || "60px",
                 height: height || "60px",
-                color: 'white',
+                color: '#ece5dd',
                 transition: '0.3s',
                 '&:hover': onClick ? {
                     cursor: 'pointer',
@@ -77,7 +77,7 @@ export default function ProfileAvatar({ avatarPath, width, height, username, onC
                 sx={{
                     width: width || '60px',
                     height: height || '60px',
-                    color: 'white',
+                    color: '#ece5dd',
                     transition: '0.3s',
                     '&:hover': onClick ? {
                         cursor: 'pointer',
@@ -93,7 +93,7 @@ export default function ProfileAvatar({ avatarPath, width, height, username, onC
                     width: width || '60px',
                     height: height || '60px',
                     bgcolor: 'lightgray',
-                    color: 'white',
+                    color: '#ece5dd',
                     transition: '0.3s',
                     '&:hover': onClick ? {
                         cursor: 'pointer',

@@ -39,22 +39,31 @@ export default function ContactsPage() {
                 showLabels
                 value={activeTab}
                 onChange={handleChange}
-                sx={{ backgroundColor: "primary" }}
+                sx={{ backgroundColor: '#252b27' }}
             >
                 <BottomNavigationAction
                     label="Favourites"
                     value="favourites"
                     icon={<StarBorderOutlinedIcon fontSize="medium" />}
+                    sx={{'&.Mui-selected': {
+                        color: '#ece5dd',
+                    },}}
                 />
                 <BottomNavigationAction
                     label="Chats"
                     value="chats"
                     icon={<QuestionAnswerOutlinedIcon fontSize="medium" />}
+                    sx={{'&.Mui-selected': {
+                        color: '#ece5dd',
+                    },}}
                 />
                 <BottomNavigationAction
                     label="Settings"
                     value="settings"
                     icon={<TuneOutlinedIcon fontSize="medium" />}
+                    sx={{'&.Mui-selected': {
+                        color: '#ece5dd',
+                    },}}
                 />
             </BottomNavigation>
         </Paper>

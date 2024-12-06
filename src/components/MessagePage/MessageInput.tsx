@@ -84,7 +84,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                     marginLeft: '3px'
                 }}
             >
-                <AddIcon fontSize="medium" sx={{ color: 'white' }} />
+                <AddIcon fontSize="medium" sx={{ color: '#ece5dd' }} />
                 <input
                     type="file"
                     accept="image/*"
@@ -107,7 +107,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                     },
                     '& .MuiOutlinedInput-input': {
                         padding: '6px 12px',
-                        color: 'white',
+                        color: '#ece5dd',
                         fontSize: '16px',
                     },
                 }}
@@ -141,7 +141,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                                     marginRight: '3px'
                                 }}
                             >
-                                <SendIcon fontSize="small" sx={{ color: 'white' }} />
+                                <SendIcon fontSize="small" sx={{ color: '#ece5dd' }} />
                             </Button>
                         </InputAdornment>
                     )
@@ -156,7 +156,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                             sx={{
                                 cursor: 'pointer',
                                 color: 'black',
-                                backgroundColor: 'white',
+                                backgroundColor: '#ece5dd',
                                 borderRadius: '50%',
                                 p: 0.5,
                                 opacity: 0.5

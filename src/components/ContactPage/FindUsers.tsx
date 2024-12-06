@@ -156,7 +156,7 @@ const style = {
   },
   '& .MuiOutlinedInput-input': {
     padding: '10px 16px',
-    color: 'white',
+    color: '#ece5dd',
     fontSize: '16px',
     marginLeft: 1,
     '::placeholder': {
@@ -169,7 +169,7 @@ const style = {
   },
   '& .MuiAutocomplete-paper': {
     backgroundColor: '#054640',
-    color: 'white',
+    color: '#ece5dd',
     borderRadius: '8px',
   },
   '& .MuiAutocomplete-option': {

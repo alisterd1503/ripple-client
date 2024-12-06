@@ -59,7 +59,7 @@ export default function AvatarUpload({currentAvatar, onClick, title, chatId}: {c
         <Box sx={{width: "100%", display: 'flex', justifyContent:'center', alignItems: 'center', padding: '20px'}}>
             <Avatar
                 src={preview || avatar || `${API_URL}${currentAvatar}`}
-                sx={{ width: 100, height: 100, color: 'white' }}
+                sx={{ width: 100, height: 100, color: '#ece5dd' }}
                 alt={title}
             />
             

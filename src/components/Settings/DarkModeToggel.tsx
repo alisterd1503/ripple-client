@@ -15,8 +15,7 @@ export default function DarkModeToggel({
     return (
         <Button
             sx={{
-                color: 'primary', 
-                borderBottom: 'solid rgba(128, 128, 128, 0.2) 0.5px', 
+                color: '#ece5dd',
                 width: '100%',
                 textTransform: 'none',
                 fontSize: '20px',
