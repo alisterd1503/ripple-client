@@ -160,7 +160,7 @@ export default function AuthForm({
               mt: 3, 
               mb: 2, 
               backgroundColor: '#075e54',
-              color: 'white',
+              color: '#ece5dd',
               fontWeight: 'bold'
             }}
             disabled={loading}
@@ -180,6 +180,7 @@ export default function AuthForm({
               component={RouterLink}
               to={type === 'login' ? "/register" : "/" }
               variant="body2"
+              sx={{color: '#ece5dd'}}
             >
               {type === 'login' ? 'Sign Up' : 'Login'}
             </Link>
