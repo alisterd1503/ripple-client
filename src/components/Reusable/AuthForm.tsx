@@ -1,7 +1,7 @@
 import { Box, TextField, Button, Typography, Grid2, Alert, Link, Stack, styled, Snackbar, SlideProps, Slide, SnackbarCloseReason, CircularProgress } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import chatBackground from '../../ripplebg.png';
-import rippleLogo from '../../ripplebg.png'
+import rippleLogo from '../../RippleLogo.png'
 import MuiCard from '@mui/material/Card';
 import PasswordInput from './PasswordInput';
 
