@@ -10,7 +10,6 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LogoutIcon from '@mui/icons-material/LogoutOutlined';
 import { getProfile } from "../api/SettingsAPI/getProfile";
 import ProfileCard from "../components/ProfilePage/ProfileCard";
-import SearchSettings from "../components/SettingPage/SearchSettings";
 import SettingsButton from "../components/SettingPage/SettingsButton";
 import ChangePassword from "../components/Settings/ChangePassword";
 import DarkModeToggel from "../components/Settings/DarkModeToggel";
@@ -70,7 +69,6 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             <Typography variant="h3" fontWeight={"bold"} fontSize={35}>
                 Settings
             </Typography>
-            <SearchSettings/>
 
             <ProfileCard username={profile?.username} avatar={profile?.avatar} bio={profile?.bio} isOnline={profile?.is_online}/>
 

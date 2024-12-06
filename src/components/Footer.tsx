@@ -39,7 +39,7 @@ export default function ContactsPage() {
                 showLabels
                 value={activeTab}
                 onChange={handleChange}
-                sx={{ backgroundColor: '#252b27' }}
+                sx={{ backgroundColor: 'primary' }}
             >
                 <BottomNavigationAction
                     label="Favourites"

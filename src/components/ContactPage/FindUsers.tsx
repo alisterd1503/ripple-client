@@ -74,7 +74,7 @@ export default function FindUsers({updateUsers, groupMembers}:{updateUsers?: Rea
         sx={{
           justifyContent: "flex-start",
           alignItems: "center",
-          width: "100%"
+          width: "100%",
         }}
       >
         <Autocomplete
@@ -105,7 +105,7 @@ export default function FindUsers({updateUsers, groupMembers}:{updateUsers?: Rea
                 borderRadius: '50%',
               }}
               onClick={handleOnClick}>
-              <CustomAddIcon sx={{color: 'primary', borderRadius: '50%'}}/>
+              <CustomAddIcon sx={{color: '#ece5dd', borderRadius: '50%'}}/>
             </Button>
           ) : (
             <Button disabled
@@ -146,7 +146,6 @@ const style = {
     padding: 0,
     borderRadius: '10px',
     backgroundColor: '#272727',
-    border: '1px solid #3C3D37',
     '&.Mui-focused': {
       borderColor: '#1d6d5b',
     },
@@ -161,14 +160,14 @@ const style = {
     marginLeft: 1,
     '::placeholder': {
       color: '#a0d7d1',
-      opacity: 1,
+      opacity: 0.5,
     },
   },
   '& .MuiAutocomplete-endAdornment': {
     display: 'none',
   },
   '& .MuiAutocomplete-paper': {
-    backgroundColor: '#054640',
+    backgroundColor: '#04640',
     color: '#ece5dd',
     borderRadius: '8px',
   },
