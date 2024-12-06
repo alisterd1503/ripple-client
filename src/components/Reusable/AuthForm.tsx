@@ -13,6 +13,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(4),
   gap: theme.spacing(1),
   margin: 'auto',
+  borderRadius: '10px',
   boxShadow:
     'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
   [theme.breakpoints.up('sm')]: {
@@ -115,16 +116,16 @@ export default function AuthForm({
           />
         </Box>
 
-        <Typography variant="h6" fontSize={14} gutterBottom align='center' sx={{opacity: 0.8, mb: 5}}>
+        <Typography variant="h6" fontSize={14} gutterBottom align='center' sx={{opacity: 0.8, mb: 3}}>
           Start a conversation, make a wave.
         </Typography>
 
         <Typography
             component="h1"
             variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)', marginBottom: -2}}
+            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)', marginBottom: -2, fontWeight: 'bold', color: '#ece5dd'}}
           >
-            {type === 'login' ? 'Login' : 'Sign up'}
+            {type === 'login' ? 'Log In' : 'Sign up'}
           </Typography>
 
         <Box component="form" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} sx={{ mt: 3}}>
@@ -154,11 +155,17 @@ export default function AuthForm({
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
+            style={{ textTransform: 'none' }}
+            sx={{ 
+              mt: 3, 
+              mb: 2, 
+              backgroundColor: '#075e54',
+              color: 'white',
+              fontWeight: 'bold'
+            }}
             disabled={loading}
           >
-            {loading ? <CircularProgress size={24} color="inherit" /> : (type === 'login' ? 'Login' : 'Sign up')}
+            {loading ? <CircularProgress size={24} color="inherit" /> : (type === 'login' ? 'Log In' : 'Next')}
           </Button>
 
           <Stack
