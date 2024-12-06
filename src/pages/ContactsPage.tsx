@@ -2,10 +2,24 @@ import { AppBar, Stack, Toolbar, Typography } from "@mui/material";
 import Footer from "../components/Footer";
 import ContactList from "../components/ContactPage/ContactList";
 import FindUsers from "../components/ContactPage/FindUsers";
+import chatBackground from '../ripplebg.png';
 
 export default function ContactsPage() {
     return (
-        <>
+        <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100vh",
+            flexGrow: 1,
+            overflow: "auto",
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${chatBackground})`,
+            backgroundSize: "auto",
+            backgroundPosition: "center",
+            backgroundRepeat: "repeat",
+            backgroundColor: "transparent",
+        }}>
             <AppBar 
                 position="sticky" 
                 sx={{ 
@@ -36,6 +50,6 @@ export default function ContactsPage() {
                 <ContactList />
                 <Footer/>
             </Stack>
-        </>
+        </div>
     )
 }

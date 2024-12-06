@@ -20,6 +20,7 @@ import UpdateUsername from "../components/Settings/UpdateUsername";
 import UploadAvatar from "../components/Settings/UploadAvatar";
 import { convertISODate } from "../utils/convertISODate";
 import { logoutUser } from "../api/AuthenticationAPI/logoutUser";
+import chatBackground from '../ripplebg.png';
 
 interface SettingsPageProps {
     toggleTheme: () => void;
@@ -51,14 +52,22 @@ export default function SettingsPage({toggleTheme, mode}: SettingsPageProps) {
             direction="column"
             spacing={2}
             sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                height: "100vh",
                 justifyContent: "center",
                 alignItems: "flex-start",
                 width: "100%",
                 padding: '10px',
-                paddingTop: '30px'
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${chatBackground})`,
+                backgroundSize: "auto",
+                backgroundPosition: "center",
+                backgroundRepeat: "repeat",
+                backgroundColor: "transparent",
             }}
         >
-            <Typography variant="h3" fontWeight={"bold"} fontSize={35} gutterBottom>
+            <Typography variant="h3" fontWeight={"bold"} fontSize={35}>
                 Settings
             </Typography>
             <SearchSettings/>
