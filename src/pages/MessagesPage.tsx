@@ -126,7 +126,7 @@ export default function MessagesPage() {
                 style={{
                     flexGrow: 1,
                     overflow: "auto",
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${chatBackground})`,
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${chatBackground})`,
                     backgroundSize: "auto",
                     backgroundPosition: "center",
                     backgroundRepeat: "repeat",
@@ -151,7 +151,6 @@ export default function MessagesPage() {
                                 {showSeparator && (
                                     <MessageSeparator
                                         content={currentDate}
-                                        style={{ background: 'transparent' }}
                                     />
                                 )}
                                 <MessageGroup direction={message.direction} sender={message.username} sentTime={message.createdAt}>

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import ProfilePage from './pages/ProfilePage';
 import FavouritesPage from './pages/FavouritesPage';
 
+import './main.css'
 
 function App() {
   const [mode, setMode] = useState<'light' | 'dark'>('dark');

@@ -72,8 +72,8 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
             <Button
                 component="label"
                 sx={{
-                    width: '40px',
-                    height: '40px',
+                    width: '30px',
+                    height: '30px',
                     minWidth: 'auto',
                     display: 'flex',
                     alignItems: 'center',
@@ -106,7 +106,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                         borderColor: 'transparent',
                     },
                     '& .MuiOutlinedInput-input': {
-                        padding: '10px 16px',
+                        padding: '6px 12px',
                         color: 'white',
                         fontSize: '16px',
                     },
@@ -129,8 +129,8 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                             <Button
                                 onClick={handleSend}
                                 sx={{
-                                    width: '36px',
-                                    height: '36px',
+                                    width: '30px',
+                                    height: '30px',
                                     minWidth: 'auto',
                                     display: 'flex',
                                     alignItems: 'center',
@@ -141,7 +141,7 @@ export default function MessagesInput({ currentUsername, currentUserId, currentU
                                     marginRight: '3px'
                                 }}
                             >
-                                <SendIcon fontSize="medium" sx={{ color: 'white' }} />
+                                <SendIcon fontSize="small" sx={{ color: 'white' }} />
                             </Button>
                         </InputAdornment>
                     )
