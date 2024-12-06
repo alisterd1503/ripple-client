@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import chatBackground from '../../ripplebg.png';
 import rippleLogo from '../../ripplebg.png'
 import MuiCard from '@mui/material/Card';
-import PasswordInput from './PasswordInput';s
+import PasswordInput from './PasswordInput';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
